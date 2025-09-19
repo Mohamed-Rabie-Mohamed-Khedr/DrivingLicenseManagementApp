@@ -13,13 +13,13 @@ public class MyDB
         if (CheckNationalNo(person.NationalNo)) return false;
             return SetData.AddPerson(ref person);
     }
-    public static bool UpdatePerson(ref Person person, ref string nationalNoOld)
+    public static bool UpdatePerson(ref Person person)
     {
-        return SetData.UpdatePerson(ref person, ref nationalNoOld);
+        return SetData.UpdatePerson(ref person);
     }
-    public static Person GetPerson(ref string NationalNo)
+    public static Person GetPerson(ref int PersonID)
     {
-        return GetData.GetPerson(ref NationalNo);
+        return GetData.GetPerson(ref PersonID);
     }
     public static bool DeletePerson(int PersonID)
     {

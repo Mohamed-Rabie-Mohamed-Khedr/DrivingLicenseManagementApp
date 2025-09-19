@@ -10,16 +10,14 @@ using System.Windows.Forms;
 
 namespace DrivingLicenseManagement
 {
-    public partial class AddAndUpdatePersonForm : Form
+    public partial class PersonInfoForm : Form
     {
-        public AddAndUpdatePersonForm(int PersonID = 0)
+        public PersonInfoForm(int PersonID = 0)
         {
             InitializeComponent();
-            AddAndUpdatePerson up = new AddAndUpdatePerson(ref PersonID)
-            {
-                Dock = DockStyle.Fill
-            };
-            Controls.Add(up);
+            PersonInfo pi = new PersonInfo() { Dock = DockStyle.Fill };
+            Controls.Add(pi);
+            if (PersonID > 0) pi.SetPersonInfo(ref PersonID);
         }
     }
 }

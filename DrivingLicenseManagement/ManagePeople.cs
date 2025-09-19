@@ -17,16 +17,13 @@ namespace DrivingLicenseManagement
             InitializeComponent();
             CountryFilterCB.Items.AddRange(MyDB.GetCountries());
             FilterByCB.SelectedIndex = 0;
-            GendorFilterCB.SelectedIndex = 0;
             CountryFilterCB.SelectedIndex = 0;
-            LoadPeople();
         }
 
         private void AddPerson_Click(object sender, EventArgs e)
         {
             AddAndUpdatePersonForm addAndUpdatePersonForm = new AddAndUpdatePersonForm();
             addAndUpdatePersonForm.ShowDialog();
-            FilterByCB.SelectedIndex = 0;
             LoadPeople();
         }
 
@@ -36,7 +33,7 @@ namespace DrivingLicenseManagement
             {
                 if (MyDB.DeletePerson((int)dataGridView1.SelectedRows[0].Cells["PersonID"].Value))
                 {
-                    DLMHelper.RemoveFile("Images\\" + dataGridView1.SelectedRows[0].Cells["NationalNo"].Value.ToString() + ".jpg");
+                    DLMHelper.RemoveFile("Images\\" + (int)dataGridView1.SelectedRows[0].Cells["PersonID"].Value + ".jpg");
                     LoadPeople();
                     MessageBox.Show("Deleted Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -51,9 +48,9 @@ namespace DrivingLicenseManagement
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                AddAndUpdatePersonForm up
-                = new AddAndUpdatePersonForm(dataGridView1.SelectedRows[0].Cells[1].Value.ToString());
-                up.ShowDialog();
+                PersonInfoForm infoForm
+                = new PersonInfoForm((int)dataGridView1.SelectedRows[0].Cells["PersonID"].Value);
+                infoForm.ShowDialog();
                 LoadPeople();
             }
         }
@@ -100,6 +97,8 @@ namespace DrivingLicenseManagement
                 = FilterB.Visible
                 = CountryFilterCB.Visible = false;
                 GendorFilterCB.Visible = true;
+                GendorFilterCB.SelectedIndex = 0;
+                return;
             }
             else if (FilterByCB.Text == "Nationality")
             {

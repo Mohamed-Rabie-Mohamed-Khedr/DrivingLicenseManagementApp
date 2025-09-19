@@ -35,19 +35,21 @@
             // user_Info1
             // 
             this.user_Info1.BackColor = System.Drawing.Color.Transparent;
-            this.user_Info1.Location = new System.Drawing.Point(260, 443);
+            this.user_Info1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.user_Info1.Location = new System.Drawing.Point(0, 432);
             this.user_Info1.Margin = new System.Windows.Forms.Padding(4);
             this.user_Info1.Name = "user_Info1";
-            this.user_Info1.Size = new System.Drawing.Size(590, 150);
+            this.user_Info1.Size = new System.Drawing.Size(855, 150);
             this.user_Info1.TabIndex = 16;
             // 
             // personInfo1
             // 
             this.personInfo1.BackColor = System.Drawing.Color.Transparent;
-            this.personInfo1.Location = new System.Drawing.Point(143, 65);
+            this.personInfo1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.personInfo1.Location = new System.Drawing.Point(0, 0);
             this.personInfo1.Margin = new System.Windows.Forms.Padding(4);
             this.personInfo1.Name = "personInfo1";
-            this.personInfo1.Size = new System.Drawing.Size(899, 370);
+            this.personInfo1.Size = new System.Drawing.Size(855, 582);
             this.personInfo1.TabIndex = 15;
             // 
             // UserInfoForm

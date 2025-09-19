@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 public class GetData
 {
-    public static Person GetPerson(ref string NationalNo)
+    public static Person GetPerson(ref int PersonID)
     {
         try
         {
             SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
-            SqlCommand command = new SqlCommand("select * from People where NationalNo = @NationalNo", sqlConnection);
-            command.Parameters.AddWithValue("@NationalNo", NationalNo);
+            SqlCommand command = new SqlCommand("select * from People where PersonID = @PersonID", sqlConnection);
+            command.Parameters.AddWithValue("@PersonID", PersonID);
             SqlDataReader sqlDataAdapter = command.ExecuteReader();
             DataTable dataTable = new DataTable();
             dataTable.Load(sqlDataAdapter);

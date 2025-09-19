@@ -16,13 +16,13 @@ namespace DrivingLicenseManagement
     public partial class AddAndUpdatePerson : UserControl
     {
         Status myStatus = Status.Add;
-        string nationalNoOld;
-        public AddAndUpdatePerson(ref string nationalNoOld)
+        int PersonIDToUpdate = 0;
+        public AddAndUpdatePerson(ref int PersonIDToUpdate)
         {
             InitializeComponent();
 
-            if (nationalNoOld == "") return;
-            this.nationalNoOld = nationalNoOld;
+            if (PersonIDToUpdate == 0) return;
+            this.PersonIDToUpdate = PersonIDToUpdate;
             myStatus = Status.Update;
             label1.Text = "Update Person";
         }
@@ -30,16 +30,16 @@ namespace DrivingLicenseManagement
         private void AddAndUpdatePerson_Load(object sender, EventArgs e)
         {
             if (DesignMode) return;
-            DateOfBirth.MaxDate = DateTime.Now.AddYears(-18);
             Country.Items.AddRange(MyDB.GetCountries());
             if (myStatus == Status.Add)
             {
+                DateOfBirth.MaxDate = DateTime.Now.AddYears(-18);
                 Gendor.SelectedIndex = 0;
                 Country.SelectedIndex = 0;
             }
             else
             {
-                LoadPerson(MyDB.GetPerson(ref nationalNoOld));
+                LoadPerson(MyDB.GetPerson(ref PersonIDToUpdate));
             }
         }
 
@@ -62,28 +62,31 @@ namespace DrivingLicenseManagement
 
             else
             {
+                Person person = RaedPersonFromForm();
                 if (myStatus == Status.Add)
                 {
-                    Person person = RaedPersonFromForm();
                     if (MyDB.AddPerson(ref person))
                     {
+                        if (RemoveImage.Visible)
+                            SaveImagePerson(person.ImageName);
                         IDT.Text = "Person ID: " + person.PersonID.ToString();
                         Name1.Text = Name2.Text = Name3.Text = Name4.Text =
                         NationalNo.Text = Phone.Text = Address.Text = Email.Text = "";
-                        SetImagePerson();
+                        ImagePerson.Image = DLMHelper.GetImagePersonDefault(Gendor.SelectedIndex == 0);
                         RemoveImage.Visible = false;
                         MessageBox.Show("Person Added Successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                     }
                     else
                         MessageBox.Show("Error While Adding Person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    Person person = RaedPersonFromForm();
-                    if (person.NationalNo != nationalNoOld)
-                        DLMHelper.RemoveFile("Images\\" + nationalNoOld + ".jpg");
-                    if (MyDB.UpdatePerson(ref person, ref nationalNoOld))
+                    if (MyDB.UpdatePerson(ref person))
                     {
+                        if (RemoveImage.Visible)
+                            SaveImagePerson(person.ImageName);
+                        else
+                            DLMHelper.RemoveFile("Images\\" + person.PersonID + ".jpg");
                         MessageBox.Show("Person Updated Successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
@@ -116,21 +119,17 @@ namespace DrivingLicenseManagement
             person.DateOfBirth = DateOfBirth.Value;
             person.NationalityCountryID = Country.SelectedIndex;
             person.NationalNo = NationalNo.Text;
-
-            if (RemoveImage.Visible)
-            {
-                person.ImagePath = NationalNo.Text;
-                ImagePerson.Image.Save("Images\\" + person.ImagePath + ".jpg", ImageFormat.Jpeg);
-            }
+            person.ImageIsExist = RemoveImage.Visible;
             if (!string.IsNullOrEmpty(Email.Text))
-                person.Email = Email.Text;
+                    person.Email = Email.Text;
 
             return person;
         }
 
         private void Gendor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetImagePerson();
+            if (!RemoveImage.Visible)
+                ImagePerson.Image = DLMHelper.GetImagePersonDefault(Gendor.SelectedIndex == 0);
         }
 
         void LoadPerson(Person person)
@@ -146,9 +145,9 @@ namespace DrivingLicenseManagement
             DateOfBirth.Value = person.DateOfBirth;
             Country.SelectedIndex = person.NationalityCountryID;
             Gendor.SelectedIndex = person.Gendor;
-            if (!string.IsNullOrEmpty(person.ImagePath))
+            if (!string.IsNullOrEmpty(person.ImageName))
             {
-                ImagePerson.Image = DLMHelper.GetImage("Images\\" + person.ImagePath + ".jpg");
+                ImagePerson.Image = DLMHelper.GetImage("Images\\" + person.ImageName + ".jpg");
                 RemoveImage.Visible = true;
             }
             if (!string.IsNullOrEmpty(person.Email))
@@ -158,17 +157,20 @@ namespace DrivingLicenseManagement
         private void RemoveImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             RemoveImage.Visible = false;
-            SetImagePerson();
-            if (myStatus == Status.Update)
-                DLMHelper.RemoveFile("Images\\" + nationalNoOld + ".jpg");
+            ImagePerson.Image = DLMHelper.GetImagePersonDefault(Gendor.SelectedIndex == 0);
         }
 
-        void SetImagePerson()
+        void SaveImagePerson(string ImageName)
         {
-            if (Gendor.SelectedIndex == 0)
-                ImagePerson.Image = Properties.Resources.male;
-            else
-                ImagePerson.Image = Properties.Resources.female;
+            try
+            {
+                DLMHelper.RemoveFile("Images\\" + ImageName + ".jpg");
+                ImagePerson.Image.Save("Images\\" + ImageName + ".jpg", ImageFormat.Jpeg);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

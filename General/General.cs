@@ -23,8 +23,9 @@ public class Person
     public string Email { get; set; }
     public string Phone { get; set; }
     public string Address { get; set; }
-    public string ImagePath { get; set; }
+    public string ImageName { get; set; }
     public byte Gendor { get; set; }
+    public bool ImageIsExist { get; set; }
     public DateTime DateOfBirth { get; set; }
 
     public Person() { }
@@ -42,9 +43,7 @@ public class Person
         Address = dr["Address"].ToString();
         DateOfBirth = Convert.ToDateTime(dr["DateOfBirth"]);
         Gendor = Convert.ToByte(dr["Gendor"]);
-        if (dr["ImagePath"] != null)
-            ImagePath = dr["ImagePath"].ToString();
-        if (dr["Email"] != null)
-            Email = dr["Email"].ToString();
+        Email = dr["Email"].ToString();
+        ImageName = dr["ImagePath"].ToString();
     }
 }
