@@ -17,7 +17,7 @@ namespace DrivingLicenseManagement
             InitializeComponent();
             PersonInfo pi = new PersonInfo() { Dock = DockStyle.Fill };
             Controls.Add(pi);
-            if (PersonID > 0) pi.SetPersonInfo(ref PersonID);
+            if (PersonID > 0) pi.LoadPerson(PersonID);
         }
     }
 }

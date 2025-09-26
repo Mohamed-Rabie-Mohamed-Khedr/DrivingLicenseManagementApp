@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 internal static class DLMHelper
 {
+    internal static User CurrentUser = null;
     internal static bool IsAppExit = true;
     internal static Bitmap GetImage(string path)
     {

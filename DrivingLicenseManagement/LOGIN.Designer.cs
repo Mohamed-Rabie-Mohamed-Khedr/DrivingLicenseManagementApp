@@ -31,9 +31,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.UserNameTB = new System.Windows.Forms.TextBox();
+            this.PasswordTB = new System.Windows.Forms.TextBox();
+            this.RememberMeCB = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -53,9 +53,9 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(143, 163);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(179, 35);
+            this.label2.Size = new System.Drawing.Size(174, 35);
             this.label2.TabIndex = 1;
-            this.label2.Text = "USERNAME";
+            this.label2.Text = "User Name";
             // 
             // label3
             // 
@@ -67,31 +67,31 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Password";
             // 
-            // textBox1
+            // UserNameTB
             // 
-            this.textBox1.Location = new System.Drawing.Point(326, 173);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(170, 20);
-            this.textBox1.TabIndex = 3;
+            this.UserNameTB.Location = new System.Drawing.Point(326, 173);
+            this.UserNameTB.Name = "UserNameTB";
+            this.UserNameTB.Size = new System.Drawing.Size(170, 20);
+            this.UserNameTB.TabIndex = 3;
             // 
-            // textBox2
+            // PasswordTB
             // 
-            this.textBox2.Location = new System.Drawing.Point(326, 230);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(170, 20);
-            this.textBox2.TabIndex = 4;
+            this.PasswordTB.Location = new System.Drawing.Point(326, 230);
+            this.PasswordTB.Name = "PasswordTB";
+            this.PasswordTB.PasswordChar = '*';
+            this.PasswordTB.Size = new System.Drawing.Size(170, 20);
+            this.PasswordTB.TabIndex = 4;
             // 
-            // checkBox1
+            // RememberMeCB
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(326, 271);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(147, 23);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "Remember me";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.RememberMeCB.AutoSize = true;
+            this.RememberMeCB.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RememberMeCB.Location = new System.Drawing.Point(326, 271);
+            this.RememberMeCB.Name = "RememberMeCB";
+            this.RememberMeCB.Size = new System.Drawing.Size(167, 27);
+            this.RememberMeCB.TabIndex = 5;
+            this.RememberMeCB.Text = "Remember me";
+            this.RememberMeCB.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -111,14 +111,15 @@
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.RememberMeCB);
+            this.Controls.Add(this.PasswordTB);
+            this.Controls.Add(this.UserNameTB);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "LOGIN";
             this.Text = "LOGIN";
+            this.Load += new System.EventHandler(this.LOGIN_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -129,9 +130,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox UserNameTB;
+        private System.Windows.Forms.TextBox PasswordTB;
+        private System.Windows.Forms.CheckBox RememberMeCB;
         private System.Windows.Forms.Button button1;
     }
 }

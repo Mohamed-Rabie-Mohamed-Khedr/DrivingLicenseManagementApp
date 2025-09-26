@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.CountryL = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.EditPersonInfo = new System.Windows.Forms.LinkLabel();
             this.ImagePerson = new System.Windows.Forms.PictureBox();
             this.EmailL = new System.Windows.Forms.Label();
             this.PhoneL = new System.Windows.Forms.Label();
@@ -48,29 +48,29 @@
             this.CountryL.AutoSize = true;
             this.CountryL.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CountryL.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.CountryL.Location = new System.Drawing.Point(608, 270);
+            this.CountryL.Location = new System.Drawing.Point(487, 270);
             this.CountryL.Name = "CountryL";
             this.CountryL.Size = new System.Drawing.Size(67, 18);
             this.CountryL.TabIndex = 55;
             this.CountryL.Text = "Country";
             // 
-            // linkLabel1
+            // EditPersonInfo
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel1.LinkColor = System.Drawing.Color.SeaShell;
-            this.linkLabel1.Location = new System.Drawing.Point(1067, 250);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(140, 19);
-            this.linkLabel1.TabIndex = 52;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Edit Person Info";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.EditPersonInfo.AutoSize = true;
+            this.EditPersonInfo.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditPersonInfo.LinkColor = System.Drawing.Color.SeaShell;
+            this.EditPersonInfo.Location = new System.Drawing.Point(781, 250);
+            this.EditPersonInfo.Name = "EditPersonInfo";
+            this.EditPersonInfo.Size = new System.Drawing.Size(140, 19);
+            this.EditPersonInfo.TabIndex = 52;
+            this.EditPersonInfo.TabStop = true;
+            this.EditPersonInfo.Text = "Edit Person Info";
+            this.EditPersonInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.EditPersonInfo_LinkClicked);
             // 
             // ImagePerson
             // 
             this.ImagePerson.Image = global::DrivingLicenseManagement.Properties.Resources.male;
-            this.ImagePerson.Location = new System.Drawing.Point(1071, 141);
+            this.ImagePerson.Location = new System.Drawing.Point(785, 141);
             this.ImagePerson.Name = "ImagePerson";
             this.ImagePerson.Size = new System.Drawing.Size(100, 94);
             this.ImagePerson.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -82,7 +82,7 @@
             this.EmailL.AutoSize = true;
             this.EmailL.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EmailL.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.EmailL.Location = new System.Drawing.Point(608, 226);
+            this.EmailL.Location = new System.Drawing.Point(487, 226);
             this.EmailL.Name = "EmailL";
             this.EmailL.Size = new System.Drawing.Size(49, 18);
             this.EmailL.TabIndex = 42;
@@ -93,7 +93,7 @@
             this.PhoneL.AutoSize = true;
             this.PhoneL.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PhoneL.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.PhoneL.Location = new System.Drawing.Point(608, 182);
+            this.PhoneL.Location = new System.Drawing.Point(487, 182);
             this.PhoneL.Name = "PhoneL";
             this.PhoneL.Size = new System.Drawing.Size(54, 18);
             this.PhoneL.TabIndex = 41;
@@ -115,7 +115,7 @@
             this.AddressL.AutoSize = true;
             this.AddressL.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddressL.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.AddressL.Location = new System.Drawing.Point(608, 141);
+            this.AddressL.Location = new System.Drawing.Point(487, 141);
             this.AddressL.Name = "AddressL";
             this.AddressL.Size = new System.Drawing.Size(68, 18);
             this.AddressL.TabIndex = 38;
@@ -170,7 +170,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Coral;
-            this.label1.Location = new System.Drawing.Point(606, 56);
+            this.label1.Location = new System.Drawing.Point(485, 56);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(153, 29);
             this.label1.TabIndex = 29;
@@ -181,8 +181,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.CountryL);
-            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.EditPersonInfo);
             this.Controls.Add(this.ImagePerson);
             this.Controls.Add(this.EmailL);
             this.Controls.Add(this.PhoneL);
@@ -194,7 +195,7 @@
             this.Controls.Add(this.NameL);
             this.Controls.Add(this.label1);
             this.Name = "PersonInfo";
-            this.Size = new System.Drawing.Size(1272, 370);
+            this.Size = new System.Drawing.Size(918, 368);
             ((System.ComponentModel.ISupportInitialize)(this.ImagePerson)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -204,7 +205,7 @@
         #endregion
 
         private System.Windows.Forms.Label CountryL;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel EditPersonInfo;
         private System.Windows.Forms.PictureBox ImagePerson;
         private System.Windows.Forms.Label EmailL;
         private System.Windows.Forms.Label PhoneL;

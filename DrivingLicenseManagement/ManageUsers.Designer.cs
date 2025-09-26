@@ -30,9 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.domainUpDown2 = new System.Windows.Forms.DomainUpDown();
-            this.button1 = new System.Windows.Forms.Button();
+            this.FilterByTB = new System.Windows.Forms.TextBox();
+            this.AddB = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.PersonID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,12 +39,13 @@
             this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.showUInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label2 = new System.Windows.Forms.Label();
+            this.ShowAndEditInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.DeleteUser = new System.Windows.Forms.ToolStripMenuItem();
+            this.ChangePassword = new System.Windows.Forms.ToolStripMenuItem();
+            this.RecordsT = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
-            this.changePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FilterByIsActiveCB = new System.Windows.Forms.ComboBox();
+            this.FilterBy = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -62,36 +62,25 @@
             this.label3.TabIndex = 37;
             this.label3.Text = "Manage Users";
             // 
-            // textBox1
+            // FilterByTB
             // 
-            this.textBox1.Location = new System.Drawing.Point(253, 153);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(155, 20);
-            this.textBox1.TabIndex = 36;
-            this.textBox1.Visible = false;
+            this.FilterByTB.Location = new System.Drawing.Point(253, 153);
+            this.FilterByTB.Name = "FilterByTB";
+            this.FilterByTB.Size = new System.Drawing.Size(155, 20);
+            this.FilterByTB.TabIndex = 36;
+            this.FilterByTB.Visible = false;
+            this.FilterByTB.TextChanged += new System.EventHandler(this.FilterByTB_TextChanged);
             // 
-            // domainUpDown2
+            // AddB
             // 
-            this.domainUpDown2.Items.Add("None");
-            this.domainUpDown2.Items.Add("Person ID");
-            this.domainUpDown2.Items.Add("User ID");
-            this.domainUpDown2.Items.Add("Full Name");
-            this.domainUpDown2.Items.Add("User Name");
-            this.domainUpDown2.Items.Add("Is Active");
-            this.domainUpDown2.Location = new System.Drawing.Point(116, 153);
-            this.domainUpDown2.Name = "domainUpDown2";
-            this.domainUpDown2.Size = new System.Drawing.Size(120, 20);
-            this.domainUpDown2.TabIndex = 35;
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(1032, 157);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 34);
-            this.button1.TabIndex = 34;
-            this.button1.Text = "ADD";
-            this.button1.UseVisualStyleBackColor = true;
+            this.AddB.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddB.Location = new System.Drawing.Point(1032, 157);
+            this.AddB.Name = "AddB";
+            this.AddB.Size = new System.Drawing.Size(75, 34);
+            this.AddB.TabIndex = 34;
+            this.AddB.Text = "ADD";
+            this.AddB.UseVisualStyleBackColor = true;
+            this.AddB.Click += new System.EventHandler(this.AddB_Click);
             // 
             // dataGridView1
             // 
@@ -148,35 +137,44 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showUInfoToolStripMenuItem,
-            this.dToolStripMenuItem,
-            this.changePasswordToolStripMenuItem});
+            this.ShowAndEditInfo,
+            this.DeleteUser,
+            this.ChangePassword});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(185, 92);
             // 
-            // showUInfoToolStripMenuItem
+            // ShowAndEditInfo
             // 
-            this.showUInfoToolStripMenuItem.Name = "showUInfoToolStripMenuItem";
-            this.showUInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.showUInfoToolStripMenuItem.Text = "Show Info And Edit";
+            this.ShowAndEditInfo.Name = "ShowAndEditInfo";
+            this.ShowAndEditInfo.Size = new System.Drawing.Size(184, 22);
+            this.ShowAndEditInfo.Text = "Show / Edit User Info";
+            this.ShowAndEditInfo.Click += new System.EventHandler(this.ShowAndEditInfo_Click);
             // 
-            // dToolStripMenuItem
+            // DeleteUser
             // 
-            this.dToolStripMenuItem.Name = "dToolStripMenuItem";
-            this.dToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.dToolStripMenuItem.Text = "Delete";
+            this.DeleteUser.Name = "DeleteUser";
+            this.DeleteUser.Size = new System.Drawing.Size(184, 22);
+            this.DeleteUser.Text = "Delete";
+            this.DeleteUser.Click += new System.EventHandler(this.DeleteUser_Click);
             // 
-            // label2
+            // ChangePassword
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(12, 592);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 25);
-            this.label2.TabIndex = 32;
-            this.label2.Text = "Records";
+            this.ChangePassword.Name = "ChangePassword";
+            this.ChangePassword.Size = new System.Drawing.Size(184, 22);
+            this.ChangePassword.Text = "Change Password";
+            this.ChangePassword.Click += new System.EventHandler(this.ChangePassword_Click);
+            // 
+            // RecordsT
+            // 
+            this.RecordsT.AutoSize = true;
+            this.RecordsT.BackColor = System.Drawing.Color.Transparent;
+            this.RecordsT.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RecordsT.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.RecordsT.Location = new System.Drawing.Point(12, 592);
+            this.RecordsT.Name = "RecordsT";
+            this.RecordsT.Size = new System.Drawing.Size(96, 25);
+            this.RecordsT.TabIndex = 32;
+            this.RecordsT.Text = "Records";
             // 
             // label1
             // 
@@ -190,22 +188,32 @@
             this.label1.TabIndex = 31;
             this.label1.Text = "Filter By";
             // 
-            // domainUpDown1
+            // FilterByIsActiveCB
             // 
-            this.domainUpDown1.Items.Add("All");
-            this.domainUpDown1.Items.Add("Yas");
-            this.domainUpDown1.Items.Add("No");
-            this.domainUpDown1.Location = new System.Drawing.Point(253, 153);
-            this.domainUpDown1.Name = "domainUpDown1";
-            this.domainUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.domainUpDown1.TabIndex = 38;
-            this.domainUpDown1.Visible = false;
+            this.FilterByIsActiveCB.FormattingEnabled = true;
+            this.FilterByIsActiveCB.Items.AddRange(new object[] {
+            "Yas",
+            "No"});
+            this.FilterByIsActiveCB.Location = new System.Drawing.Point(253, 154);
+            this.FilterByIsActiveCB.Name = "FilterByIsActiveCB";
+            this.FilterByIsActiveCB.Size = new System.Drawing.Size(121, 21);
+            this.FilterByIsActiveCB.TabIndex = 39;
+            this.FilterByIsActiveCB.SelectedIndexChanged += new System.EventHandler(this.FilterByIsActiveCB_SelectedIndexChanged);
             // 
-            // changePasswordToolStripMenuItem
+            // FilterBy
             // 
-            this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
-            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.changePasswordToolStripMenuItem.Text = "Change Password";
+            this.FilterBy.FormattingEnabled = true;
+            this.FilterBy.Items.AddRange(new object[] {
+            "None",
+            "Person ID",
+            "User ID",
+            "User Name",
+            "Is Active"});
+            this.FilterBy.Location = new System.Drawing.Point(115, 153);
+            this.FilterBy.Name = "FilterBy";
+            this.FilterBy.Size = new System.Drawing.Size(121, 21);
+            this.FilterBy.TabIndex = 40;
+            this.FilterBy.SelectedIndexChanged += new System.EventHandler(this.FilterBy_SelectedIndexChanged);
             // 
             // ManageUsers
             // 
@@ -213,17 +221,21 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(1119, 648);
-            this.Controls.Add(this.domainUpDown1);
+            this.Controls.Add(this.FilterBy);
+            this.Controls.Add(this.FilterByIsActiveCB);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.domainUpDown2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.FilterByTB);
+            this.Controls.Add(this.AddB);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.RecordsT);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ManageUsers";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ManageUsers";
+            this.Load += new System.EventHandler(this.ManageUsers_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -234,21 +246,21 @@
         #endregion
 
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.DomainUpDown domainUpDown2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox FilterByTB;
+        private System.Windows.Forms.Button AddB;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label RecordsT;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn PersonID;
         private System.Windows.Forms.DataGridViewTextBoxColumn UserID;
         private System.Windows.Forms.DataGridViewTextBoxColumn FullName;
         private System.Windows.Forms.DataGridViewTextBoxColumn UserName;
         private System.Windows.Forms.DataGridViewCheckBoxColumn isActive;
-        private System.Windows.Forms.DomainUpDown domainUpDown1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem showUInfoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem changePasswordToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ShowAndEditInfo;
+        private System.Windows.Forms.ToolStripMenuItem DeleteUser;
+        private System.Windows.Forms.ToolStripMenuItem ChangePassword;
+        private System.Windows.Forms.ComboBox FilterByIsActiveCB;
+        private System.Windows.Forms.ComboBox FilterBy;
     }
 }

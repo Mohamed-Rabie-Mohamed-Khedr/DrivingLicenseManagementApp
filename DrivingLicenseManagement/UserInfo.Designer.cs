@@ -28,47 +28,51 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.IsActiveL = new System.Windows.Forms.Label();
+            this.UserNameL = new System.Windows.Forms.Label();
+            this.UserIDL = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label4
+            // IsActiveL
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(369, 89);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(94, 23);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Is Active";
+            this.IsActiveL.AutoSize = true;
+            this.IsActiveL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IsActiveL.ForeColor = System.Drawing.Color.White;
+            this.IsActiveL.Location = new System.Drawing.Point(17, 199);
+            this.IsActiveL.Name = "IsActiveL";
+            this.IsActiveL.Size = new System.Drawing.Size(94, 23);
+            this.IsActiveL.TabIndex = 7;
+            this.IsActiveL.Text = "Is Active";
             // 
-            // label3
+            // UserNameL
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(175, 89);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(114, 23);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "User Name";
+            this.UserNameL.AutoSize = true;
+            this.UserNameL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UserNameL.ForeColor = System.Drawing.Color.White;
+            this.UserNameL.Location = new System.Drawing.Point(17, 144);
+            this.UserNameL.Name = "UserNameL";
+            this.UserNameL.Size = new System.Drawing.Size(114, 23);
+            this.UserNameL.TabIndex = 6;
+            this.UserNameL.Text = "User Name";
             // 
-            // label2
+            // UserIDL
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(17, 89);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 23);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "User ID";
+            this.UserIDL.AutoSize = true;
+            this.UserIDL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UserIDL.ForeColor = System.Drawing.Color.White;
+            this.UserIDL.Location = new System.Drawing.Point(17, 89);
+            this.UserIDL.Name = "UserIDL";
+            this.UserIDL.Size = new System.Drawing.Size(82, 23);
+            this.UserIDL.TabIndex = 5;
+            this.UserIDL.Text = "User ID";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(175, 38);
+            this.label1.ForeColor = System.Drawing.Color.Coral;
+            this.label1.Location = new System.Drawing.Point(17, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 23);
             this.label1.TabIndex = 4;
@@ -79,12 +83,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.IsActiveL);
+            this.Controls.Add(this.UserNameL);
+            this.Controls.Add(this.UserIDL);
             this.Controls.Add(this.label1);
             this.Name = "User_Info";
-            this.Size = new System.Drawing.Size(480, 150);
+            this.Size = new System.Drawing.Size(577, 291);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -92,9 +97,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label IsActiveL;
+        private System.Windows.Forms.Label UserNameL;
+        private System.Windows.Forms.Label UserIDL;
         private System.Windows.Forms.Label label1;
     }
 }

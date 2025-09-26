@@ -39,7 +39,7 @@ namespace DrivingLicenseManagement
             }
             else
             {
-                LoadPerson(MyDB.GetPerson(ref PersonIDToUpdate));
+                LoadPerson(MyDB.GetPerson(PersonIDToUpdate));
             }
         }
 
@@ -67,7 +67,7 @@ namespace DrivingLicenseManagement
                 {
                     if (MyDB.AddPerson(ref person))
                     {
-                        if (RemoveImage.Visible)
+                        if (person.ImageIsExists)
                             SaveImagePerson(person.ImageName);
                         IDT.Text = "Person ID: " + person.PersonID.ToString();
                         Name1.Text = Name2.Text = Name3.Text = Name4.Text =
@@ -83,7 +83,7 @@ namespace DrivingLicenseManagement
                 {
                     if (MyDB.UpdatePerson(ref person))
                     {
-                        if (RemoveImage.Visible)
+                        if (person.ImageIsExists)
                             SaveImagePerson(person.ImageName);
                         else
                             DLMHelper.RemoveFile("Images\\" + person.PersonID + ".jpg");
@@ -119,9 +119,14 @@ namespace DrivingLicenseManagement
             person.DateOfBirth = DateOfBirth.Value;
             person.NationalityCountryID = Country.SelectedIndex;
             person.NationalNo = NationalNo.Text;
-            person.ImageIsExist = RemoveImage.Visible;
+            person.ImageIsExists = RemoveImage.Visible;
             if (!string.IsNullOrEmpty(Email.Text))
                     person.Email = Email.Text;
+            if (myStatus == Status.Update)
+            {
+                person.PersonID = PersonIDToUpdate;
+                person.ImageName = PersonIDToUpdate.ToString();
+            }
 
             return person;
         }
@@ -145,7 +150,7 @@ namespace DrivingLicenseManagement
             DateOfBirth.Value = person.DateOfBirth;
             Country.SelectedIndex = person.NationalityCountryID;
             Gendor.SelectedIndex = person.Gendor;
-            if (!string.IsNullOrEmpty(person.ImageName))
+            if (person.ImageIsExists)
             {
                 ImagePerson.Image = DLMHelper.GetImage("Images\\" + person.ImageName + ".jpg");
                 RemoveImage.Visible = true;
@@ -164,8 +169,10 @@ namespace DrivingLicenseManagement
         {
             try
             {
-                DLMHelper.RemoveFile("Images\\" + ImageName + ".jpg");
-                ImagePerson.Image.Save("Images\\" + ImageName + ".jpg", ImageFormat.Jpeg);
+                using (Bitmap bmp = new Bitmap(ImagePerson.Image))
+                {
+                    bmp.Save(Path.Combine("Images\\", ImageName + ".jpg"), ImageFormat.Jpeg);
+                }
             }
             catch (Exception ex)
             {

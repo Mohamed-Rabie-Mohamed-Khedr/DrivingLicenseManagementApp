@@ -10,14 +10,14 @@ public class MyDB
     static string[] countryNames = null;
     public static bool AddPerson(ref Person person)
     {
-        if (CheckNationalNo(person.NationalNo)) return false;
+        if (NationalNoIsExists(person.NationalNo)) return false;
             return SetData.AddPerson(ref person);
     }
     public static bool UpdatePerson(ref Person person)
     {
         return SetData.UpdatePerson(ref person);
     }
-    public static Person GetPerson(ref int PersonID)
+    public static Person GetPerson(int PersonID)
     {
         return GetData.GetPerson(ref PersonID);
     }
@@ -45,8 +45,40 @@ public class MyDB
         }
         return ref countryNames;
     }
-    public static bool CheckNationalNo(string NationalNo)
+    public static bool PersonIsExists(int PersonID)
     {
-        return GetData.CheckNationalNo(ref NationalNo);
+        return GetData.PersonIsExists(ref PersonID);
+    }
+    public static bool AddUser(ref User user)
+    {
+        return SetData.AddUser(ref user);
+    }
+    public static User GetUser(int PersonID)
+    {
+        return GetData.GetUser(ref PersonID);
+    }
+    public static User GetUserToLogIn(string UserName, string Password)
+    {
+        return GetData.GetUserToLogIn(ref UserName, ref Password);
+    }
+    public static DataTable GetUsers(ref string FilterMode, ref object FilterValue)
+    {
+        return GetData.GetUsers(ref FilterMode, ref FilterValue);
+    }
+    public static bool UpdateUser(ref User user)
+    {
+        return SetData.UpdateUser(ref user);
+    }
+    public static bool DeleteUser(int UserID)
+    {
+        return SetData.DeleteUser(ref UserID);
+    }
+    public static bool UserIsExists(int UserID)
+    {
+        return GetData.UserIsExists(ref UserID);
+    }
+    public static bool NationalNoIsExists(string NationalNo)
+    {
+        return GetData.NationalNoIsExists(ref NationalNo);
     }
 }

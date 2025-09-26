@@ -17,10 +17,10 @@ namespace DrivingLicenseManagement
         {
             InitializeComponent();
         }
-        public void SetPersonInfo(ref int PersonID)
+        public void LoadPerson(int PersonID)
         {
             CurrentPersonID = PersonID;
-            Person person = MyDB.GetPerson(ref PersonID);
+            Person person = MyDB.GetPerson(PersonID);
             PersonIDL.Text = "Person ID: " + person.PersonID.ToString();
             NameL.Text = "Name: " + person.FirstName + " " + person.SecondName + " " + person.ThirdName + " " + person.LastName;
             NationalNoL.Text = "National No: " + person.NationalNo;
@@ -29,7 +29,7 @@ namespace DrivingLicenseManagement
             DateOfBirthL.Text = "Date Of Birth: " + person.DateOfBirth.ToString();
             CountryL.Text = "Country: " + MyDB.GetCountries()[person.NationalityCountryID - 1];
             GendorL.Text = "Gendor: " + (person.Gendor == 0 ? "Male" : "Female");
-            if (!string.IsNullOrEmpty(person.ImageName))
+            if (person.ImageIsExists)
                 ImagePerson.Image = DLMHelper.GetImage("Images\\" + person.ImageName + ".jpg");
             else
                 ImagePerson.Image = DLMHelper.GetImagePersonDefault(person.Gendor == 0);
@@ -37,13 +37,13 @@ namespace DrivingLicenseManagement
                 EmailL.Text = "Email: " + person.Email;
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void EditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (CurrentPersonID > 0)
             {
                 AddAndUpdatePersonForm up = new AddAndUpdatePersonForm(CurrentPersonID);
                 up.ShowDialog();
-                SetPersonInfo(ref CurrentPersonID);
+                LoadPerson(CurrentPersonID);
             }
         }
     }

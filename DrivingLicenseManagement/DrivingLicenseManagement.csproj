@@ -194,17 +194,29 @@
     <Compile Include="AddAndUpdatePersonForm.Designer.cs">
       <DependentUpon>AddAndUpdatePersonForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddUser.cs">
+    <Compile Include="AddAndUpdateUserForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddUser.Designer.cs">
-      <DependentUpon>AddUser.cs</DependentUpon>
+    <Compile Include="AddAndUpdateUserForm.Designer.cs">
+      <DependentUpon>AddAndUpdateUserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddAndUpdateUser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AddAndUpdateUser.Designer.cs">
+      <DependentUpon>AddAndUpdateUser.cs</DependentUpon>
     </Compile>
     <Compile Include="ChangePassword.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ChangePassword.Designer.cs">
       <DependentUpon>ChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangePasswordForm.Designer.cs">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DLMHelper.cs" />
     <Compile Include="EditApplicationType.cs">
@@ -287,11 +299,17 @@
     <EmbeddedResource Include="AddAndUpdatePersonForm.resx">
       <DependentUpon>AddAndUpdatePersonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddUser.resx">
-      <DependentUpon>AddUser.cs</DependentUpon>
+    <EmbeddedResource Include="AddAndUpdateUserForm.resx">
+      <DependentUpon>AddAndUpdateUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddAndUpdateUser.resx">
+      <DependentUpon>AddAndUpdateUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChangePassword.resx">
       <DependentUpon>ChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangePasswordForm.resx">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditApplicationType.resx">
       <DependentUpon>EditApplicationType.cs</DependentUpon>

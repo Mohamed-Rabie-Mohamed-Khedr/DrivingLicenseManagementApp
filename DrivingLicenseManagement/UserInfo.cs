@@ -16,5 +16,11 @@ namespace DrivingLicenseManagement
         {
             InitializeComponent();
         }
+        public void LoadUser(User user)
+        {
+            UserIDL.Text = "User ID: " + user.UserID.ToString();
+            UserNameL.Text = "User Name: " + user.UserName;
+            IsActiveL.Text = "Is Active: " + (user.IsActive ? "Yes" : "No");
+        }
     }
 }

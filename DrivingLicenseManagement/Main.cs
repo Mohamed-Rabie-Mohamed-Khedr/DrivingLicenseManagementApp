@@ -35,5 +35,23 @@ namespace DrivingLicenseManagement
         {
             if (DLMHelper.IsAppExit) Application.Exit();
         }
+
+        private void Users_Click(object sender, EventArgs e)
+        {
+            ManageUsers manageUsers = new ManageUsers();
+            manageUsers.ShowDialog();
+        }
+
+        private void ChangePassword_Click(object sender, EventArgs e)
+        {
+            ChangePasswordForm cp = new ChangePasswordForm(DLMHelper.CurrentUser);
+            cp.ShowDialog();
+        }
+
+        private void CurrentUserInfo_Click(object sender, EventArgs e)
+        {
+            UserInfoForm userInfoForm = new UserInfoForm(DLMHelper.CurrentUser);
+            userInfoForm.ShowDialog();
+        }
     }
 }

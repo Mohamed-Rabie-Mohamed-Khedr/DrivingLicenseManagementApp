@@ -10,16 +10,14 @@ using System.Windows.Forms;
 
 namespace DrivingLicenseManagement
 {
-    public partial class AddUser : Form
+    public partial class ChangePasswordForm : Form
     {
-        public AddUser()
+        public ChangePasswordForm(User user)
         {
             InitializeComponent();
-        }
-
-        private void AddUser_Load(object sender, EventArgs e)
-        {
-
+            personInfo1.LoadPerson(user.PersonID);
+            user_Info1.LoadUser(user);
+            changePassword1.CUser = user;
         }
     }
 }

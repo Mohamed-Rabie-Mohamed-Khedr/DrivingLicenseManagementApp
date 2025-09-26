@@ -23,13 +23,13 @@ public class Person
     public string Email { get; set; }
     public string Phone { get; set; }
     public string Address { get; set; }
+    public bool ImageIsExists { get; set; }
     public string ImageName { get; set; }
     public byte Gendor { get; set; }
-    public bool ImageIsExist { get; set; }
     public DateTime DateOfBirth { get; set; }
 
     public Person() { }
-    
+
     public Person(DataRow dr)
     {
         PersonID = Convert.ToInt32(dr["PersonID"]);
@@ -45,5 +45,26 @@ public class Person
         Gendor = Convert.ToByte(dr["Gendor"]);
         Email = dr["Email"].ToString();
         ImageName = dr["ImagePath"].ToString();
+        ImageIsExists = !string.IsNullOrEmpty(ImageName);
+    }
+}
+
+public class User
+{
+    public int PersonID { get; set; }
+    public int UserID { get; set; }
+    public string UserName { get; set; }
+    public string Password { get; set; }
+    public bool IsActive { get; set; }
+
+    public User() { }
+
+    public User(DataRow dr)
+    {
+        PersonID = Convert.ToInt32(dr["PersonID"]);
+        UserID = Convert.ToInt32(dr["UserID"]);
+        UserName = dr["UserName"].ToString();
+        Password = dr["Password"].ToString();
+        IsActive = Convert.ToBoolean(dr["IsActive"]);
     }
 }

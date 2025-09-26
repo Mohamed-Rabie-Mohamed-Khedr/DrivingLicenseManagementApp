@@ -15,10 +15,13 @@ public class SetData
             connection.Open();
 
             SqlCommand command = new SqlCommand(@"
-INSERT INTO People 
-(NationalNo, FirstName, SecondName, ThirdName, LastName, DateOfBirth, Gendor, Address, Phone, Email, NationalityCountryID)
-VALUES
-(@NationalNo, @FirstName, @SecondName, @ThirdName, @LastName, @DateOfBirth, @Gendor, @Address, @Phone, @Email, @NationalityCountryID);", connection);
+            INSERT INTO People 
+            (NationalNo, FirstName, SecondName, ThirdName, LastName, DateOfBirth,
+            Gendor, Address, Phone, Email, NationalityCountryID)
+            VALUES
+            (@NationalNo, @FirstName, @SecondName, @ThirdName, @LastName,
+            @DateOfBirth, @Gendor, @Address, @Phone, @Email,
+            @NationalityCountryID); select SCOPE_IDENTITY();", connection);
 
             command.Parameters.AddWithValue("@FirstName", person.FirstName);
             command.Parameters.AddWithValue("@SecondName", person.SecondName);
@@ -31,20 +34,19 @@ VALUES
             command.Parameters.AddWithValue("@DateOfBirth", person.DateOfBirth);
             command.Parameters.AddWithValue("@Gendor", person.Gendor);
             command.Parameters.AddWithValue("@Email", (object)person.Email ?? DBNull.Value);
-            command.ExecuteNonQuery();
-
-            command.CommandText = "select PersonID from People where NationalNo = @NationalNo";
             person.PersonID = Convert.ToInt32(command.ExecuteScalar());
 
-            command.CommandText = "update People set ImagePath = @ImagePath where PersonID = @PersonID";
-            if (person.ImageIsExist)
+            command.CommandText = "UPDATE People SET ImagePath = @ImagePath WHERE PersonID = @PersonID;";
+            command.Parameters.AddWithValue("@PersonID", person.PersonID);
+            if (person.ImageIsExists)
             {
                 person.ImageName = person.PersonID.ToString();
                 command.Parameters.AddWithValue("@ImagePath", person.ImageName);
             }
             else
+            {
                 command.Parameters.AddWithValue("@ImagePath", DBNull.Value);
-            command.Parameters.AddWithValue("@PersonID", person.PersonID);
+            }
             command.ExecuteNonQuery();
             connection.Close();
 
@@ -68,7 +70,7 @@ VALUES
             SecondName = @SecondName, ThirdName = @ThirdName, LastName = @LastName,
             DateOfBirth = @DateOfBirth, Gendor = @Gendor, Address = @Address,
             Phone = @Phone, Email = @Email, NationalityCountryID = @NationalityCountryID
-            where NationalNo = @NationalNo;", connection);
+            , ImagePath = @ImagePath where PersonID = @PersonID;", connection);
 
             command.Parameters.AddWithValue("@FirstName", person.FirstName);
             command.Parameters.AddWithValue("@SecondName", person.SecondName);
@@ -80,24 +82,12 @@ VALUES
             command.Parameters.AddWithValue("@Address", person.Address);
             command.Parameters.AddWithValue("@DateOfBirth", person.DateOfBirth);
             command.Parameters.AddWithValue("@Gendor", person.Gendor);
-            command.Parameters.AddWithValue("@Email", (object)person.Email ?? DBNull.Value);
-            command.ExecuteNonQuery();
-
-            command.CommandText = "select PersonID from People where NationalNo = @NationalNo";
-            person.PersonID = Convert.ToInt32(command.ExecuteScalar());
-
-            command.CommandText = "update People set ImagePath = @ImagePath where PersonID = @PersonID";
-            if (person.ImageIsExist)
-            {
-                person.ImageName = person.PersonID.ToString();
-                command.Parameters.AddWithValue("@ImagePath", person.ImageName);
-            }
-            else
-                command.Parameters.AddWithValue("@ImagePath", DBNull.Value);
             command.Parameters.AddWithValue("@PersonID", person.PersonID);
-            command.ExecuteNonQuery();
+            command.Parameters.AddWithValue("@Email", (object)person.Email ?? DBNull.Value);
+            command.Parameters.AddWithValue("@ImagePath", person.ImageIsExists? (object)person.ImageName : DBNull.Value);
+            bool result = command.ExecuteNonQuery() > 0;
             connection.Close();
-            return person.PersonID > 0;
+            return result;
         }
         catch (Exception)
         {
@@ -113,6 +103,68 @@ VALUES
             connection.Open();
             SqlCommand command = new SqlCommand(@"delete from People where PersonID = @PersonID", connection);
             command.Parameters.AddWithValue("@PersonID", PersonID);
+            bool result = command.ExecuteNonQuery() > 0;
+            connection.Close();
+            return result;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+
+    public static bool AddUser(ref User user)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(
+            @"insert into Users (UserName, Password, IsActive, PersonID) values
+            (@UserName, @Password, @IsActive, @PersonID); select SCOPE_IDENTITY();", connection);
+            command.Parameters.AddWithValue("@UserName", user.UserName);
+            command.Parameters.AddWithValue("@Password", user.Password);
+            command.Parameters.AddWithValue("@IsActive", user.IsActive);
+            command.Parameters.AddWithValue("@PersonID", user.PersonID);
+            user.UserID = Convert.ToInt32(command.ExecuteScalar());
+            connection.Close();
+            return user.UserID > 0;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool UpdateUser(ref User user)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(
+            @"update Users set UserName = @UserName, Password = @Password,
+            IsActive = @IsActive where PersonID = @PersonID", connection);
+            command.Parameters.AddWithValue("@UserName", user.UserName);
+            command.Parameters.AddWithValue("@Password", user.Password);
+            command.Parameters.AddWithValue("@IsActive", user.IsActive);
+            command.Parameters.AddWithValue("@PersonID", user.PersonID);
+            bool result = command.ExecuteNonQuery() > 0;
+            connection.Close();
+            return result;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool DeleteUser(ref int UserID)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(@"delete from Users where UserID = @UserID", connection);
+            command.Parameters.AddWithValue("@UserID", UserID);
             bool result = command.ExecuteNonQuery() > 0;
             connection.Close();
             return result;

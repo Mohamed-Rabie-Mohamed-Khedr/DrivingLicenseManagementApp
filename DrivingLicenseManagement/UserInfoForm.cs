@@ -12,9 +12,11 @@ namespace DrivingLicenseManagement
 {
     public partial class UserInfoForm : Form
     {
-        public UserInfoForm()
+        public UserInfoForm(User user)
         {
             InitializeComponent();
+            personInfo1.LoadPerson(user.PersonID);
+            user_Info1.LoadUser(user);
         }
     }
 }

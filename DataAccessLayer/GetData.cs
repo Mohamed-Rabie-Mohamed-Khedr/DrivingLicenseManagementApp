@@ -61,7 +61,24 @@ public class GetData
         }
         return null;
     }
-    public static bool CheckNationalNo(ref string NationalNo)
+    public static bool PersonIsExists(ref int PersonID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select found = '1' from People where PersonID = @PersonID", sqlConnection);
+            command.Parameters.AddWithValue("@PersonID", PersonID);
+            object found = command.ExecuteScalar();
+            sqlConnection.Close();
+            return found == null ? false : true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool NationalNoIsExists(ref string NationalNo)
     {
         try
         {
@@ -143,5 +160,102 @@ public class GetData
         {
         }
         return null;
+    }
+    public static User GetUser(ref int PersonID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select * from Users where PersonID = @PersonID", sqlConnection);
+            command.Parameters.Add("@PersonID", SqlDbType.Int).Value = PersonID;
+            SqlDataReader sqlDataAdapter = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(sqlDataAdapter);
+            sqlConnection.Close();
+            return dataTable.Rows.Count > 0 ? new User(dataTable.Rows[0]) : null;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static DataTable GetUsers(ref string FilterMode, ref object FilterValue)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command;
+
+            switch (FilterMode)
+            {
+                case "User ID":
+                    command = new SqlCommand("select * from Users where UserID = @FilterValue", sqlConnection);
+                    command.Parameters.Add("@FilterValue", SqlDbType.Int).Value = FilterValue;
+                    break;
+                case "Person ID":
+                    command = new SqlCommand("select * from Users where PersonID = @FilterValue", sqlConnection);
+                    command.Parameters.Add("@FilterValue", SqlDbType.Int).Value = FilterValue;
+                    break;
+                case "User Name":
+                    command = new SqlCommand("select * from Users where UserName like @FilterValue + '%'", sqlConnection);
+                    command.Parameters.Add("@FilterValue", SqlDbType.NVarChar, 20).Value = FilterValue;
+                    break;
+                    case "Is Active":
+                    command = new SqlCommand("select * from Users where IsActive = @FilterValue", sqlConnection);
+                    command.Parameters.Add("@FilterValue", SqlDbType.Bit).Value = FilterValue;
+                    break;
+                default:
+                    command = new SqlCommand("select * from Users", sqlConnection);
+                    break;
+            }
+            SqlDataReader sqlDataAdapter = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(sqlDataAdapter);
+            sqlConnection.Close();
+            return dataTable;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static User GetUserToLogIn(ref string UserName, ref string Password)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select * from Users where UserName = @UserName and Password = @Password", sqlConnection);
+            command.Parameters.Add("@UserName", SqlDbType.NVarChar, 20).Value = UserName;
+            command.Parameters.Add("@Password", SqlDbType.NVarChar, 20).Value = Password;
+            SqlDataReader sqlDataAdapter = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(sqlDataAdapter);
+            sqlConnection.Close();
+            return dataTable.Rows.Count > 0 ? new User(dataTable.Rows[0]) : null;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static bool UserIsExists(ref int PersonID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select found = '1' from Users where PersonID = @PersonID", sqlConnection);
+            command.Parameters.Add("@PersonID", SqlDbType.Int).Value = PersonID;
+            object found = command.ExecuteScalar();
+            sqlConnection.Close();
+            return found == null ? false : true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
     }
 }
