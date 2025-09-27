@@ -23,7 +23,6 @@ public class MyDB
     }
     public static bool DeletePerson(int PersonID)
     {
-        if (UserIsExists(PersonID)) return false;
         return SetData.DeletePerson(ref PersonID);
     }
     public static DataTable GetPeople(ref string FilterMode, ref object FilterValue)
