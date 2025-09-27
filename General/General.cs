@@ -68,3 +68,37 @@ public class User
         IsActive = Convert.ToBoolean(dr["IsActive"]);
     }
 }
+
+public class ApplicationType
+{
+    public int ApplicationTypeID { get; set; }
+    public string ApplicationTypeTitle { get; set; }
+    public decimal ApplicationFees { get; set; }
+
+    public ApplicationType() { }
+
+    public ApplicationType(DataRow dr)
+    {
+        ApplicationTypeID = Convert.ToInt32(dr["ApplicationTypeID"]);
+        ApplicationTypeTitle = dr["ApplicationTypeTitle"].ToString();
+        ApplicationFees = Convert.ToDecimal(dr["ApplicationFees"]);
+    }
+}
+
+public class TestType
+{
+    public int TestTypeID { get; set; }
+    public string TestTypeTitle { get; set; }
+    public string TestTypeDescription { get; set; }
+    public decimal TestTypeFees { get; set; }
+
+    public TestType() { }
+
+    public TestType(DataRow dr)
+    {
+        TestTypeID = Convert.ToInt32(dr["TestTypeID"]);
+        TestTypeTitle = dr["TestTypeTitle"].ToString();
+        TestTypeDescription = dr["TestTypeDescription"].ToString();
+        TestTypeFees = Convert.ToDecimal(dr["TestTypeFees"]);
+    }
+}

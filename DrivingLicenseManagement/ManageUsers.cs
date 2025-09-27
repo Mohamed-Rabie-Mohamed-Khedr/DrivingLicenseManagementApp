@@ -99,7 +99,8 @@ namespace DrivingLicenseManagement
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                if (MyDB.DeleteUser((int)dataGridView1.SelectedRows[0].Cells["UserID"].Value))
+                int UserID = (int)dataGridView1.SelectedRows[0].Cells["UserID"].Value;
+                if (DLMHelper.CurrentUser.UserID != UserID && MyDB.DeleteUser(UserID))
                 {
                     LoadUsers();
                     MessageBox.Show("Deleted Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

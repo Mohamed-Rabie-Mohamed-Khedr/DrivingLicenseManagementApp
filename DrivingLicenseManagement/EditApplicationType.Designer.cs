@@ -30,10 +30,10 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.TitleTB = new System.Windows.Forms.TextBox();
+            this.FeesNUD = new System.Windows.Forms.NumericUpDown();
+            this.SaveB = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.FeesNUD)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -56,43 +56,48 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Fees";
             // 
-            // textBox1
+            // TitleTB
             // 
-            this.textBox1.Location = new System.Drawing.Point(158, 49);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(199, 20);
-            this.textBox1.TabIndex = 2;
+            this.TitleTB.Location = new System.Drawing.Point(158, 49);
+            this.TitleTB.Name = "TitleTB";
+            this.TitleTB.Size = new System.Drawing.Size(199, 20);
+            this.TitleTB.TabIndex = 2;
             // 
-            // numericUpDown1
+            // FeesNUD
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(158, 104);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 3;
+            this.FeesNUD.Location = new System.Drawing.Point(158, 104);
+            this.FeesNUD.Name = "FeesNUD";
+            this.FeesNUD.Size = new System.Drawing.Size(120, 20);
+            this.FeesNUD.TabIndex = 3;
             // 
-            // button1
+            // SaveB
             // 
-            this.button1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(372, 151);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 34);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
+            this.SaveB.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveB.Location = new System.Drawing.Point(372, 151);
+            this.SaveB.Name = "SaveB";
+            this.SaveB.Size = new System.Drawing.Size(86, 34);
+            this.SaveB.TabIndex = 14;
+            this.SaveB.Text = "Save";
+            this.SaveB.UseVisualStyleBackColor = true;
+            this.SaveB.Click += new System.EventHandler(this.SaveB_Click);
             // 
             // EditApplicationType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(470, 197);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.SaveB);
+            this.Controls.Add(this.FeesNUD);
+            this.Controls.Add(this.TitleTB);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "EditApplicationType";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit Application Type";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FeesNUD)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -102,8 +107,8 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox TitleTB;
+        private System.Windows.Forms.NumericUpDown FeesNUD;
+        private System.Windows.Forms.Button SaveB;
     }
 }

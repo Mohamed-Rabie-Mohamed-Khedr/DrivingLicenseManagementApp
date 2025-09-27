@@ -53,5 +53,17 @@ namespace DrivingLicenseManagement
             UserInfoForm userInfoForm = new UserInfoForm(DLMHelper.CurrentUser);
             userInfoForm.ShowDialog();
         }
+
+        private void ManageApplicationTypes_Click(object sender, EventArgs e)
+        {
+            ManageApplicationTypes mat = new ManageApplicationTypes();
+            mat.ShowDialog();
+        }
+
+        private void ManageTestTypes_Click(object sender, EventArgs e)
+        {
+            ManageTestTypes mtt = new ManageTestTypes();
+            mtt.ShowDialog();
+        }
     }
 }

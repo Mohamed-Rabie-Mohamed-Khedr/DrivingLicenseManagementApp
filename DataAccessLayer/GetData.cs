@@ -258,4 +258,78 @@ public class GetData
         }
         return false;
     }
+    public static DataTable GetApplicationTypes()
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select * from ApplicationTypes", sqlConnection);
+            SqlDataReader sqlDataAdapter = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(sqlDataAdapter);
+            sqlConnection.Close();
+            return dataTable;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static ApplicationType GetApplicationType(ref int ApplicationTypeID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select * from ApplicationTypes where ApplicationTypeID = @ApplicationTypeID", sqlConnection);
+            command.Parameters.Add("@ApplicationTypeID", SqlDbType.Int).Value = ApplicationTypeID;
+            SqlDataReader sqlDataAdapter = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(sqlDataAdapter);
+            sqlConnection.Close();
+            return dataTable.Rows.Count > 0 ? new ApplicationType(dataTable.Rows[0]) : null;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static DataTable GetTestTypes()
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select * from TestTypes", sqlConnection);
+            SqlDataReader sqlDataAdapter = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(sqlDataAdapter);
+            sqlConnection.Close();
+            return dataTable;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static TestType GetTestType(ref int TestTypeID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select * from TestTypes where TestTypeID = @TestTypeID", sqlConnection);
+            command.Parameters.Add("@TestTypeID", SqlDbType.Int).Value = TestTypeID;
+            SqlDataReader sqlDataAdapter = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(sqlDataAdapter);
+            sqlConnection.Close();
+            return dataTable.Rows.Count > 0 ? new TestType(dataTable.Rows[0]) : null;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
 }

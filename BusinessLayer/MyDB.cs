@@ -23,6 +23,7 @@ public class MyDB
     }
     public static bool DeletePerson(int PersonID)
     {
+        if (UserIsExists(PersonID)) return false;
         return SetData.DeletePerson(ref PersonID);
     }
     public static DataTable GetPeople(ref string FilterMode, ref object FilterValue)
@@ -80,5 +81,29 @@ public class MyDB
     public static bool NationalNoIsExists(string NationalNo)
     {
         return GetData.NationalNoIsExists(ref NationalNo);
+    }
+    public static DataTable GetApplicationTypes()
+    {
+        return GetData.GetApplicationTypes();
+    }
+    public static bool UpdateApplicationType(ref ApplicationType applicationType)
+    {
+        return SetData.UpdateApplicationType(ref applicationType);
+    }
+    public static ApplicationType GetApplicationType(int ApplicationTypeID)
+    {
+        return GetData.GetApplicationType(ref ApplicationTypeID);
+    }
+    public static DataTable GetTestTypes()
+    {
+        return GetData.GetTestTypes();
+    }
+    public static bool UpdateTestType(ref TestType testType)
+    {
+        return SetData.UpdateTestType(ref testType);
+    }
+    public static TestType GetTestType(ref int TestTypeID)
+    {
+        return GetData.GetTestType(ref TestTypeID);
     }
 }

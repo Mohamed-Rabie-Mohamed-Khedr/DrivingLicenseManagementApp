@@ -28,27 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.IDL = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.TitleTB = new System.Windows.Forms.TextBox();
+            this.DescriptionTB = new System.Windows.Forms.TextBox();
+            this.FeesNUD = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.SaveB = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.FeesNUD)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // IDL
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(236, 116);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "ID";
+            this.IDL.AutoSize = true;
+            this.IDL.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IDL.Location = new System.Drawing.Point(236, 116);
+            this.IDL.Name = "IDL";
+            this.IDL.Size = new System.Drawing.Size(38, 25);
+            this.IDL.TabIndex = 0;
+            this.IDL.Text = "ID";
             // 
             // label2
             // 
@@ -80,33 +80,33 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "Fees";
             // 
-            // textBox1
+            // TitleTB
             // 
-            this.textBox1.Location = new System.Drawing.Point(319, 176);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(210, 20);
-            this.textBox1.TabIndex = 4;
+            this.TitleTB.Location = new System.Drawing.Point(319, 176);
+            this.TitleTB.Name = "TitleTB";
+            this.TitleTB.Size = new System.Drawing.Size(210, 20);
+            this.TitleTB.TabIndex = 4;
             // 
-            // textBox2
+            // DescriptionTB
             // 
-            this.textBox2.Location = new System.Drawing.Point(319, 231);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(210, 108);
-            this.textBox2.TabIndex = 5;
+            this.DescriptionTB.Location = new System.Drawing.Point(319, 231);
+            this.DescriptionTB.Multiline = true;
+            this.DescriptionTB.Name = "DescriptionTB";
+            this.DescriptionTB.Size = new System.Drawing.Size(210, 108);
+            this.DescriptionTB.TabIndex = 5;
             // 
-            // numericUpDown1
+            // FeesNUD
             // 
-            this.numericUpDown1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown1.Location = new System.Drawing.Point(319, 358);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.FeesNUD.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FeesNUD.Location = new System.Drawing.Point(319, 358);
+            this.FeesNUD.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 23);
-            this.numericUpDown1.TabIndex = 6;
+            this.FeesNUD.Name = "FeesNUD";
+            this.FeesNUD.Size = new System.Drawing.Size(120, 23);
+            this.FeesNUD.TabIndex = 6;
             // 
             // label5
             // 
@@ -118,35 +118,40 @@
             this.label5.TabIndex = 7;
             this.label5.Text = "Edit Test Types";
             // 
-            // button1
+            // SaveB
             // 
-            this.button1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(702, 404);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 34);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
+            this.SaveB.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveB.Location = new System.Drawing.Point(702, 404);
+            this.SaveB.Name = "SaveB";
+            this.SaveB.Size = new System.Drawing.Size(86, 34);
+            this.SaveB.TabIndex = 15;
+            this.SaveB.Text = "Save";
+            this.SaveB.UseVisualStyleBackColor = true;
+            this.SaveB.Click += new System.EventHandler(this.SaveB_Click);
             // 
             // EditTestTypes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.BackColor = System.Drawing.Color.DarkGray;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.SaveB);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.FeesNUD);
+            this.Controls.Add(this.DescriptionTB);
+            this.Controls.Add(this.TitleTB);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.IDL);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "EditTestTypes";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit Test Types";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.Load += new System.EventHandler(this.EditTestTypes_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.FeesNUD)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,14 +159,14 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label IDL;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.TextBox TitleTB;
+        private System.Windows.Forms.TextBox DescriptionTB;
+        private System.Windows.Forms.NumericUpDown FeesNUD;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button SaveB;
     }
 }

@@ -174,4 +174,50 @@ public class SetData
         }
         return false;
     }
+    public static bool UpdateApplicationType(ref ApplicationType applicationType)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(
+            @"update ApplicationTypes set ApplicationTypeTitle = @ApplicationTypeTitle,
+            ApplicationFees = @ApplicationFees
+            where ApplicationTypeID = @ApplicationTypeID", connection);
+            command.Parameters.AddWithValue("@ApplicationTypeTitle", applicationType.ApplicationTypeTitle);
+            command.Parameters.AddWithValue("@ApplicationFees", applicationType.ApplicationFees);
+            command.Parameters.AddWithValue("@ApplicationTypeID", applicationType.ApplicationTypeID);
+            bool result = command.ExecuteNonQuery() > 0;
+            connection.Close();
+            return result;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool UpdateTestType(ref TestType testType)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(
+            @"update TestTypes set TestTypeTitle = @TestTypeTitle,
+            TestTypeDescription = @TestTypeDescription,
+            TestTypeFees = @TestTypeFees
+            where TestTypeID = @TestTypeID", connection);
+            command.Parameters.AddWithValue("@TestTypeTitle", testType.TestTypeTitle);
+            command.Parameters.AddWithValue("@TestTypeDescription", testType.TestTypeDescription);
+            command.Parameters.AddWithValue("@TestTypeFees", testType.TestTypeFees);
+            command.Parameters.AddWithValue("@TestTypeID", testType.TestTypeID);
+            bool result = command.ExecuteNonQuery() > 0;
+            connection.Close();
+            return result;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
 }

@@ -31,13 +31,13 @@
             this.components = new System.ComponentModel.Container();
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.editApplicationTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fees = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.EditTestTypesB = new System.Windows.Forms.ToolStripMenuItem();
+            this.RecordsL = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -73,31 +73,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(1194, 392);
             this.dataGridView1.TabIndex = 40;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(7, 566);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 25);
-            this.label2.TabIndex = 39;
-            this.label2.Text = "Records";
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editApplicationTypeToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(150, 26);
-            // 
-            // editApplicationTypeToolStripMenuItem
-            // 
-            this.editApplicationTypeToolStripMenuItem.Name = "editApplicationTypeToolStripMenuItem";
-            this.editApplicationTypeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.editApplicationTypeToolStripMenuItem.Text = "Edit Test Types";
-            // 
             // ID
             // 
             this.ID.HeaderText = "ID";
@@ -122,6 +97,32 @@
             this.Fees.Name = "Fees";
             this.Fees.ReadOnly = true;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.EditTestTypesB});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 48);
+            // 
+            // EditTestTypesB
+            // 
+            this.EditTestTypesB.Name = "EditTestTypesB";
+            this.EditTestTypesB.Size = new System.Drawing.Size(180, 22);
+            this.EditTestTypesB.Text = "Edit Test Types";
+            this.EditTestTypesB.Click += new System.EventHandler(this.EditTestTypesB_Click);
+            // 
+            // RecordsL
+            // 
+            this.RecordsL.AutoSize = true;
+            this.RecordsL.BackColor = System.Drawing.Color.Transparent;
+            this.RecordsL.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RecordsL.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.RecordsL.Location = new System.Drawing.Point(7, 566);
+            this.RecordsL.Name = "RecordsL";
+            this.RecordsL.Size = new System.Drawing.Size(96, 25);
+            this.RecordsL.TabIndex = 39;
+            this.RecordsL.Text = "Records";
+            // 
             // ManageTestTypes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -130,10 +131,14 @@
             this.ClientSize = new System.Drawing.Size(1218, 637);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.RecordsL);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ManageTestTypes";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Manage Test Types";
+            this.Load += new System.EventHandler(this.ManageTestTypes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -145,9 +150,9 @@
 
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label RecordsL;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem editApplicationTypeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem EditTestTypesB;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
