@@ -50,7 +50,7 @@ namespace DrivingLicenseManagement
 
         private void CurrentUserInfo_Click(object sender, EventArgs e)
         {
-            UserInfoForm userInfoForm = new UserInfoForm(DLMHelper.CurrentUser);
+            UserInfoForm userInfoForm = new UserInfoForm(DLMHelper.CurrentUser.PersonID);
             userInfoForm.ShowDialog();
         }
 

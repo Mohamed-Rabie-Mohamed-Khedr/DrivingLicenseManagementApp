@@ -28,32 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.personInfo1 = new DrivingLicenseManagement.PersonInfo();
-            this.user_Info1 = new DrivingLicenseManagement.User_Info();
             this.SuspendLayout();
-            // 
-            // personInfo1
-            // 
-            this.personInfo1.AutoSize = true;
-            this.personInfo1.BackColor = System.Drawing.Color.Transparent;
-            this.personInfo1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.personInfo1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.personInfo1.Location = new System.Drawing.Point(0, 0);
-            this.personInfo1.Margin = new System.Windows.Forms.Padding(4);
-            this.personInfo1.Name = "personInfo1";
-            this.personInfo1.Size = new System.Drawing.Size(1295, 334);
-            this.personInfo1.TabIndex = 15;
-            // 
-            // user_Info1
-            // 
-            this.user_Info1.AutoSize = true;
-            this.user_Info1.BackColor = System.Drawing.Color.Transparent;
-            this.user_Info1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.user_Info1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.user_Info1.Location = new System.Drawing.Point(0, 457);
-            this.user_Info1.Name = "user_Info1";
-            this.user_Info1.Size = new System.Drawing.Size(1295, 224);
-            this.user_Info1.TabIndex = 16;
             // 
             // UserInfoForm
             // 
@@ -61,18 +36,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1295, 681);
-            this.Controls.Add(this.user_Info1);
-            this.Controls.Add(this.personInfo1);
             this.Name = "UserInfoForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "User Info";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private PersonInfo personInfo1;
-        private User_Info user_Info1;
     }
 }

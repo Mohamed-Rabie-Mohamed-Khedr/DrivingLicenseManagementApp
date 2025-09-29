@@ -52,7 +52,7 @@
             // SaveB
             // 
             this.SaveB.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveB.Location = new System.Drawing.Point(391, 344);
+            this.SaveB.Location = new System.Drawing.Point(389, 236);
             this.SaveB.Name = "SaveB";
             this.SaveB.Size = new System.Drawing.Size(97, 34);
             this.SaveB.TabIndex = 28;
@@ -62,7 +62,7 @@
             // 
             // ConfirmPasswordTB
             // 
-            this.ConfirmPasswordTB.Location = new System.Drawing.Point(193, 261);
+            this.ConfirmPasswordTB.Location = new System.Drawing.Point(193, 186);
             this.ConfirmPasswordTB.Name = "ConfirmPasswordTB";
             this.ConfirmPasswordTB.PasswordChar = '*';
             this.ConfirmPasswordTB.Size = new System.Drawing.Size(177, 20);
@@ -70,7 +70,7 @@
             // 
             // PasswordTB
             // 
-            this.PasswordTB.Location = new System.Drawing.Point(193, 206);
+            this.PasswordTB.Location = new System.Drawing.Point(193, 131);
             this.PasswordTB.Name = "PasswordTB";
             this.PasswordTB.PasswordChar = '*';
             this.PasswordTB.Size = new System.Drawing.Size(177, 20);
@@ -78,7 +78,7 @@
             // 
             // CurrentPasswordTB
             // 
-            this.CurrentPasswordTB.Location = new System.Drawing.Point(193, 151);
+            this.CurrentPasswordTB.Location = new System.Drawing.Point(193, 76);
             this.CurrentPasswordTB.Name = "CurrentPasswordTB";
             this.CurrentPasswordTB.PasswordChar = '*';
             this.CurrentPasswordTB.Size = new System.Drawing.Size(177, 20);
@@ -89,7 +89,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(2, 262);
+            this.label5.Location = new System.Drawing.Point(2, 187);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(156, 19);
             this.label5.TabIndex = 23;
@@ -100,7 +100,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(71, 206);
+            this.label4.Location = new System.Drawing.Point(71, 131);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(87, 19);
             this.label4.TabIndex = 22;
@@ -111,7 +111,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(4, 151);
+            this.label3.Location = new System.Drawing.Point(4, 76);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(154, 19);
             this.label3.TabIndex = 21;
@@ -132,7 +132,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Name = "ChangePassword";
-            this.Size = new System.Drawing.Size(489, 379);
+            this.Size = new System.Drawing.Size(489, 280);
             this.ResumeLayout(false);
             this.PerformLayout();
 

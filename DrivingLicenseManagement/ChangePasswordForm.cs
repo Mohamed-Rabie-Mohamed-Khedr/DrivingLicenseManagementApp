@@ -15,8 +15,8 @@ namespace DrivingLicenseManagement
         public ChangePasswordForm(User user)
         {
             InitializeComponent();
-            personInfo1.LoadPerson(user.PersonID);
-            user_Info1.LoadUser(user);
+            User_Info user_Info1 = new User_Info(user.PersonID) { Dock = DockStyle.Top };
+            Controls.Add(user_Info1);
             changePassword1.CUser = user;
         }
     }
