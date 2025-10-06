@@ -32,9 +32,7 @@ namespace DrivingLicenseManagement
                 MessageBox.Show("Please Select Person First", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
-            {
                 changePassword1.CurrentPersonID = user_Info1.PersonIDToUpdate;
-            }
         }
         private void Next_Click(object sender, EventArgs e)
         {

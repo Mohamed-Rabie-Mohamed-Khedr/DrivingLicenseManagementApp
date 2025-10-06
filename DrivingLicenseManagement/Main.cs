@@ -65,5 +65,17 @@ namespace DrivingLicenseManagement
             ManageTestTypes mtt = new ManageTestTypes();
             mtt.ShowDialog();
         }
+
+        private void LocalLicenseB_Click(object sender, EventArgs e)
+        {
+            LocalLicenseForm localLicenseForm = new LocalLicenseForm();
+            localLicenseForm.ShowDialog();
+        }
+
+        private void LocalDrivingLicenseApplicationsB_Click(object sender, EventArgs e)
+        {
+            ManageLocalDrivingLicenseApplications mldlp = new ManageLocalDrivingLicenseApplications();
+            mldlp.ShowDialog();
+        }
     }
 }

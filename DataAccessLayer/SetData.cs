@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
 
 public class SetData
 {
@@ -211,6 +212,93 @@ public class SetData
             command.Parameters.AddWithValue("@TestTypeDescription", testType.TestTypeDescription);
             command.Parameters.AddWithValue("@TestTypeFees", testType.TestTypeFees);
             command.Parameters.AddWithValue("@TestTypeID", testType.TestTypeID);
+            bool result = command.ExecuteNonQuery() > 0;
+            connection.Close();
+            return result;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool AddLDLApp(ref LDLApp app)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(
+            @"insert into Applications (ApplicantPersonID, ApplicationDate, ApplicationTypeID,
+            ApplicationStatus, LastStatusDate, PaidFees, CreatedByUserID) values
+            (@ApplicantPersonID, @ApplicationDate, @ApplicationTypeID,
+            @ApplicationStatus, @LastStatusDate, @PaidFees, @CreatedByUserID);
+            select SCOPE_IDENTITY();", connection);
+            command.Parameters.AddWithValue("@ApplicationDate", app.ApplicationDate);
+            command.Parameters.AddWithValue("@ApplicationTypeID", app.ApplicationTypeID);
+            command.Parameters.AddWithValue("@ApplicantPersonID", app.ApplicantPersonID);
+            command.Parameters.AddWithValue("@ApplicationStatus", app.ApplicationStatus);
+            command.Parameters.AddWithValue("@LastStatusDate", app.LastStatusDate);
+            command.Parameters.AddWithValue("@PaidFees", app.PaidFees);
+            command.Parameters.AddWithValue("@CreatedByUserID", app.CreatedByUserID);
+            app.ApplicationID = Convert.ToInt32(command.ExecuteScalar());
+
+            command.CommandText = @"insert into LocalDrivingLicenseApplications
+            (ApplicationID, LicenseClassID) values (@ApplicationID, @LicenseClassID);
+            select SCOPE_IDENTITY();";
+            command.Parameters.AddWithValue("@ApplicationID", app.ApplicationID);
+            command.Parameters.AddWithValue("@LicenseClassID", app.LicenseClassID);
+            app.LDLAppID = Convert.ToInt32(command.ExecuteScalar());
+            connection.Close();
+            return app.LDLAppID > 0;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+
+    public static bool DeleteLDLApp(ref int LdLAppID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(@"
+            DECLARE @AppID INT;
+
+            SELECT @AppID = ApplicationID 
+            FROM LocalDrivingLicenseApplications
+            WHERE LocalDrivingLicenseApplicationID = @LdLAppID;
+
+            DELETE FROM LocalDrivingLicenseApplications 
+            WHERE LocalDrivingLicenseApplicationID = @LdLAppID;
+
+            DELETE FROM Applications 
+            WHERE ApplicationID = @AppID;
+            ", sqlConnection);
+            command.Parameters.Add("@LdLAppID", SqlDbType.Int).Value = LdLAppID;
+            bool result = command.ExecuteNonQuery() == 2;
+            sqlConnection.Close();
+            return result;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+
+    public static bool UpdateLDLApp(ref LDLApp app)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(
+            @"update Applications set ApplicationStatus = @ApplicationStatus,
+            LastStatusDate = @LastStatusDate where ApplicationID = @ApplicationID", connection);
+            command.Parameters.AddWithValue("@ApplicationStatus", app.ApplicationStatus);
+            command.Parameters.AddWithValue("@LastStatusDate", app.LastStatusDate);
+            command.Parameters.AddWithValue("@ApplicationID", app.ApplicationID);
             bool result = command.ExecuteNonQuery() > 0;
             connection.Close();
             return result;

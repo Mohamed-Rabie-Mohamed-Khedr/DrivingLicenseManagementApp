@@ -332,4 +332,152 @@ public class GetData
         }
         return null;
     }
+    public static DataTable GetLicenseClasses()
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select * from LicenseClasses", sqlConnection);
+            SqlDataReader sqlDataAdapter = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(sqlDataAdapter);
+            sqlConnection.Close();
+            return dataTable;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static DataTable GetLDLApps(string FilterMode, object FilterValue)
+    {
+        try
+        {
+            string baseSql =
+    @"SELECT 
+    L.LocalDrivingLicenseApplicationID AS LdLAppID, 
+    LC.ClassName AS DrivingClass, 
+    P.NationalNo,
+    (P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName) AS FullName, 
+    A.ApplicationDate,
+    (SELECT COUNT(DISTINCT TA.TestAppointmentID)
+       FROM TestAppointments TA
+       INNER JOIN Tests T ON TA.TestAppointmentID = T.TestAppointmentID
+       WHERE TA.LocalDrivingLicenseApplicationID = L.LocalDrivingLicenseApplicationID
+         AND T.TestResult = 1) AS PassedTests, 
+    CASE WHEN A.ApplicationStatus = 1 THEN 'New'
+         WHEN A.ApplicationStatus = 2 THEN 'Canceled' 
+         WHEN A.ApplicationStatus = 3 THEN 'Completed' END AS Status
+FROM LocalDrivingLicenseApplications L
+LEFT JOIN Applications A ON L.ApplicationID = A.ApplicationID
+LEFT JOIN LicenseClasses LC ON L.LicenseClassID = LC.LicenseClassID
+LEFT JOIN People P ON A.ApplicantPersonID = P.PersonID
+";
+
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            string whereClause = "";
+
+            switch (FilterMode)
+            {
+                case "L.D.L AppID":
+                    whereClause = "WHERE L.LocalDrivingLicenseApplicationID = @FilterValue";
+                    parameters.Add(new SqlParameter("@FilterValue", SqlDbType.Int) { Value = Convert.ToInt32(FilterValue) });
+                    break;
+                case "National No":
+                    whereClause = "WHERE P.NationalNo = @FilterValue";
+                    parameters.Add(new SqlParameter("@FilterValue", SqlDbType.NVarChar, 20) { Value = Convert.ToString(FilterValue) });
+                    break;
+                case "Full Name":
+                    whereClause = "WHERE (P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName) LIKE @FilterValue";
+                    parameters.Add(new SqlParameter("@FilterValue", SqlDbType.NVarChar) { Value = Convert.ToString(FilterValue) + "%" });
+                    break;
+                case "Status":
+                    whereClause = "WHERE A.ApplicationStatus = @FilterValue";
+                    parameters.Add(new SqlParameter("@FilterValue", SqlDbType.TinyInt) { Value = Convert.ToByte(FilterValue) });
+                    break;
+            }
+
+            string groupBy =
+    @"GROUP BY 
+    L.LocalDrivingLicenseApplicationID,
+    LC.ClassName,
+    P.NationalNo,
+    (P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName),
+    A.ApplicationDate,
+    A.ApplicationStatus";
+
+            string finalSql = baseSql + (string.IsNullOrWhiteSpace(whereClause) ? "" : ("\n" + whereClause)) + "\n" + groupBy;
+
+            using (SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString))
+            using (SqlCommand command = new SqlCommand(finalSql, sqlConnection))
+            {
+                command.CommandType = CommandType.Text;
+                if (parameters.Count > 0)
+                    command.Parameters.AddRange(parameters.ToArray());
+
+                sqlConnection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    DataTable dataTable = new DataTable();
+                    dataTable.Load(reader);
+                    return dataTable;
+                }
+            }
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public static LDLApp GetLDLApp(ref int LdLAppID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+            @"select l.*, a.* from LocalDrivingLicenseApplications l inner join Applications a on
+            l.ApplicationID = a.ApplicationID
+            where l.LocalDrivingLicenseApplicationID = @LdLAppID", sqlConnection);
+            command.Parameters.Add("@LdLAppID", SqlDbType.Int).Value = LdLAppID;
+            SqlDataReader sqlDataAdapter = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(sqlDataAdapter);
+            sqlConnection.Close();
+            return dataTable.Rows.Count > 0 ? new LDLApp(dataTable.Rows[0]) : null;
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public static bool LDLAppIsExists(ref int applicantPersonID, ref int licenseClassID)
+    {
+        const string sql =
+        @"SELECT TOP 1 1
+      FROM LocalDrivingLicenseApplications L
+      INNER JOIN Applications A ON L.ApplicationID = A.ApplicationID
+      WHERE A.ApplicantPersonID = @ApplicantPersonID
+        AND L.LicenseClassID = @LicenseClassID
+        AND A.ApplicationStatus != 2"; // 2 = Canceled
+
+        try
+        {
+            using (var conn = new SqlConnection(DAHelper.connectionString))
+            using (var cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@ApplicantPersonID", SqlDbType.Int).Value = applicantPersonID;
+                cmd.Parameters.Add("@LicenseClassID", SqlDbType.Int).Value = licenseClassID;
+
+                conn.Open();
+                var result = cmd.ExecuteScalar();
+                return result != null;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
 }

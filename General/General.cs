@@ -102,3 +102,33 @@ public class TestType
         TestTypeFees = Convert.ToDecimal(dr["TestTypeFees"]);
     }
 }
+
+public class LDLApp
+{
+    public int LDLAppID { get; set; }
+    public int ApplicationID { get; set; }
+    public int LicenseClassID { get; set; }
+    public int ApplicantPersonID { get; set; }
+    public DateTime ApplicationDate { get; set; }
+    public int ApplicationTypeID { get; set; }
+    public byte ApplicationStatus { get; set; }
+    public DateTime LastStatusDate { get; set; }
+    public decimal PaidFees { get; set; }
+    public int CreatedByUserID { get; set; }
+
+    public LDLApp() { }
+
+    public LDLApp(DataRow dr)
+    {
+        LDLAppID = Convert.ToInt32(dr["LocalDrivingLicenseApplicationID"]);
+        ApplicationID = Convert.ToInt32(dr["ApplicationID"]);
+        LicenseClassID = Convert.ToInt32(dr["LicenseClassID"]);
+        ApplicantPersonID = Convert.ToInt32(dr["ApplicantPersonID"]);
+        ApplicationDate = Convert.ToDateTime(dr["ApplicationDate"]);
+        ApplicationTypeID = Convert.ToInt32(dr["ApplicationTypeID"]);
+        ApplicationStatus = Convert.ToByte(dr["ApplicationStatus"]);
+        LastStatusDate = Convert.ToDateTime(dr["LastStatusDate"]);
+        PaidFees = Convert.ToDecimal(dr["PaidFees"]);
+        CreatedByUserID = Convert.ToInt32(dr["CreatedByUserID"]);
+    }
+}

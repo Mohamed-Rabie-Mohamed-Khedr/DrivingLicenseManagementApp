@@ -231,6 +231,12 @@
     <Compile Include="EditTestTypes.Designer.cs">
       <DependentUpon>EditTestTypes.cs</DependentUpon>
     </Compile>
+    <Compile Include="LocalLicenseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LocalLicenseForm.Designer.cs">
+      <DependentUpon>LocalLicenseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LOGIN.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -248,6 +254,12 @@
     </Compile>
     <Compile Include="ManageApplicationTypes.Designer.cs">
       <DependentUpon>ManageApplicationTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageLocalDrivingLicenseApplications.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageLocalDrivingLicenseApplications.Designer.cs">
+      <DependentUpon>ManageLocalDrivingLicenseApplications.cs</DependentUpon>
     </Compile>
     <Compile Include="ManagePeople.cs">
       <SubType>Form</SubType>
@@ -317,6 +329,9 @@
     <EmbeddedResource Include="EditTestTypes.resx">
       <DependentUpon>EditTestTypes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LocalLicenseForm.resx">
+      <DependentUpon>LocalLicenseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LOGIN.resx">
       <DependentUpon>LOGIN.cs</DependentUpon>
     </EmbeddedResource>
@@ -325,6 +340,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManageApplicationTypes.resx">
       <DependentUpon>ManageApplicationTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageLocalDrivingLicenseApplications.resx">
+      <DependentUpon>ManageLocalDrivingLicenseApplications.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManagePeople.resx">
       <DependentUpon>ManagePeople.cs</DependentUpon>

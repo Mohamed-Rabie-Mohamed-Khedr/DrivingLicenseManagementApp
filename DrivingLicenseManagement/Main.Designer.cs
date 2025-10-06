@@ -32,7 +32,7 @@
             this.applkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drivigLicensesServicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newDrivingLicenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.localLicenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LocalLicenseB = new System.Windows.Forms.ToolStripMenuItem();
             this.intToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newDrivingLicenseToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.replace4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,6 +49,7 @@
             this.CurrentUserInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangePassword = new System.Windows.Forms.ToolStripMenuItem();
             this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LocalDrivingLicenseApplicationsB = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,17 +94,18 @@
             // newDrivingLicenseToolStripMenuItem
             // 
             this.newDrivingLicenseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.localLicenseToolStripMenuItem,
+            this.LocalLicenseB,
             this.intToolStripMenuItem});
             this.newDrivingLicenseToolStripMenuItem.Name = "newDrivingLicenseToolStripMenuItem";
             this.newDrivingLicenseToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.newDrivingLicenseToolStripMenuItem.Text = "New Driving License";
             // 
-            // localLicenseToolStripMenuItem
+            // LocalLicenseB
             // 
-            this.localLicenseToolStripMenuItem.Name = "localLicenseToolStripMenuItem";
-            this.localLicenseToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.localLicenseToolStripMenuItem.Text = "Local License";
+            this.LocalLicenseB.Name = "LocalLicenseB";
+            this.LocalLicenseB.Size = new System.Drawing.Size(183, 22);
+            this.LocalLicenseB.Text = "Local License";
+            this.LocalLicenseB.Click += new System.EventHandler(this.LocalLicenseB_Click);
             // 
             // intToolStripMenuItem
             // 
@@ -137,6 +139,8 @@
             // 
             // manageApplicationToolStripMenuItem
             // 
+            this.manageApplicationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LocalDrivingLicenseApplicationsB});
             this.manageApplicationToolStripMenuItem.Name = "manageApplicationToolStripMenuItem";
             this.manageApplicationToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.manageApplicationToolStripMenuItem.Text = "Manage Applications";
@@ -212,6 +216,13 @@
             this.signOutToolStripMenuItem.Text = "Sign Out";
             this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
             // 
+            // LocalDrivingLicenseApplicationsB
+            // 
+            this.LocalDrivingLicenseApplicationsB.Name = "LocalDrivingLicenseApplicationsB";
+            this.LocalDrivingLicenseApplicationsB.Size = new System.Drawing.Size(254, 22);
+            this.LocalDrivingLicenseApplicationsB.Text = "Local Driving License Applications";
+            this.LocalDrivingLicenseApplicationsB.Click += new System.EventHandler(this.LocalDrivingLicenseApplicationsB_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 19F);
@@ -249,12 +260,13 @@
         private System.Windows.Forms.ToolStripMenuItem ManageApplicationTypes;
         private System.Windows.Forms.ToolStripMenuItem ManageTestTypes;
         private System.Windows.Forms.ToolStripMenuItem newDrivingLicenseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem localLicenseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem LocalLicenseB;
         private System.Windows.Forms.ToolStripMenuItem intToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newDrivingLicenseToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem replace4ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rewlToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem retakeTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ChangePassword;
+        private System.Windows.Forms.ToolStripMenuItem LocalDrivingLicenseApplicationsB;
     }
 }

@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class MyDB
+public static class MyDB
 {
+    static DataTable LicenseClassesDT = null;
     static string[] countryNames = null;
     public static bool AddPerson(ref Person person)
     {
@@ -104,5 +105,36 @@ public class MyDB
     public static TestType GetTestType(ref int TestTypeID)
     {
         return GetData.GetTestType(ref TestTypeID);
+    }
+    public static ref DataTable GetLicenseClasses()
+    {
+        if (LicenseClassesDT != null) return ref LicenseClassesDT;
+        LicenseClassesDT = GetData.GetLicenseClasses();
+        return ref LicenseClassesDT;
+    }
+    public static DataTable GetLDLApps(string FilterMode, object FilterValue)
+    {
+        return GetData.GetLDLApps(FilterMode, FilterValue);
+    }
+    public static LDLApp GetLDLApp(int LdLAppID)
+    {
+        return GetData.GetLDLApp(ref LdLAppID);
+    }
+    public static bool LDLAppIsExists(int ApplicantPersonID, int LicenseClassID)
+    {
+        return GetData.LDLAppIsExists(ref ApplicantPersonID, ref LicenseClassID);
+    }
+    public static bool AddLDLApp(ref LDLApp app)
+    {
+        if (LDLAppIsExists(app.ApplicantPersonID, app.LicenseClassID)) return false;
+        return SetData.AddLDLApp(ref app);
+    }
+    public static bool DeleteLDLApp(int LdLAppID)
+    {
+        return SetData.DeleteLDLApp(ref LdLAppID);
+    }
+    public static bool UpdateLDLApp(ref LDLApp app)
+    {
+        return SetData.UpdateLDLApp(ref app);
     }
 }
