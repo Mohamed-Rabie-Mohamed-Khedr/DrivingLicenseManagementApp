@@ -5,8 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using static LDLApp;
 
-public class GetData
+public static class GetData
 {
     public static Person GetPerson(ref int PersonID)
     {
@@ -350,31 +352,42 @@ public class GetData
         }
         return null;
     }
+
+    static string LDLAppBaseSQLQuery =
+@"WITH PassedTests AS (
+SELECT TA.LocalDrivingLicenseApplicationID, COUNT(DISTINCT TA.TestAppointmentID) AS PassedCount
+FROM TestAppointments AS TA INNER JOIN Tests AS T ON TA.TestAppointmentID = T.TestAppointmentID
+WHERE (T.TestResult = 1) GROUP BY TA.LocalDrivingLicenseApplicationID)
+
+SELECT L.LocalDrivingLicenseApplicationID AS LdLAppID,
+LC.LicenseClassID,
+LC.ClassName,
+LC.DefaultValidityLength,
+P.NationalNo,
+P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName AS FullName,
+A.*,
+ISNULL(PT.PassedCount, 0) AS PassedTests,
+TT.TestTypeID,
+TT.TestTypeFees,
+CASE WHEN A.ApplicationStatus = 1 THEN 'New'
+WHEN A.ApplicationStatus = 2 THEN 'Canceled'
+WHEN A.ApplicationStatus = 3 THEN 'Completed' END AS Status,
+Users.UserName,
+AT.ApplicationTypeTitle
+FROM            Users INNER JOIN
+Applications AS A ON Users.UserID = A.CreatedByUserID INNER JOIN
+ApplicationTypes AS AT ON A.ApplicationTypeID = AT.ApplicationTypeID LEFT OUTER JOIN
+People AS P ON A.ApplicantPersonID = P.PersonID RIGHT OUTER JOIN
+LocalDrivingLicenseApplications AS L ON A.ApplicationID = L.ApplicationID LEFT OUTER JOIN
+LicenseClasses AS LC ON L.LicenseClassID = LC.LicenseClassID LEFT OUTER JOIN
+PassedTests AS PT ON PT.LocalDrivingLicenseApplicationID = L.LocalDrivingLicenseApplicationID LEFT OUTER JOIN
+TestTypes AS TT ON TT.TestTypeID = ISNULL(PT.PassedCount, 0) + 1
+";
+
     public static DataTable GetLDLApps(string FilterMode, object FilterValue)
     {
         try
         {
-            string baseSql =
-    @"SELECT 
-    L.LocalDrivingLicenseApplicationID AS LdLAppID, 
-    LC.ClassName AS DrivingClass, 
-    P.NationalNo,
-    (P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName) AS FullName, 
-    A.ApplicationDate,
-    (SELECT COUNT(DISTINCT TA.TestAppointmentID)
-       FROM TestAppointments TA
-       INNER JOIN Tests T ON TA.TestAppointmentID = T.TestAppointmentID
-       WHERE TA.LocalDrivingLicenseApplicationID = L.LocalDrivingLicenseApplicationID
-         AND T.TestResult = 1) AS PassedTests, 
-    CASE WHEN A.ApplicationStatus = 1 THEN 'New'
-         WHEN A.ApplicationStatus = 2 THEN 'Canceled' 
-         WHEN A.ApplicationStatus = 3 THEN 'Completed' END AS Status
-FROM LocalDrivingLicenseApplications L
-LEFT JOIN Applications A ON L.ApplicationID = A.ApplicationID
-LEFT JOIN LicenseClasses LC ON L.LicenseClassID = LC.LicenseClassID
-LEFT JOIN People P ON A.ApplicantPersonID = P.PersonID
-";
-
             List<SqlParameter> parameters = new List<SqlParameter>();
             string whereClause = "";
 
@@ -398,16 +411,7 @@ LEFT JOIN People P ON A.ApplicantPersonID = P.PersonID
                     break;
             }
 
-            string groupBy =
-    @"GROUP BY 
-    L.LocalDrivingLicenseApplicationID,
-    LC.ClassName,
-    P.NationalNo,
-    (P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName),
-    A.ApplicationDate,
-    A.ApplicationStatus";
-
-            string finalSql = baseSql + (string.IsNullOrWhiteSpace(whereClause) ? "" : ("\n" + whereClause)) + "\n" + groupBy;
+            string finalSql = LDLAppBaseSQLQuery + (string.IsNullOrWhiteSpace(whereClause) ? "" : ("\n" + whereClause));
 
             using (SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString))
             using (SqlCommand command = new SqlCommand(finalSql, sqlConnection))
@@ -434,12 +438,10 @@ LEFT JOIN People P ON A.ApplicantPersonID = P.PersonID
     {
         try
         {
+            string FQ = LDLAppBaseSQLQuery + "\nWHERE L.LocalDrivingLicenseApplicationID = @LdLAppID\n";
             SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
-            SqlCommand command = new SqlCommand(
-            @"select l.*, a.* from LocalDrivingLicenseApplications l inner join Applications a on
-            l.ApplicationID = a.ApplicationID
-            where l.LocalDrivingLicenseApplicationID = @LdLAppID", sqlConnection);
+            SqlCommand command = new SqlCommand(FQ, sqlConnection);
             command.Parameters.Add("@LdLAppID", SqlDbType.Int).Value = LdLAppID;
             SqlDataReader sqlDataAdapter = command.ExecuteReader();
             DataTable dataTable = new DataTable();
@@ -468,7 +470,7 @@ LEFT JOIN People P ON A.ApplicantPersonID = P.PersonID
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.Add("@ApplicantPersonID", SqlDbType.Int).Value = applicantPersonID;
-                cmd.Parameters.Add("@LicenseClassID", SqlDbType.Int).Value = licenseClassID;
+                cmd.Parameters.Add("@LicenseClassID", SqlDbType.TinyInt).Value = licenseClassID;
 
                 conn.Open();
                 var result = cmd.ExecuteScalar();
@@ -479,5 +481,287 @@ LEFT JOIN People P ON A.ApplicantPersonID = P.PersonID
         {
             return false;
         }
+    }
+    public static DataTable GetTestAppointments(ref int ldLAppID, ref byte TestTypeID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+            @"select * from TestAppointments where LocalDrivingLicenseApplicationID = @ldLAppID
+            and TestTypeID = @TestTypeID", sqlConnection);
+            command.Parameters.Add("@ldLAppID", SqlDbType.Int).Value = ldLAppID;
+            command.Parameters.Add("@TestTypeID", SqlDbType.Int).Value = TestTypeID;
+            SqlDataReader sqlDataAdapter = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(sqlDataAdapter);
+            sqlConnection.Close();
+            return dataTable;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static TestAppointment GetTestAppointment(ref int TestAppointmentID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+            @"select * from TestAppointments where TestAppointmentID = @TestAppointmentID", sqlConnection);
+            command.Parameters.Add("@TestAppointmentID", SqlDbType.Int).Value = TestAppointmentID;
+            SqlDataReader sqlDataAdapter = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(sqlDataAdapter);
+            sqlConnection.Close();
+            return dataTable.Rows.Count > 0 ? new TestAppointment(dataTable.Rows[0]) : null;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static bool TestAppointmentIsExists(ref int ldLAppID, ref int TestTypeID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+            @"select found = '1' from TestAppointments where LocalDrivingLicenseApplicationID = @ldLAppID
+            and TestTypeID = @TestTypeID and IsLocked = 0", sqlConnection);
+            command.Parameters.Add("@ldLAppID", SqlDbType.Int).Value = ldLAppID;
+            command.Parameters.Add("@TestTypeID", SqlDbType.Int).Value = TestTypeID;
+            object found = command.ExecuteScalar();
+            sqlConnection.Close();
+            return found == null ? false : true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool TestIsPassed(ref int ldLAppID, ref int TestTypeID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+            @"select found = '1' from TestAppointments TA INNER JOIN Tests T
+            ON TA.TestAppointmentID = T.TestAppointmentID
+            where LocalDrivingLicenseApplicationID = @ldLAppID
+            and TestTypeID = @TestTypeID and TestResult = 1", sqlConnection);
+            command.Parameters.Add("@ldLAppID", SqlDbType.Int).Value = ldLAppID;
+            command.Parameters.Add("@TestTypeID", SqlDbType.Int).Value = TestTypeID;
+            object found = command.ExecuteScalar();
+            sqlConnection.Close();
+            return found == null ? false : true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static int GetTestAppointmentIsLockedCount(ref int ldLAppID, ref int TestTypeID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+            @"SELECT Count(*) FROM TestAppointments INNER JOIN Tests ON
+            TestAppointments.TestAppointmentID = Tests.TestAppointmentID
+            where (LocalDrivingLicenseApplicationID = @ldLAppID AND TestTypeID = @TestTypeID)
+            AND IsLocked = 1", sqlConnection);
+            command.Parameters.Add("@ldLAppID", SqlDbType.Int).Value = ldLAppID;
+            command.Parameters.Add("@TestTypeID", SqlDbType.Int).Value = TestTypeID;
+            int count = Convert.ToInt32(command.ExecuteScalar());
+            sqlConnection.Close();
+            return count;
+        }
+        catch (Exception)
+        {
+        }
+        return -1;
+    }
+    public static DataTable GetDrivers(string FilterMode, object FilterValue)
+    {
+        try
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            string baseQuery =
+@"SELECT DISTINCT
+D.DriverID,
+D.CreatedDate,
+CASE WHEN DATEADD(year, LC.DefaultValidityLength, L.IssueDate) < GETDATE() THEN 0 ELSE 1 END AS ActiveLicenses,
+P.PersonID,
+P.NationalNo,
+P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName AS FullName
+FROM Drivers D
+INNER JOIN People P ON P.PersonID = D.PersonID
+INNER JOIN Licenses L ON D.DriverID = L.DriverID
+INNER JOIN LicenseClasses LC ON L.LicenseClass = LC.LicenseClassID";
+
+            string whereQuery = "";
+
+            switch (FilterMode)
+            {
+                case "Driver ID":
+                    whereQuery = " WHERE D.DriverID = @FilterValue";
+                    parameters.Add(new SqlParameter("@FilterValue", SqlDbType.Int) { Value = Convert.ToInt32(FilterValue) });
+                    break;
+
+                case "Person ID":
+                    whereQuery = " WHERE P.PersonID = @FilterValue";
+                    parameters.Add(new SqlParameter("@FilterValue", SqlDbType.Int) { Value = Convert.ToInt32(FilterValue) });
+                    break;
+
+                case "National No":
+                    whereQuery = " WHERE P.NationalNo LIKE @FilterValue";
+                    parameters.Add(new SqlParameter("@FilterValue", SqlDbType.NVarChar) { Value = FilterValue + "%" });
+                    break;
+
+                case "Full Name":
+                    whereQuery = " WHERE (P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName) LIKE @FilterValue";
+                    parameters.Add(new SqlParameter("@FilterValue", SqlDbType.NVarChar) { Value = FilterValue + "%" });
+                    break;
+            }
+
+            using (SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString))
+            {
+                sqlConnection.Open();
+                using (SqlCommand command = new SqlCommand(baseQuery + whereQuery, sqlConnection))
+                {
+                    command.Parameters.AddRange(parameters.ToArray());
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        return dataTable;
+                    }
+                }
+            }
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public static Driver GetDriver(ref int PersonID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+            @"select * from Drivers where PersonID = @PersonID", sqlConnection);
+            command.Parameters.Add("@PersonID", SqlDbType.Int).Value = PersonID;
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            sqlConnection.Close();
+            return dataTable.Rows.Count == 0 ? null : new Driver(dataTable.Rows[0]);
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static bool LicenseIsExists(ref int LicenseClassID, ref int PersonID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+            @"select found = '1' from Licenses L join Applications A ON L.ApplicationID = A.ApplicationID
+            where LicenseClass = @LicenseClassID AND ApplicantPersonID = @PersonID"
+            , sqlConnection);
+            command.Parameters.Add("@LicenseClassID", SqlDbType.Int).Value = LicenseClassID;
+            command.Parameters.Add("@PersonID", SqlDbType.Int).Value = PersonID;
+            object found = command.ExecuteScalar();
+            sqlConnection.Close();
+            return found == null ? false : true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static DataTable GetPersonLicenseHistory(ref int PersonID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+@"
+SELECT
+L.LicenseID,
+L.ApplicationID,
+LC.ClassName,
+L.IssueDate,
+L.ExpirationDate,
+L.IsActive
+FROM Licenses L INNER JOIN LicenseClasses LC ON L.LicenseClass = LC.LicenseClassID
+INNER JOIN Applications A ON L.ApplicationID = A.ApplicationID
+WHERE A.ApplicantPersonID = @PersonID
+", sqlConnection);
+            command.Parameters.Add("@PersonID", SqlDbType.Int).Value = PersonID;
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            sqlConnection.Close();
+            return dataTable;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static DataTable GetLicenseInfo(ref int LDLAID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(@"
+SELECT
+LC.ClassName,
+L.LicenseID,
+L.DriverID,
+L.IssueDate,
+L.ExpirationDate,
+L.Notes,
+CASE WHEN L.IsActive = 1 THEN 'Yes' ELSE 'No' END AS IsActive,
+ApplicationTypes.ApplicationTypeTitle,
+P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName AS FullName,
+P.NationalNo,
+P.DateOfBirth,
+CASE WHEN P.Gendor = 0 THEN 'Male' ELSE 'Female' END AS Gendor
+FROM
+LocalDrivingLicenseApplications LDLA INNER JOIN
+LicenseClasses LC ON LDLA.LicenseClassID = LC.LicenseClassID INNER JOIN
+Licenses L ON LDLA.ApplicationID = L.ApplicationID INNER JOIN
+Drivers ON L.DriverID = Drivers.DriverID INNER JOIN
+People P ON Drivers.PersonID = P.PersonID INNER JOIN
+Applications ON LDLA.ApplicationID = Applications.ApplicationID INNER JOIN
+ApplicationTypes ON Applications.ApplicationTypeID = ApplicationTypes.ApplicationTypeID
+where LDLA.LocalDrivingLicenseApplicationID = @LDLAID", sqlConnection);
+            command.Parameters.Add("@LDLAID", SqlDbType.Int).Value = LDLAID;
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            sqlConnection.Close();
+            return dataTable;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
     }
 }

@@ -39,13 +39,16 @@
             this.PassedTests = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.showEditApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowAndEditApplicationB = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteApplicationB = new System.Windows.Forms.ToolStripMenuItem();
             this.CancelApplicationB = new System.Windows.Forms.ToolStripMenuItem();
             this.SechduleTestsB = new System.Windows.Forms.ToolStripMenuItem();
-            this.issueDrivingLicenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showLicenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showPersonLicenseHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ScheduleVisionTestB = new System.Windows.Forms.ToolStripMenuItem();
+            this.ScheduleWrittenTestB = new System.Windows.Forms.ToolStripMenuItem();
+            this.ScheduleStreetTestB = new System.Windows.Forms.ToolStripMenuItem();
+            this.IssueDrivingLicenseB = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowLicenseB = new System.Windows.Forms.ToolStripMenuItem();
+            this.PersonLicenseHistoryB = new System.Windows.Forms.ToolStripMenuItem();
             this.RecordsL = new System.Windows.Forms.Label();
             this.FilterByCB = new System.Windows.Forms.ComboBox();
             this.FilterByTB = new System.Windows.Forms.TextBox();
@@ -136,21 +139,23 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showEditApplicationToolStripMenuItem,
+            this.ShowAndEditApplicationB,
             this.DeleteApplicationB,
             this.CancelApplicationB,
             this.SechduleTestsB,
-            this.issueDrivingLicenseToolStripMenuItem,
-            this.showLicenseToolStripMenuItem,
-            this.showPersonLicenseHistoryToolStripMenuItem});
+            this.IssueDrivingLicenseB,
+            this.ShowLicenseB,
+            this.PersonLicenseHistoryB});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(226, 180);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
-            // showEditApplicationToolStripMenuItem
+            // ShowAndEditApplicationB
             // 
-            this.showEditApplicationToolStripMenuItem.Name = "showEditApplicationToolStripMenuItem";
-            this.showEditApplicationToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.showEditApplicationToolStripMenuItem.Text = "Show / Edit Application";
+            this.ShowAndEditApplicationB.Name = "ShowAndEditApplicationB";
+            this.ShowAndEditApplicationB.Size = new System.Drawing.Size(225, 22);
+            this.ShowAndEditApplicationB.Text = "Show / Edit Application";
+            this.ShowAndEditApplicationB.Click += new System.EventHandler(this.ShowAndEditApplicationB_Click);
             // 
             // DeleteApplicationB
             // 
@@ -168,27 +173,60 @@
             // 
             // SechduleTestsB
             // 
+            this.SechduleTestsB.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ScheduleVisionTestB,
+            this.ScheduleWrittenTestB,
+            this.ScheduleStreetTestB});
             this.SechduleTestsB.Name = "SechduleTestsB";
             this.SechduleTestsB.Size = new System.Drawing.Size(225, 22);
             this.SechduleTestsB.Text = "Sechdule Tests";
             // 
-            // issueDrivingLicenseToolStripMenuItem
+            // ScheduleVisionTestB
             // 
-            this.issueDrivingLicenseToolStripMenuItem.Name = "issueDrivingLicenseToolStripMenuItem";
-            this.issueDrivingLicenseToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.issueDrivingLicenseToolStripMenuItem.Text = "Issue Driving License";
+            this.ScheduleVisionTestB.Enabled = false;
+            this.ScheduleVisionTestB.Name = "ScheduleVisionTestB";
+            this.ScheduleVisionTestB.Size = new System.Drawing.Size(187, 22);
+            this.ScheduleVisionTestB.Text = "Schedule Vision Test";
+            this.ScheduleVisionTestB.Click += new System.EventHandler(this.TestB_Click);
             // 
-            // showLicenseToolStripMenuItem
+            // ScheduleWrittenTestB
             // 
-            this.showLicenseToolStripMenuItem.Name = "showLicenseToolStripMenuItem";
-            this.showLicenseToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.showLicenseToolStripMenuItem.Text = "Show License";
+            this.ScheduleWrittenTestB.Enabled = false;
+            this.ScheduleWrittenTestB.Name = "ScheduleWrittenTestB";
+            this.ScheduleWrittenTestB.Size = new System.Drawing.Size(187, 22);
+            this.ScheduleWrittenTestB.Text = "Schedule Written Test";
+            this.ScheduleWrittenTestB.Click += new System.EventHandler(this.TestB_Click);
             // 
-            // showPersonLicenseHistoryToolStripMenuItem
+            // ScheduleStreetTestB
             // 
-            this.showPersonLicenseHistoryToolStripMenuItem.Name = "showPersonLicenseHistoryToolStripMenuItem";
-            this.showPersonLicenseHistoryToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.showPersonLicenseHistoryToolStripMenuItem.Text = "Show Person License History";
+            this.ScheduleStreetTestB.Enabled = false;
+            this.ScheduleStreetTestB.Name = "ScheduleStreetTestB";
+            this.ScheduleStreetTestB.Size = new System.Drawing.Size(187, 22);
+            this.ScheduleStreetTestB.Text = "Schedule Street Test";
+            this.ScheduleStreetTestB.Click += new System.EventHandler(this.TestB_Click);
+            // 
+            // IssueDrivingLicenseB
+            // 
+            this.IssueDrivingLicenseB.Enabled = false;
+            this.IssueDrivingLicenseB.Name = "IssueDrivingLicenseB";
+            this.IssueDrivingLicenseB.Size = new System.Drawing.Size(225, 22);
+            this.IssueDrivingLicenseB.Text = "Issue Driving License";
+            this.IssueDrivingLicenseB.Click += new System.EventHandler(this.IssueDrivingLicenseB_Click);
+            // 
+            // ShowLicenseB
+            // 
+            this.ShowLicenseB.Enabled = false;
+            this.ShowLicenseB.Name = "ShowLicenseB";
+            this.ShowLicenseB.Size = new System.Drawing.Size(225, 22);
+            this.ShowLicenseB.Text = "Show License";
+            this.ShowLicenseB.Click += new System.EventHandler(this.ShowLicenseB_Click);
+            // 
+            // PersonLicenseHistoryB
+            // 
+            this.PersonLicenseHistoryB.Name = "PersonLicenseHistoryB";
+            this.PersonLicenseHistoryB.Size = new System.Drawing.Size(225, 22);
+            this.PersonLicenseHistoryB.Text = "Show Person License History";
+            this.PersonLicenseHistoryB.Click += new System.EventHandler(this.PersonLicenseHistoryB_Click);
             // 
             // RecordsL
             // 
@@ -320,12 +358,15 @@
         private System.Windows.Forms.ComboBox StatusCB;
         private System.Windows.Forms.Button FilterB;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem showEditApplicationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ShowAndEditApplicationB;
         private System.Windows.Forms.ToolStripMenuItem DeleteApplicationB;
         private System.Windows.Forms.ToolStripMenuItem CancelApplicationB;
         private System.Windows.Forms.ToolStripMenuItem SechduleTestsB;
-        private System.Windows.Forms.ToolStripMenuItem issueDrivingLicenseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showLicenseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showPersonLicenseHistoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem IssueDrivingLicenseB;
+        private System.Windows.Forms.ToolStripMenuItem ShowLicenseB;
+        private System.Windows.Forms.ToolStripMenuItem PersonLicenseHistoryB;
+        private System.Windows.Forms.ToolStripMenuItem ScheduleVisionTestB;
+        private System.Windows.Forms.ToolStripMenuItem ScheduleWrittenTestB;
+        private System.Windows.Forms.ToolStripMenuItem ScheduleStreetTestB;
     }
 }

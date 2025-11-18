@@ -12,6 +12,7 @@ namespace DrivingLicenseManagement
 {
     public partial class ManageLocalDrivingLicenseApplications : Form
     {
+        LDLApp ldlApp;
         public ManageLocalDrivingLicenseApplications()
         {
             InitializeComponent();
@@ -53,7 +54,7 @@ namespace DrivingLicenseManagement
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     dataGridView1.Rows.Add(dt.Rows[i]["LDLAppID"],
-                    dt.Rows[i]["DrivingClass"],dt.Rows[i]["NationalNo"], dt.Rows[i]["FullName"],
+                    dt.Rows[i]["ClassName"],dt.Rows[i]["NationalNo"], dt.Rows[i]["FullName"],
                     dt.Rows[i]["ApplicationDate"], dt.Rows[i]["PassedTests"], dt.Rows[i]["Status"]);
                 }
                 RecordsL.Text = "Records: " + dt.Rows.Count.ToString();
@@ -99,8 +100,7 @@ namespace DrivingLicenseManagement
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                LDLApp ldlApp = MyDB.GetLDLApp((int)dataGridView1.SelectedRows[0].Cells["LDLAppID"].Value);
-                ldlApp.ApplicationStatus = 2;
+                ldlApp.ApplicationStatus = "Canceled";
                 ldlApp.LastStatusDate = DateTime.Now;
                 if (MyDB.UpdateLDLApp(ref ldlApp))
                 {
@@ -109,6 +109,68 @@ namespace DrivingLicenseManagement
                 else
                     MessageBox.Show("Failed to cancel", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void ShowAndEditApplicationB_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                LDLAInfoForm lDLAInfoForm = new LDLAInfoForm(ref ldlApp);
+                lDLAInfoForm.ShowDialog();
+                LoadLDLApps();
+            }
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                ldlApp = MyDB.GetLDLApp((int)dataGridView1.SelectedRows[0].Cells["LDLAppID"].Value);
+                if (ldlApp.PassedTests == 0)
+                    SechduleTestsB.DropDownItems[0].Enabled = true;
+                else if (ldlApp.PassedTests == 1)
+                    SechduleTestsB.DropDownItems[1].Enabled = true;
+                else if (ldlApp.PassedTests == 2)
+                    SechduleTestsB.DropDownItems[2].Enabled = true;
+                else if (!MyDB.LicenseIsExists(ldlApp.LicenseClassID, ldlApp.ApplicantPersonID))
+                    IssueDrivingLicenseB.Enabled = true;
+                else
+                {
+                    DeleteApplicationB.Enabled = false;
+                    CancelApplicationB.Enabled = false;
+                    SechduleTestsB.Enabled = false;
+
+                    ShowLicenseB.Enabled = true;
+                }
+            }
+        }
+
+        private void TestB_Click(object sender, EventArgs e)
+        {
+            TestsForm testsForm = new TestsForm(ref ldlApp);
+            testsForm.ShowDialog();
+            LoadLDLApps();
+        }
+
+        private void IssueDrivingLicenseB_Click(object sender, EventArgs e)
+        {
+            IssueDriverLicense issueDriverLicense = new IssueDriverLicense(ref ldlApp);
+            issueDriverLicense.ShowDialog();
+            LoadLDLApps();
+        }
+
+        private void ShowLicenseB_Click(object sender, EventArgs e)
+        {
+            DriverLicenseInfoForm driverLicenseInfoForm = new DriverLicenseInfoForm((int)dataGridView1.SelectedRows[0].Cells["LDLAppID"].Value);
+            driverLicenseInfoForm.ShowDialog();
+        }
+
+        private void PersonLicenseHistoryB_Click(object sender, EventArgs e)
+        {
+            PersonLicenseHistory personLicenseHistory = new PersonLicenseHistory(
+            (int)dataGridView1.SelectedRows[0].Cells["LDLAppID"].Value,
+            ldlApp.ApplicantPersonID);
+            personLicenseHistory.ShowDialog();
         }
     }
 }

@@ -67,7 +67,7 @@ namespace DrivingLicenseManagement
             ldlApp.LicenseClassID = LicenseClassCB.SelectedIndex + 1;
             ldlApp.ApplicationDate = DateTime.Now;
             ldlApp.ApplicationTypeID = 1;
-            ldlApp.ApplicationStatus = 1;
+            ldlApp.ApplicationStatus = "New";
             ldlApp.LastStatusDate = DateTime.Now;
             ldlApp.PaidFees = 15;
             ldlApp.CreatedByUserID = DLMHelper.CurrentUser.UserID;

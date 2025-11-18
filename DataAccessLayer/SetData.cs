@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class SetData
+public static class SetData
 {
     public static bool AddPerson(ref Person person)
     {
@@ -236,7 +236,11 @@ public class SetData
             command.Parameters.AddWithValue("@ApplicationDate", app.ApplicationDate);
             command.Parameters.AddWithValue("@ApplicationTypeID", app.ApplicationTypeID);
             command.Parameters.AddWithValue("@ApplicantPersonID", app.ApplicantPersonID);
-            command.Parameters.AddWithValue("@ApplicationStatus", app.ApplicationStatus);
+            byte status;
+            if (app.ApplicationStatus == "New") status = 1;
+            else if (app.ApplicationStatus == "Canceled") status = 2;
+            else status = 3;
+            command.Parameters.AddWithValue("@ApplicationStatus", status);
             command.Parameters.AddWithValue("@LastStatusDate", app.LastStatusDate);
             command.Parameters.AddWithValue("@PaidFees", app.PaidFees);
             command.Parameters.AddWithValue("@CreatedByUserID", app.CreatedByUserID);
@@ -302,6 +306,150 @@ public class SetData
             bool result = command.ExecuteNonQuery() > 0;
             connection.Close();
             return result;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+
+    public static bool AddTestAppointment(ref TestAppointment ta)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(
+            @"insert into TestAppointments (TestTypeID, LocalDrivingLicenseApplicationID,
+            AppointmentDate, PaidFees, CreatedByUserID, IsLocked) values
+            (@TestTypeID, @LdLAppID, @AppointmentDate, @PaidFees,
+            @CreatedByUserID, @IsLocked); select SCOPE_IDENTITY();", connection);
+            command.Parameters.AddWithValue("@TestTypeID", ta.TestTypeID);
+            command.Parameters.AddWithValue("@LdLAppID", ta.LDLAppID);
+            command.Parameters.AddWithValue("@AppointmentDate", ta.AppointmentDate);
+            command.Parameters.AddWithValue("@PaidFees", ta.PaidFees);
+            command.Parameters.AddWithValue("@CreatedByUserID", ta.CreatedByUserID);
+            command.Parameters.AddWithValue("@IsLocked", ta.IsLocked);
+            ta.TestAppointmentID = Convert.ToInt32(command.ExecuteScalar());
+            connection.Close();
+            return ta.TestAppointmentID > 0;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+
+    public static bool UpdateTestAppointment(ref TestAppointment ta)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(
+            @"update TestAppointments set AppointmentDate = @AppointmentDate,
+            IsLocked = @IsLocked where TestAppointmentID = @TestAppointmentID", connection);
+            command.Parameters.AddWithValue("@AppointmentDate", ta.AppointmentDate);
+            command.Parameters.AddWithValue("@IsLocked", ta.IsLocked);
+            command.Parameters.AddWithValue("@TestAppointmentID", ta.TestAppointmentID);
+            bool result = command.ExecuteNonQuery() > 0;
+            connection.Close();
+            return result;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool UpdateApplicationStatus(ref int AppointmentID, ref byte ApplicationStatus)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+            @"UPDATE Applications SET ApplicationStatus = @ApplicationStatus WHERE ApplicationID = @ApplicationID", sqlConnection);
+            command.Parameters.Add("@ApplicationID", SqlDbType.Int).Value = AppointmentID;
+            command.Parameters.Add("@ApplicationStatus", SqlDbType.TinyInt).Value = ApplicationStatus;
+            bool result = command.ExecuteNonQuery() > 0;
+            sqlConnection.Close();
+            return result;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool AddTest(ref Test tr)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(
+            @"insert into Tests (TestAppointmentID, TestResult, Notes, CreatedByUserID) values
+            (@TestAppointmentID, @TestResult, @Notes, @CreatedByUserID); select SCOPE_IDENTITY();", connection);
+            command.Parameters.AddWithValue("@TestAppointmentID", tr.TestAppointmentID);
+            command.Parameters.AddWithValue("@TestResult", tr.TestResult);
+            command.Parameters.AddWithValue("@Notes", tr.Notes);
+            command.Parameters.AddWithValue("@CreatedByUserID", tr.CreatedByUserID);
+            tr.TestID = Convert.ToInt32(command.ExecuteScalar());
+            connection.Close();
+            return tr.TestID > 0;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool AddDriver(ref Driver dr)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(
+            @"insert into Drivers (PersonID, CreatedByUserID, CreatedDate) values
+            (@PersonID, @CreatedByUserID, @CreatedDate); select SCOPE_IDENTITY();", connection);
+            command.Parameters.AddWithValue("@PersonID", dr.PersonID);
+            command.Parameters.AddWithValue("@CreatedByUserID", dr.CreatedByUserID);
+            command.Parameters.AddWithValue("@CreatedDate", dr.CreatedDate);
+            dr.DriverID = Convert.ToInt32(command.ExecuteScalar());
+            connection.Close();
+            return dr.DriverID > 0;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool AddLicense(ref License lc)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(
+            @"insert into Licenses (ApplicationID,  DriverID, LicenseClass, IssueDate,
+            ExpirationDate, Notes, PaidFees, IsActive, IssueReason, CreatedByUserID)
+            values (@ApplicationID, @DriverID, @LicenseClass, @IssueDate, @ExpirationDate, @Notes,
+            @PaidFees, @IsActive, @IssueReason, @CreatedByUserID); select SCOPE_IDENTITY();",
+            connection);
+            command.Parameters.AddWithValue("@ApplicationID", lc.ApplicationID);
+            command.Parameters.AddWithValue("@DriverID", lc.DriverID);
+            command.Parameters.AddWithValue("@LicenseClass", lc.LicenseClass);
+            command.Parameters.AddWithValue("@IssueDate", lc.IssueDate);
+            command.Parameters.AddWithValue("@ExpirationDate", lc.ExpirationDate);
+            if (string.IsNullOrEmpty(lc.Notes))
+                command.Parameters.AddWithValue("@Notes", DBNull.Value);
+            else command.Parameters.AddWithValue("@Notes", lc.Notes);
+            command.Parameters.AddWithValue("@PaidFees", lc.PaidFees);
+            command.Parameters.AddWithValue("@IsActive", lc.IsActive);
+            command.Parameters.AddWithValue("@IssueReason", lc.IssueReason);
+            command.Parameters.AddWithValue("@CreatedByUserID", lc.CreatedByUserID);
+            lc.LicenseID = Convert.ToInt32(command.ExecuteScalar());
+            connection.Close();
+            return lc.LicenseID > 0;
         }
         catch (Exception)
         {

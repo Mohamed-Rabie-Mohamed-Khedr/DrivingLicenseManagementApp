@@ -206,6 +206,12 @@
     <Compile Include="AddAndUpdateUser.Designer.cs">
       <DependentUpon>AddAndUpdateUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddAndUpdateAppointmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddAndUpdateAppointmentForm.Designer.cs">
+      <DependentUpon>AddAndUpdateAppointmentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChangePassword.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -219,6 +225,18 @@
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DLMHelper.cs" />
+    <Compile Include="DriverLicenseInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DriverLicenseInfo.Designer.cs">
+      <DependentUpon>DriverLicenseInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DriverLicenseInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DriverLicenseInfoForm.Designer.cs">
+      <DependentUpon>DriverLicenseInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditApplicationType.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,6 +248,24 @@
     </Compile>
     <Compile Include="EditTestTypes.Designer.cs">
       <DependentUpon>EditTestTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IssueDriverLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IssueDriverLicense.Designer.cs">
+      <DependentUpon>IssueDriverLicense.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LDLAInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LDLAInfoForm.Designer.cs">
+      <DependentUpon>LDLAInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LDLAInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LDLAInfo.Designer.cs">
+      <DependentUpon>LDLAInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="LocalLicenseForm.cs">
       <SubType>Form</SubType>
@@ -254,6 +290,12 @@
     </Compile>
     <Compile Include="ManageApplicationTypes.Designer.cs">
       <DependentUpon>ManageApplicationTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageDrivers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageDrivers.Designer.cs">
+      <DependentUpon>ManageDrivers.cs</DependentUpon>
     </Compile>
     <Compile Include="ManageLocalDrivingLicenseApplications.cs">
       <SubType>Form</SubType>
@@ -291,8 +333,26 @@
     <Compile Include="PersonInfoForm.Designer.cs">
       <DependentUpon>PersonInfoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PersonLicenseHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PersonLicenseHistory.Designer.cs">
+      <DependentUpon>PersonLicenseHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TakeTestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TakeTestForm.Designer.cs">
+      <DependentUpon>TakeTestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestsForm.Designer.cs">
+      <DependentUpon>TestsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -317,17 +377,35 @@
     <EmbeddedResource Include="AddAndUpdateUser.resx">
       <DependentUpon>AddAndUpdateUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AddAndUpdateAppointmentForm.resx">
+      <DependentUpon>AddAndUpdateAppointmentForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChangePassword.resx">
       <DependentUpon>ChangePassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DriverLicenseInfo.resx">
+      <DependentUpon>DriverLicenseInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DriverLicenseInfoForm.resx">
+      <DependentUpon>DriverLicenseInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditApplicationType.resx">
       <DependentUpon>EditApplicationType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditTestTypes.resx">
       <DependentUpon>EditTestTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IssueDriverLicense.resx">
+      <DependentUpon>IssueDriverLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LDLAInfoForm.resx">
+      <DependentUpon>LDLAInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LDLAInfo.resx">
+      <DependentUpon>LDLAInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LocalLicenseForm.resx">
       <DependentUpon>LocalLicenseForm.cs</DependentUpon>
@@ -340,6 +418,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManageApplicationTypes.resx">
       <DependentUpon>ManageApplicationTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageDrivers.resx">
+      <DependentUpon>ManageDrivers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManageLocalDrivingLicenseApplications.resx">
       <DependentUpon>ManageLocalDrivingLicenseApplications.cs</DependentUpon>
@@ -359,6 +440,9 @@
     <EmbeddedResource Include="PersonInfoForm.resx">
       <DependentUpon>PersonInfoForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PersonLicenseHistory.resx">
+      <DependentUpon>PersonLicenseHistory.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -369,6 +453,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TakeTestForm.resx">
+      <DependentUpon>TakeTestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestsForm.resx">
+      <DependentUpon>TestsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserInfo.resx">
       <DependentUpon>UserInfo.cs</DependentUpon>
     </EmbeddedResource>

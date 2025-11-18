@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static LDLApp;
 
 public static class MyDB
 {
@@ -136,5 +137,75 @@ public static class MyDB
     public static bool UpdateLDLApp(ref LDLApp app)
     {
         return SetData.UpdateLDLApp(ref app);
+    }
+    public static bool AddTestAppointment(ref TestAppointment ta)
+    {
+        return SetData.AddTestAppointment(ref ta);
+    }
+    public static DataTable GetTestAppointments(int ldLAppID, byte TestTypeID)
+    {
+        return GetData.GetTestAppointments(ref ldLAppID, ref TestTypeID);
+    }
+    public static TestAppointment GetTestAppointment(int TestAppointmentID)
+    {
+        return GetData.GetTestAppointment(ref TestAppointmentID);
+    }
+    public static bool TestAppointmentIsExists(int ldLAppID, int TestTypeID)
+    {
+        return GetData.TestAppointmentIsExists(ref ldLAppID, ref TestTypeID);
+    }
+    public static bool UpdateTestAppointment(ref TestAppointment ta)
+    {
+        return SetData.UpdateTestAppointment(ref ta);
+    }
+    public static int GetTestAppointmentIsLockedCount(int ldLAppID, int TestTypeID)
+    {
+        return GetData.GetTestAppointmentIsLockedCount(ref ldLAppID, ref TestTypeID);
+    }
+    public static bool UpdateApplicationStatus(int AppointmentID, byte ApplicationStatus)
+    {
+        return SetData.UpdateApplicationStatus(ref AppointmentID, ref ApplicationStatus);
+    }
+    public static bool AddTest(ref Test tr)
+    {
+        return SetData.AddTest(ref tr);
+    }
+    public static bool TestIsPassed(int ldLAppID, int TestTypeID)
+    {
+        return GetData.TestIsPassed(ref ldLAppID, ref TestTypeID);
+    }
+    public static DataTable GetDrivers(string FilterMode, object FilterValue)
+    {
+        return GetData.GetDrivers(FilterMode, FilterValue);
+    }
+    public static Driver GetDriver(int PersonID)
+    {
+        return GetData.GetDriver(ref PersonID);
+    }
+    public static bool AddDriver(ref Driver driver)
+    {
+        Driver d = GetDriver(driver.PersonID);
+        if (d != null)
+        {
+            driver.DriverID = d.DriverID;
+            return true;
+        }
+        return SetData.AddDriver(ref driver);
+    }
+    public static bool AddLicense(ref License lc)
+    {
+        return SetData.AddLicense(ref lc);
+    }
+    public static bool LicenseIsExists(int LicenseClassID, int PersonID)
+    {
+        return GetData.LicenseIsExists(ref LicenseClassID, ref PersonID);
+    }
+    public static DataTable GetLicenseInfo(int LDLAID)
+    {
+        return GetData.GetLicenseInfo(ref LDLAID);
+    }
+    public static DataTable GetPersonLicenseHistory(int PersonID)
+    {
+        return GetData.GetPersonLicenseHistory(ref PersonID);
     }
 }

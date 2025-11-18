@@ -77,5 +77,11 @@ namespace DrivingLicenseManagement
             ManageLocalDrivingLicenseApplications mldlp = new ManageLocalDrivingLicenseApplications();
             mldlp.ShowDialog();
         }
+
+        private void DriversB_Click(object sender, EventArgs e)
+        {
+            ManageDrivers md = new ManageDrivers();
+            md.ShowDialog();
+        }
     }
 }
