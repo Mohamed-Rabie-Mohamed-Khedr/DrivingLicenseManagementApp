@@ -12,13 +12,15 @@ namespace DrivingLicenseManagement
 {
     public partial class PersonLicenseHistory : Form
     {
-        public PersonLicenseHistory(int LDLAID, int PersonID)
+        public PersonLicenseHistory(int LicenseID, int PersonID, bool  tab1IsActive = true)
         {
             InitializeComponent();
-            DriverLicenseInfo driverLicenseInfo = new DriverLicenseInfo(LDLAID)
+            if (!tab1IsActive) tabControl1.SelectedIndex = 1;
+            DriverInfo driverLicenseInfo = new DriverInfo()
             {
                 Dock = DockStyle.Top
             };
+            driverLicenseInfo.LoadDriverInfo(LicenseID);
             this.Controls.Add(driverLicenseInfo);
 
             DataTable d = MyDB.GetPersonLicenseHistory(PersonID);
@@ -28,6 +30,9 @@ namespace DrivingLicenseManagement
                 d.Rows[i]["ClassName"], d.Rows[i]["IssueDate"], d.Rows[i]["ExpirationDate"],
                 d.Rows[i]["IsActive"]);
             }
+            InternationalLicense il = MyDB.GetInternationalLicense(LicenseID);
+            if (il != null)
+                dataGridView2.Rows.Add(il.InternationalLicenseID, il.ApplicationID, il.ClassName, il.IssueDate, il.ExpirationDate, il.IsActive);
         }
     }
 }

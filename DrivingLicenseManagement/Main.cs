@@ -83,5 +83,17 @@ namespace DrivingLicenseManagement
             ManageDrivers md = new ManageDrivers();
             md.ShowDialog();
         }
+
+        private void InternationalLicenseB_Click(object sender, EventArgs e)
+        {
+            InternationalLicenseApplication ilp = new InternationalLicenseApplication();
+            ilp.ShowDialog();
+        }
+
+        private void internationalDriverLicenseApplicationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ManageInternationalDriverLicenseApplications m = new ManageInternationalDriverLicenseApplications();
+            m.ShowDialog();
+        }
     }
 }

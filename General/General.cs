@@ -107,6 +107,7 @@ public class LDLApp
 {
     public int LDLAppID { get; set; }
     public int ApplicationID { get; set; }
+    public int LicenseID { get; set; }
     public int LicenseClassID { get; set; }
     public string LicenseClassName { get; set; }
     public byte DefaultValidityLength { get; set; }
@@ -130,6 +131,7 @@ public class LDLApp
     {
         LDLAppID = Convert.ToInt32(dr["LdLAppID"]);
         ApplicationID = Convert.ToInt32(dr["ApplicationID"]);
+        LicenseID = Convert.ToInt32(dr["LicenseID"]);
         LicenseClassID = Convert.ToInt32(dr["LicenseClassID"]);
         LicenseClassName = dr["ClassName"].ToString();
         DefaultValidityLength = Convert.ToByte(dr["DefaultValidityLength"]);
@@ -216,6 +218,7 @@ public class License
     public int ApplicationID { get; set; }
     public int DriverID { get; set; }
     public int LicenseClass { get; set; }
+    public string ClassName { get; set; }
     public DateTime IssueDate { get; set; }
     public DateTime ExpirationDate { get; set; }
     public string Notes { get; set; }
@@ -231,13 +234,39 @@ public class License
         ApplicationID = Convert.ToInt32(dr["ApplicationID"]);
         DriverID = Convert.ToInt32(dr["DriverID"]);
         LicenseClass = Convert.ToInt32(dr["LicenseClass"]);
+        ClassName = dr["ClassName"].ToString();
         IssueDate = Convert.ToDateTime(dr["IssueDate"]);
         ExpirationDate = Convert.ToDateTime(dr["ExpirationDate"]);
         if (dr["Notes"] != DBNull.Value)
             Notes = dr["Notes"].ToString();
         PaidFees = Convert.ToDecimal(dr["PaidFees"]);
-        IsActive = ExpirationDate < DateTime.Now;
+        IsActive = ExpirationDate > DateTime.Now;
         IssueReason = Convert.ToByte(dr["IssueReason"]);
         CreatedByUserID = Convert.ToInt32(dr["CreatedByUserID"]);
+    }
+}
+public class InternationalLicense
+{
+    public int InternationalLicenseID { get; set; }
+    public int ApplicationID { get; set; }
+    public int DriverID { get; set; }
+    public int IssuedUsingLocalLicenseID { get; set; }
+    public int CreatedByUserID { get; set; }
+    public string ClassName { get; set; }
+    public DateTime IssueDate { get; set; }
+    public DateTime ExpirationDate { get; set; }
+    public bool IsActive { get; set; }
+    public InternationalLicense() { }
+    public InternationalLicense(DataRow dr)
+    {
+        InternationalLicenseID = Convert.ToInt32(dr["InternationalLicenseID"]);
+        ApplicationID = Convert.ToInt32(dr["ApplicationID"]);
+        DriverID = Convert.ToInt32(dr["DriverID"]);
+        IssuedUsingLocalLicenseID = Convert.ToInt32(dr["IssuedUsingLocalLicenseID"]);
+        CreatedByUserID = Convert.ToInt32(dr["CreatedByUserID"]);
+        ClassName = dr["ClassName"].ToString();
+        IssueDate = Convert.ToDateTime(dr["IssueDate"]);
+        ExpirationDate = Convert.ToDateTime(dr["ExpirationDate"]);
+        IsActive = ExpirationDate < DateTime.Now;
     }
 }

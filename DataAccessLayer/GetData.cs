@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static LDLApp;
 
 public static class GetData
 {
@@ -28,6 +27,23 @@ public static class GetData
         {
         }
         return null;
+    }
+    public static int GetPersonIDByDriver(ref int DriverID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select PersonID from Drivers where DriverID = @DriverID", sqlConnection);
+            command.Parameters.Add("@DriverID", SqlDbType.Int).Value = DriverID;
+            int PersonID = Convert.ToInt32(command.ExecuteScalar());
+            sqlConnection.Close();
+            return PersonID;
+        }
+        catch (Exception)
+        {
+        }
+        return -1;
     }
     public static int GetPeopleCount()
     {
@@ -354,34 +370,24 @@ public static class GetData
     }
 
     static string LDLAppBaseSQLQuery =
-@"WITH PassedTests AS (
-SELECT TA.LocalDrivingLicenseApplicationID, COUNT(DISTINCT TA.TestAppointmentID) AS PassedCount
-FROM TestAppointments AS TA INNER JOIN Tests AS T ON TA.TestAppointmentID = T.TestAppointmentID
-WHERE (T.TestResult = 1) GROUP BY TA.LocalDrivingLicenseApplicationID)
-
-SELECT L.LocalDrivingLicenseApplicationID AS LdLAppID,
-LC.LicenseClassID,
-LC.ClassName,
-LC.DefaultValidityLength,
-P.NationalNo,
-P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName AS FullName,
-A.*,
-ISNULL(PT.PassedCount, 0) AS PassedTests,
-TT.TestTypeID,
-TT.TestTypeFees,
-CASE WHEN A.ApplicationStatus = 1 THEN 'New'
-WHEN A.ApplicationStatus = 2 THEN 'Canceled'
-WHEN A.ApplicationStatus = 3 THEN 'Completed' END AS Status,
-Users.UserName,
-AT.ApplicationTypeTitle
-FROM            Users INNER JOIN
-Applications AS A ON Users.UserID = A.CreatedByUserID INNER JOIN
-ApplicationTypes AS AT ON A.ApplicationTypeID = AT.ApplicationTypeID LEFT OUTER JOIN
-People AS P ON A.ApplicantPersonID = P.PersonID RIGHT OUTER JOIN
-LocalDrivingLicenseApplications AS L ON A.ApplicationID = L.ApplicationID LEFT OUTER JOIN
-LicenseClasses AS LC ON L.LicenseClassID = LC.LicenseClassID LEFT OUTER JOIN
-PassedTests AS PT ON PT.LocalDrivingLicenseApplicationID = L.LocalDrivingLicenseApplicationID LEFT OUTER JOIN
-TestTypes AS TT ON TT.TestTypeID = ISNULL(PT.PassedCount, 0) + 1
+@"WITH PassedTests AS (SELECT        TA.LocalDrivingLicenseApplicationID, COUNT(DISTINCT TA.TestAppointmentID) AS PassedCount
+                                                   FROM            TestAppointments AS TA INNER JOIN
+                                                                             Tests AS T ON TA.TestAppointmentID = T.TestAppointmentID
+                                                   WHERE        (T.TestResult = 1)
+                                                   GROUP BY TA.LocalDrivingLicenseApplicationID)
+    SELECT        L.LocalDrivingLicenseApplicationID AS LdLAppID, LC.LicenseClassID, LC.ClassName, LC.DefaultValidityLength, P.NationalNo, P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName AS FullName, 
+                              A.ApplicationID, A.ApplicantPersonID, A.ApplicationDate, A.ApplicationTypeID, A.ApplicationStatus, A.LastStatusDate, A.PaidFees, A.CreatedByUserID, ISNULL(PT.PassedCount, 0) AS PassedTests, TT.TestTypeID, 
+                              TT.TestTypeFees, CASE WHEN A.ApplicationStatus = 1 THEN 'New' WHEN A.ApplicationStatus = 2 THEN 'Canceled' WHEN A.ApplicationStatus = 3 THEN 'Completed' END AS Status, Users.UserName, AT.ApplicationTypeTitle, 
+                              Licenses.LicenseID
+     FROM            Users INNER JOIN
+                              Applications AS A ON Users.UserID = A.CreatedByUserID INNER JOIN
+                              ApplicationTypes AS AT ON A.ApplicationTypeID = AT.ApplicationTypeID INNER JOIN
+                              People AS P ON A.ApplicantPersonID = P.PersonID INNER JOIN
+                              LocalDrivingLicenseApplications AS L ON A.ApplicationID = L.ApplicationID INNER JOIN
+                              LicenseClasses AS LC ON L.LicenseClassID = LC.LicenseClassID LEFT JOIN
+                              Licenses ON A.ApplicationID = Licenses.ApplicationID LEFT OUTER JOIN
+                              PassedTests AS PT ON PT.LocalDrivingLicenseApplicationID = L.LocalDrivingLicenseApplicationID LEFT OUTER JOIN
+                              TestTypes AS TT ON TT.TestTypeID = ISNULL(PT.PassedCount, 0) + 1
 ";
 
     public static DataTable GetLDLApps(string FilterMode, object FilterValue)
@@ -723,7 +729,60 @@ WHERE A.ApplicantPersonID = @PersonID
         }
         return null;
     }
-    public static DataTable GetLicenseInfo(ref int LDLAID)
+    public static License GetLicense(ref int licenseID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+            @"SELECT        Licenses.*, LicenseClasses.ClassName
+FROM            Licenses INNER JOIN
+                         LicenseClasses ON Licenses.LicenseClass = LicenseClasses.LicenseClassID
+WHERE        (Licenses.LicenseID = @licenseID)", sqlConnection);
+            command.Parameters.Add("@licenseID", SqlDbType.Int).Value = licenseID;
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            sqlConnection.Close();
+            return dataTable.Rows.Count == 0 ? null : new License(dataTable.Rows[0]);
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static InternationalLicense GetInternationalLicense(ref int licenseID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(@"SELECT
+InternationalLicenses.InternationalLicenseID,
+InternationalLicenses.ApplicationID,
+InternationalLicenses.IssueDate,
+InternationalLicenses.ExpirationDate,
+InternationalLicenses.IsActive,
+LicenseClasses.ClassName,
+InternationalLicenses.DriverID, InternationalLicenses.IssuedUsingLocalLicenseID, InternationalLicenses.CreatedByUserID
+FROM            InternationalLicenses INNER JOIN
+                         Licenses ON InternationalLicenses.IssuedUsingLocalLicenseID = Licenses.LicenseID INNER JOIN
+                         LicenseClasses ON Licenses.LicenseClass = LicenseClasses.LicenseClassID
+where IssuedUsingLocalLicenseID = @licenseID", sqlConnection);
+            command.Parameters.Add("@licenseID", SqlDbType.Int).Value = licenseID;
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            sqlConnection.Close();
+            return dataTable.Rows.Count == 0 ? null : new InternationalLicense(dataTable.Rows[0]);
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static DataTable GetDriverInfo(ref int LicenseID)
     {
         try
         {
@@ -751,8 +810,67 @@ Drivers ON L.DriverID = Drivers.DriverID INNER JOIN
 People P ON Drivers.PersonID = P.PersonID INNER JOIN
 Applications ON LDLA.ApplicationID = Applications.ApplicationID INNER JOIN
 ApplicationTypes ON Applications.ApplicationTypeID = ApplicationTypes.ApplicationTypeID
-where LDLA.LocalDrivingLicenseApplicationID = @LDLAID", sqlConnection);
-            command.Parameters.Add("@LDLAID", SqlDbType.Int).Value = LDLAID;
+where L.LicenseID = @LicenseID", sqlConnection);
+            command.Parameters.Add("@LicenseID", SqlDbType.Int).Value = LicenseID;
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            sqlConnection.Close();
+            return dataTable;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static DataTable GetApplicationInfo(ref int LicenseID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(@"
+SELECT        Applications.ApplicantPersonID, Applications.ApplicationID, Applications.ApplicationDate, Licenses.PaidFees, Licenses.LicenseID, Licenses.ExpirationDate, Users.UserName, ApplicationTypes.ApplicationTypeTitle
+FROM            Licenses INNER JOIN
+                         Applications ON Licenses.ApplicationID = Applications.ApplicationID INNER JOIN
+                         Users ON Licenses.CreatedByUserID = Users.UserID INNER JOIN
+                         ApplicationTypes ON Applications.ApplicationTypeID = ApplicationTypes.ApplicationTypeID", sqlConnection);
+            command.Parameters.Add("@LicenseID", SqlDbType.Int).Value = LicenseID;
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            sqlConnection.Close();
+            return dataTable;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static bool InternationalLicenseIsExists(ref int licenseID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select found = '1' from InternationalLicenses where IssuedUsingLocalLicenseID = @licenseID", sqlConnection);
+            command.Parameters.Add("@licenseID", SqlDbType.Int).Value = licenseID;
+            object found = command.ExecuteScalar();
+            sqlConnection.Close();
+            return found == null ? false : true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static DataTable GetInternationalLicenses()
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("SELECT InternationalLicenseID, ApplicationID, DriverID, IssuedUsingLocalLicenseID, IssueDate, ExpirationDate, IsActive FROM InternationalLicenses", sqlConnection);
             SqlDataReader reader = command.ExecuteReader();
             DataTable dataTable = new DataTable();
             dataTable.Load(reader);

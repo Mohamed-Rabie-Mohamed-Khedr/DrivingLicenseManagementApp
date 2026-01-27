@@ -1,6 +1,6 @@
 ﻿namespace DrivingLicenseManagement
 {
-    partial class DriverLicenseInfoForm
+    partial class DriverInfoForm
     {
         /// <summary>
         /// Required designer variable.

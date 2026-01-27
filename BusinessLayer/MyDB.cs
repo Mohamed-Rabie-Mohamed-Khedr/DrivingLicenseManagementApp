@@ -31,6 +31,10 @@ public static class MyDB
     {
         return GetData.GetPeople(ref FilterMode, ref FilterValue);
     }
+    public static int GetPersonIDByDriver(int DriverID)
+    {
+        return GetData.GetPersonIDByDriver(ref DriverID);
+    }
     public static int GetPeopleCount()
     {
         return GetData.GetPeopleCount();
@@ -200,12 +204,43 @@ public static class MyDB
     {
         return GetData.LicenseIsExists(ref LicenseClassID, ref PersonID);
     }
-    public static DataTable GetLicenseInfo(int LDLAID)
+    public static DataTable GetDriverInfo(int LicenseID)
     {
-        return GetData.GetLicenseInfo(ref LDLAID);
+        return GetData.GetDriverInfo(ref LicenseID);
     }
     public static DataTable GetPersonLicenseHistory(int PersonID)
     {
         return GetData.GetPersonLicenseHistory(ref PersonID);
+    }
+    public static License GetLicense(int licenseID)
+    {
+        return GetData.GetLicense(ref licenseID);
+    }
+    public static bool AddInternationalLicense(ref InternationalLicense il)
+    {
+        return SetData.AddInternationalLicense(ref il);
+    }
+    public static bool UpdateInternationalLicensesIsActive()
+    {
+        return SetData.UpdateInternationalLicensesIsActive();
+    }
+    public static InternationalLicense GetInternationalLicense(int licenseID)
+    {
+        return GetData.GetInternationalLicense(ref licenseID);
+    }
+    public static DataTable GetInternationalLicenses()
+    {
+        if (UpdateInternationalLicensesIsActive())
+            return GetData.GetInternationalLicenses();
+        else
+            return null;
+    }
+    public static DataTable GetApplicationInfo(int LicenseID)
+    {
+        return GetData.GetApplicationInfo(ref LicenseID);
+    }
+    public static bool InternationalLicenseIsExists(int licenseID)
+    {
+        return GetData.InternationalLicenseIsExists(ref licenseID);
     }
 }

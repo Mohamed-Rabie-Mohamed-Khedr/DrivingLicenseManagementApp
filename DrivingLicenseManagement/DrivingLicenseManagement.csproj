@@ -225,17 +225,17 @@
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DLMHelper.cs" />
-    <Compile Include="DriverLicenseInfo.cs">
+    <Compile Include="DriverInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DriverLicenseInfo.Designer.cs">
-      <DependentUpon>DriverLicenseInfo.cs</DependentUpon>
+    <Compile Include="DriverInfo.Designer.cs">
+      <DependentUpon>DriverInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="DriverLicenseInfoForm.cs">
+    <Compile Include="DriverInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DriverLicenseInfoForm.Designer.cs">
-      <DependentUpon>DriverLicenseInfoForm.cs</DependentUpon>
+    <Compile Include="DriverInfoForm.Designer.cs">
+      <DependentUpon>DriverInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="EditApplicationType.cs">
       <SubType>Form</SubType>
@@ -248,6 +248,18 @@
     </Compile>
     <Compile Include="EditTestTypes.Designer.cs">
       <DependentUpon>EditTestTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ApplicationInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ApplicationInfo.Designer.cs">
+      <DependentUpon>ApplicationInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InternationalLicenseApplication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InternationalLicenseApplication.Designer.cs">
+      <DependentUpon>InternationalLicenseApplication.cs</DependentUpon>
     </Compile>
     <Compile Include="IssueDriverLicense.cs">
       <SubType>Form</SubType>
@@ -296,6 +308,12 @@
     </Compile>
     <Compile Include="ManageDrivers.Designer.cs">
       <DependentUpon>ManageDrivers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageInternationalDriverLicenseApplications.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageInternationalDriverLicenseApplications.Designer.cs">
+      <DependentUpon>ManageInternationalDriverLicenseApplications.cs</DependentUpon>
     </Compile>
     <Compile Include="ManageLocalDrivingLicenseApplications.cs">
       <SubType>Form</SubType>
@@ -386,17 +404,23 @@
     <EmbeddedResource Include="ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DriverLicenseInfo.resx">
-      <DependentUpon>DriverLicenseInfo.cs</DependentUpon>
+    <EmbeddedResource Include="DriverInfo.resx">
+      <DependentUpon>DriverInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DriverLicenseInfoForm.resx">
-      <DependentUpon>DriverLicenseInfoForm.cs</DependentUpon>
+    <EmbeddedResource Include="DriverInfoForm.resx">
+      <DependentUpon>DriverInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditApplicationType.resx">
       <DependentUpon>EditApplicationType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditTestTypes.resx">
       <DependentUpon>EditTestTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationInfo.resx">
+      <DependentUpon>ApplicationInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InternationalLicenseApplication.resx">
+      <DependentUpon>InternationalLicenseApplication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IssueDriverLicense.resx">
       <DependentUpon>IssueDriverLicense.cs</DependentUpon>
@@ -421,6 +445,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManageDrivers.resx">
       <DependentUpon>ManageDrivers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageInternationalDriverLicenseApplications.resx">
+      <DependentUpon>ManageInternationalDriverLicenseApplications.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManageLocalDrivingLicenseApplications.resx">
       <DependentUpon>ManageLocalDrivingLicenseApplications.cs</DependentUpon>

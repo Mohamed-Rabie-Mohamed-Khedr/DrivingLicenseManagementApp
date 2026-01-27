@@ -161,14 +161,13 @@ namespace DrivingLicenseManagement
 
         private void ShowLicenseB_Click(object sender, EventArgs e)
         {
-            DriverLicenseInfoForm driverLicenseInfoForm = new DriverLicenseInfoForm((int)dataGridView1.SelectedRows[0].Cells["LDLAppID"].Value);
+            DriverInfoForm driverLicenseInfoForm = new DriverInfoForm(ldlApp.LicenseID);
             driverLicenseInfoForm.ShowDialog();
         }
 
         private void PersonLicenseHistoryB_Click(object sender, EventArgs e)
         {
-            PersonLicenseHistory personLicenseHistory = new PersonLicenseHistory(
-            (int)dataGridView1.SelectedRows[0].Cells["LDLAppID"].Value,
+            PersonLicenseHistory personLicenseHistory = new PersonLicenseHistory(ldlApp.LicenseID,
             ldlApp.ApplicantPersonID);
             personLicenseHistory.ShowDialog();
         }

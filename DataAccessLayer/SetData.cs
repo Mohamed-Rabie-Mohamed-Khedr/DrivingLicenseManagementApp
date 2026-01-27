@@ -456,4 +456,46 @@ public static class SetData
         }
         return false;
     }
+    public static bool AddInternationalLicense(ref InternationalLicense il)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(@"insert into InternationalLicenses
+(ApplicationID, DriverID, IssuedUsingLocalLicenseID, IssueDate, ExpirationDate, IsActive, CreatedByUserID) values
+(@ApplicationID, @DriverID, @IssuedUsingLocalLicenseID, @IssueDate, @ExpirationDate, @IsActive, @CreatedByUserID); select SCOPE_IDENTITY();", connection);
+            command.Parameters.AddWithValue("@ApplicationID", il.ApplicationID);
+            command.Parameters.AddWithValue("@DriverID", il.DriverID);
+            command.Parameters.AddWithValue("@IssuedUsingLocalLicenseID", il.IssuedUsingLocalLicenseID);
+            command.Parameters.AddWithValue("@IssueDate", il.IssueDate);
+            command.Parameters.AddWithValue("@ExpirationDate", il.ExpirationDate);
+            command.Parameters.AddWithValue("@IsActive", il.IsActive);
+            command.Parameters.AddWithValue("@CreatedByUserID", il.CreatedByUserID);
+            il.InternationalLicenseID = Convert.ToInt32(command.ExecuteScalar());
+            connection.Close();
+            return il.InternationalLicenseID > 0;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool UpdateInternationalLicensesIsActive()
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(@"update InternationalLicenses
+set IsActive = case when ExpirationDate < GETDATE() then 0 else 1 end", connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+            return true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
 }

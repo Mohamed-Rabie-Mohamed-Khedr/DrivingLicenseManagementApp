@@ -10,15 +10,16 @@ using System.Windows.Forms;
 
 namespace DrivingLicenseManagement
 {
-    public partial class DriverLicenseInfoForm : Form
+    public partial class DriverInfoForm : Form
     {
-        public DriverLicenseInfoForm(int LDLAID)
+        public DriverInfoForm(int LicenseID)
         {
             InitializeComponent();
-            DriverLicenseInfo driverLicenseInfo = new DriverLicenseInfo(LDLAID)
+            DriverInfo driverLicenseInfo = new DriverInfo()
             {
                 Dock = DockStyle.Fill
             };
+            driverLicenseInfo.LoadDriverInfo(LicenseID);
             this.Controls.Add(driverLicenseInfo);
         }
     }

@@ -10,12 +10,16 @@ using System.Windows.Forms;
 
 namespace DrivingLicenseManagement
 {
-    public partial class DriverLicenseInfo : UserControl
+    public partial class DriverInfo : UserControl
     {
-        public DriverLicenseInfo(int LDLAID)
+        public DriverInfo()
         {
             InitializeComponent();
-            DataTable dt = MyDB.GetLicenseInfo(LDLAID);
+        }
+        public bool LoadDriverInfo(int LicenseID)
+        {
+            DataTable dt = MyDB.GetDriverInfo(LicenseID);
+            if (dt == null || dt.Rows.Count == 0) return false;
             ClassL.Text = "Class: " + dt.Rows[0]["ClassName"].ToString();
             NameL.Text = "Name: " + dt.Rows[0]["FullName"].ToString();
             LicenseIDL.Text = "License ID: " + dt.Rows[0]["LicenseID"].ToString();
@@ -28,6 +32,7 @@ namespace DrivingLicenseManagement
             DateOfBirthL.Text = "Date Of Birth: " + dt.Rows[0]["DateOfBirth"].ToString();
             DriverIDL.Text = "Driver ID: " + dt.Rows[0]["DriverID"].ToString();
             ExpirationDateL.Text = "Expiration Date: " + dt.Rows[0]["ExpirationDate"].ToString();
+            return true;
         }
     }
 }
