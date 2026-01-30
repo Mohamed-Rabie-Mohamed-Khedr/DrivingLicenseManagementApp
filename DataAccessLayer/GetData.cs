@@ -375,7 +375,7 @@ public static class GetData
                                                                              Tests AS T ON TA.TestAppointmentID = T.TestAppointmentID
                                                    WHERE        (T.TestResult = 1)
                                                    GROUP BY TA.LocalDrivingLicenseApplicationID)
-    SELECT        L.LocalDrivingLicenseApplicationID AS LdLAppID, LC.LicenseClassID, LC.ClassName, LC.DefaultValidityLength, P.NationalNo, P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName AS FullName, 
+    SELECT        L.LocalDrivingLicenseApplicationID, LC.LicenseClassID, LC.ClassName, LC.DefaultValidityLength, P.NationalNo, P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName AS FullName, 
                               A.ApplicationID, A.ApplicantPersonID, A.ApplicationDate, A.ApplicationTypeID, A.ApplicationStatus, A.LastStatusDate, A.PaidFees, A.CreatedByUserID, ISNULL(PT.PassedCount, 0) AS PassedTests, TT.TestTypeID, 
                               TT.TestTypeFees, CASE WHEN A.ApplicationStatus = 1 THEN 'New' WHEN A.ApplicationStatus = 2 THEN 'Canceled' WHEN A.ApplicationStatus = 3 THEN 'Completed' END AS Status, Users.UserName, AT.ApplicationTypeTitle, 
                               Licenses.LicenseID
@@ -789,28 +789,16 @@ where IssuedUsingLocalLicenseID = @licenseID", sqlConnection);
             SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(@"
-SELECT
-LC.ClassName,
-L.LicenseID,
-L.DriverID,
-L.IssueDate,
-L.ExpirationDate,
-L.Notes,
-CASE WHEN L.IsActive = 1 THEN 'Yes' ELSE 'No' END AS IsActive,
-ApplicationTypes.ApplicationTypeTitle,
-P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName AS FullName,
-P.NationalNo,
-P.DateOfBirth,
-CASE WHEN P.Gendor = 0 THEN 'Male' ELSE 'Female' END AS Gendor
-FROM
-LocalDrivingLicenseApplications LDLA INNER JOIN
-LicenseClasses LC ON LDLA.LicenseClassID = LC.LicenseClassID INNER JOIN
-Licenses L ON LDLA.ApplicationID = L.ApplicationID INNER JOIN
-Drivers ON L.DriverID = Drivers.DriverID INNER JOIN
-People P ON Drivers.PersonID = P.PersonID INNER JOIN
-Applications ON LDLA.ApplicationID = Applications.ApplicationID INNER JOIN
-ApplicationTypes ON Applications.ApplicationTypeID = ApplicationTypes.ApplicationTypeID
-where L.LicenseID = @LicenseID", sqlConnection);
+SELECT        Licenses.LicenseID, Licenses.DriverID, Licenses.IssueDate, Licenses.ExpirationDate, Licenses.Notes, LicenseClasses.ClassName, ApplicationTypes.ApplicationTypeTitle, 
+                         CASE WHEN Licenses.IsActive = 1 THEN 'Yes' ELSE 'No' END AS IsActive, People.NationalNo, People.DateOfBirth,
+                         People.FirstName + ' ' + People.SecondName + ' ' + People.ThirdName + ' ' + People.LastName AS FullName,
+CASE WHEN People.Gendor = 0 THEN 'Male' ELSE 'Female' END AS Gendor
+FROM            Licenses INNER JOIN
+                         LicenseClasses ON Licenses.LicenseClass = LicenseClasses.LicenseClassID INNER JOIN
+                         Applications ON Licenses.ApplicationID = Applications.ApplicationID INNER JOIN
+                         ApplicationTypes ON Applications.ApplicationTypeID = ApplicationTypes.ApplicationTypeID INNER JOIN
+                         People ON Applications.ApplicantPersonID = People.PersonID
+where Licenses.LicenseID = @LicenseID", sqlConnection);
             command.Parameters.Add("@LicenseID", SqlDbType.Int).Value = LicenseID;
             SqlDataReader reader = command.ExecuteReader();
             DataTable dataTable = new DataTable();

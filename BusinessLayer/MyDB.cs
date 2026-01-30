@@ -117,6 +117,10 @@ public static class MyDB
         LicenseClassesDT = GetData.GetLicenseClasses();
         return ref LicenseClassesDT;
     }
+    public static bool UpdateLicensesIsActive()
+    {
+        return SetData.UpdateLicensesIsActive();
+    }
     public static DataTable GetLDLApps(string FilterMode, object FilterValue)
     {
         return GetData.GetLDLApps(FilterMode, FilterValue);
@@ -210,7 +214,9 @@ public static class MyDB
     }
     public static DataTable GetPersonLicenseHistory(int PersonID)
     {
+        if (UpdateLicensesIsActive())
         return GetData.GetPersonLicenseHistory(ref PersonID);
+        else return null;
     }
     public static License GetLicense(int licenseID)
     {
@@ -226,14 +232,15 @@ public static class MyDB
     }
     public static InternationalLicense GetInternationalLicense(int licenseID)
     {
+        if (UpdateInternationalLicensesIsActive())
         return GetData.GetInternationalLicense(ref licenseID);
+        else return null;
     }
     public static DataTable GetInternationalLicenses()
     {
         if (UpdateInternationalLicensesIsActive())
             return GetData.GetInternationalLicenses();
-        else
-            return null;
+        else return null;
     }
     public static DataTable GetApplicationInfo(int LicenseID)
     {

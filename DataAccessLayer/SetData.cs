@@ -456,6 +456,23 @@ public static class SetData
         }
         return false;
     }
+    public static bool UpdateLicensesIsActive()
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(@"update Licenses
+set IsActive = case when ExpirationDate < GETDATE() then 0 else 1 end", connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+            return true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
     public static bool AddInternationalLicense(ref InternationalLicense il)
     {
         try

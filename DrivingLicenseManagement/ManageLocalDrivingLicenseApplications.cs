@@ -53,7 +53,7 @@ namespace DrivingLicenseManagement
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    dataGridView1.Rows.Add(dt.Rows[i]["LDLAppID"],
+                    dataGridView1.Rows.Add(dt.Rows[i]["LocalDrivingLicenseApplicationID"],
                     dt.Rows[i]["ClassName"],dt.Rows[i]["NationalNo"], dt.Rows[i]["FullName"],
                     dt.Rows[i]["ApplicationDate"], dt.Rows[i]["PassedTests"], dt.Rows[i]["Status"]);
                 }

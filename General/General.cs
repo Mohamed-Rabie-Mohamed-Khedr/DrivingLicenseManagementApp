@@ -129,9 +129,10 @@ public class LDLApp
 
     public LDLApp(DataRow dr)
     {
-        LDLAppID = Convert.ToInt32(dr["LdLAppID"]);
+        LDLAppID = Convert.ToInt32(dr["LocalDrivingLicenseApplicationID"]);
         ApplicationID = Convert.ToInt32(dr["ApplicationID"]);
-        LicenseID = Convert.ToInt32(dr["LicenseID"]);
+        if (dr["LicenseID"] != DBNull.Value)
+            LicenseID = Convert.ToInt32(dr["LicenseID"]);
         LicenseClassID = Convert.ToInt32(dr["LicenseClassID"]);
         LicenseClassName = dr["ClassName"].ToString();
         DefaultValidityLength = Convert.ToByte(dr["DefaultValidityLength"]);
@@ -267,6 +268,6 @@ public class InternationalLicense
         ClassName = dr["ClassName"].ToString();
         IssueDate = Convert.ToDateTime(dr["IssueDate"]);
         ExpirationDate = Convert.ToDateTime(dr["ExpirationDate"]);
-        IsActive = ExpirationDate < DateTime.Now;
+        IsActive = Convert.ToBoolean(dr["IsActive"]);
     }
 }
