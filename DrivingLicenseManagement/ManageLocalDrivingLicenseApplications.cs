@@ -132,7 +132,7 @@ namespace DrivingLicenseManagement
                     SechduleTestsB.DropDownItems[1].Enabled = true;
                 else if (ldlApp.PassedTests == 2)
                     SechduleTestsB.DropDownItems[2].Enabled = true;
-                else if (!MyDB.LicenseIsExists(ldlApp.LicenseClassID, ldlApp.ApplicantPersonID))
+                else if (!MyDB.IsThisPersonHasThisLicense(ldlApp.LicenseClassID, ldlApp.ApplicantPersonID))
                     IssueDrivingLicenseB.Enabled = true;
                 else
                 {
@@ -143,6 +143,7 @@ namespace DrivingLicenseManagement
                     ShowLicenseB.Enabled = true;
                 }
             }
+            else e.Cancel = true;
         }
 
         private void TestB_Click(object sender, EventArgs e)

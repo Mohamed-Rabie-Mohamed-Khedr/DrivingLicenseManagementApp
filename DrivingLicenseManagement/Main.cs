@@ -95,5 +95,11 @@ namespace DrivingLicenseManagement
             ManageInternationalDriverLicenseApplications m = new ManageInternationalDriverLicenseApplications();
             m.ShowDialog();
         }
+
+        private void newDrivingLicenseToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            RenewLocalDrivingLicense renewLocalDrivingLicense = new RenewLocalDrivingLicense();
+            renewLocalDrivingLicense.ShowDialog();
+        }
     }
 }

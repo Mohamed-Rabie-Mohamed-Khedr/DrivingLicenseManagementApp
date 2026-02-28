@@ -18,7 +18,7 @@ namespace DrivingLicenseManagement
         }
         public int LoadApplicationInfo(int LicenseID)
         {
-            DataTable dt = MyDB.GetApplicationInfo(LicenseID);
+            DataTable dt = MyDB.GetApplicationInfoToShowOnForm(LicenseID);
             if (dt == null || dt.Rows.Count == 0) return 0;
             ApplicationIDL.Text = "Application ID: " + dt.Rows[0]["ApplicationID"].ToString();
             IssueReasonL.Text = "Issue Reason: " + dt.Rows[0]["ApplicationTypeTitle"].ToString();

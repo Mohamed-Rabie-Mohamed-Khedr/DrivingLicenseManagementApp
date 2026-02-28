@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static LDLApp;
 
 public static class MyDB
 {
@@ -135,7 +134,8 @@ public static class MyDB
     }
     public static bool AddLDLApp(ref LDLApp app)
     {
-        if (LDLAppIsExists(app.ApplicantPersonID, app.LicenseClassID)) return false;
+        if (app.ApplicationTypeID != 2 && LDLAppIsExists(app.ApplicantPersonID, app.LicenseClassID))
+            return false;
         return SetData.AddLDLApp(ref app);
     }
     public static bool DeleteLDLApp(int LdLAppID)
@@ -204,9 +204,17 @@ public static class MyDB
     {
         return SetData.AddLicense(ref lc);
     }
-    public static bool LicenseIsExists(int LicenseClassID, int PersonID)
+    public static bool IsThisPersonHasThisLicense(int LicenseClassID, int PersonID)
     {
-        return GetData.LicenseIsExists(ref LicenseClassID, ref PersonID);
+        return GetData.IsThisPersonHasThisLicense(ref LicenseClassID, ref PersonID);
+    }
+    public static bool LicenseIsExists(int LicenseID)
+    {
+        return GetData.LicenseIsExists(ref LicenseID);
+    }
+    public static bool LicenseIsActive(int LicenseID)
+    {
+        return GetData.LicenseIsActive(ref LicenseID);
     }
     public static DataTable GetDriverInfo(int LicenseID)
     {
@@ -242,12 +250,20 @@ public static class MyDB
             return GetData.GetInternationalLicenses();
         else return null;
     }
-    public static DataTable GetApplicationInfo(int LicenseID)
+    public static DataTable GetApplicationInfoToShowOnForm(int LicenseID)
     {
-        return GetData.GetApplicationInfo(ref LicenseID);
+        return GetData.GetApplicationInfoToShowOnForm(ref LicenseID);
     }
     public static bool InternationalLicenseIsExists(int licenseID)
     {
         return GetData.InternationalLicenseIsExists(ref licenseID);
+    }
+    public static DataTable GetNewLicenseApplicationInfo(int licenseID)
+    {
+        return GetData.GetNewLicenseApplicationInfo(ref licenseID);
+    }
+    public static DataTable GetApplicationFeesAndLicenseFees(int applicationTypeID, int classID)
+    {
+        return GetData.GetApplicationFeesAndLicenseFees(ref applicationTypeID, ref classID);
     }
 }

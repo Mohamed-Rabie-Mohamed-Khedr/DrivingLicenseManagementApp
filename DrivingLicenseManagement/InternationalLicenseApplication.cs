@@ -64,16 +64,19 @@ namespace DrivingLicenseManagement
 
         private void OKB_Click(object sender, EventArgs e)
         {
-            LicenseID = Convert.ToInt32(LicenseIDTB.Text);
-            ApplicantPersonID = applicationInfo1.LoadApplicationInfo(LicenseID);
-            ShowPersonLicenseHistoryLL.Enabled = driverLicenseInfo1.LoadDriverInfo(LicenseID);
-            ShowInternationalLicenseLL.Enabled = MyDB.InternationalLicenseIsExists(LicenseID);
-            if (!ShowPersonLicenseHistoryLL.Enabled)
+            if (!string.IsNullOrEmpty(LicenseIDTB.Text))
             {
-                IssueB.Enabled = false;
-                MessageBox.Show("Invalid License ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LicenseID = Convert.ToInt32(LicenseIDTB.Text);
+                ApplicantPersonID = applicationInfo1.LoadApplicationInfo(LicenseID);
+                ShowPersonLicenseHistoryLL.Enabled = driverLicenseInfo1.LoadDriverInfo(LicenseID);
+                ShowInternationalLicenseLL.Enabled = MyDB.InternationalLicenseIsExists(LicenseID);
+                if (!ShowPersonLicenseHistoryLL.Enabled)
+                {
+                    IssueB.Enabled = false;
+                    MessageBox.Show("Invalid License ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (!ShowInternationalLicenseLL.Enabled) IssueB.Enabled = true;
             }
-            else if (!ShowInternationalLicenseLL.Enabled) IssueB.Enabled = true;
         }
     }
 }

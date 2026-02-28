@@ -415,6 +415,10 @@ public static class GetData
                     whereClause = "WHERE A.ApplicationStatus = @FilterValue";
                     parameters.Add(new SqlParameter("@FilterValue", SqlDbType.TinyInt) { Value = Convert.ToByte(FilterValue) });
                     break;
+                case "Application ID":
+                    whereClause = "WHERE L.ApplicationID = @FilterValue";
+                    parameters.Add(new SqlParameter("@FilterValue", SqlDbType.Int) { Value = Convert.ToInt32(FilterValue) });
+                    break;
             }
 
             string finalSql = LDLAppBaseSQLQuery + (string.IsNullOrWhiteSpace(whereClause) ? "" : ("\n" + whereClause));
@@ -677,7 +681,7 @@ INNER JOIN LicenseClasses LC ON L.LicenseClass = LC.LicenseClassID";
         }
         return null;
     }
-    public static bool LicenseIsExists(ref int LicenseClassID, ref int PersonID)
+    public static bool IsThisPersonHasThisLicense(ref int LicenseClassID, ref int PersonID)
     {
         try
         {
@@ -752,6 +756,42 @@ WHERE        (Licenses.LicenseID = @licenseID)", sqlConnection);
         }
         return null;
     }
+    public static bool LicenseIsExists(ref int LicenseID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+            @"select found = '1' from Licenses where LicenseID = @LicenseID", sqlConnection);
+            command.Parameters.Add("@LicenseID", SqlDbType.Int).Value = LicenseID;
+            object found = command.ExecuteScalar();
+            sqlConnection.Close();
+            return found == null ? false : true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool LicenseIsActive(ref int LicenseID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+            @"select found = '1' from Licenses where LicenseID = @LicenseID AND IsActive = 1", sqlConnection);
+            command.Parameters.Add("@LicenseID", SqlDbType.Int).Value = LicenseID;
+            object found = command.ExecuteScalar();
+            sqlConnection.Close();
+            return found == null ? false : true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
     public static InternationalLicense GetInternationalLicense(ref int licenseID)
     {
         try
@@ -811,7 +851,7 @@ where Licenses.LicenseID = @LicenseID", sqlConnection);
         }
         return null;
     }
-    public static DataTable GetApplicationInfo(ref int LicenseID)
+    public static DataTable GetApplicationInfoToShowOnForm(ref int LicenseID)
     {
         try
         {
@@ -859,6 +899,54 @@ FROM            Licenses INNER JOIN
             SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("SELECT InternationalLicenseID, ApplicationID, DriverID, IssuedUsingLocalLicenseID, IssueDate, ExpirationDate, IsActive FROM InternationalLicenses", sqlConnection);
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            sqlConnection.Close();
+            return dataTable;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static DataTable GetNewLicenseApplicationInfo(ref int licenseID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(@"SELECT        Applications.ApplicationID, Applications.ApplicationDate, Licenses.IssueDate, Licenses.ExpirationDate, Licenses.LicenseID, Users.UserName
+FROM            Applications INNER JOIN
+                         Licenses ON Applications.ApplicationID = Licenses.ApplicationID INNER JOIN
+                         Users ON Applications.CreatedByUserID = Users.UserID AND Licenses.CreatedByUserID = Users.UserID
+where Licenses.LicenseID = @licenseID", sqlConnection);
+            command.Parameters.Add("@licenseID", SqlDbType.Int).Value = licenseID;
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            sqlConnection.Close();
+            return dataTable;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static DataTable GetApplicationFeesAndLicenseFees(ref int applicationTypeID, ref int classID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+@"
+SELECT 
+    (SELECT ApplicationFees FROM ApplicationTypes WHERE ApplicationTypeID = @applicationTypeID) AS ApplicationFees,
+    (SELECT ClassFees FROM LicenseClasses WHERE LicenseClassID = @classID) AS ClassFees;
+", sqlConnection);
+            command.Parameters.Add("@applicationTypeID", SqlDbType.Int).Value = applicationTypeID;
+            command.Parameters.Add("@classID", SqlDbType.Int).Value = classID;
             SqlDataReader reader = command.ExecuteReader();
             DataTable dataTable = new DataTable();
             dataTable.Load(reader);
