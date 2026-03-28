@@ -14,6 +14,7 @@ namespace DrivingLicenseManagement
     {
         License license;
         int LicenseID = 0, NewLicenseID = 0, ApplicantPersonID = 0;
+        DataTable dt;
         public RenewLocalDrivingLicense()
         {
             InitializeComponent();
@@ -38,9 +39,9 @@ namespace DrivingLicenseManagement
                     {
                         license = MyDB.GetLicense(LicenseID);
                         license.IssueReason = 2;
-                        DataTable dt = MyDB.GetApplicationInfoToShowOnForm(LicenseID);
+                        dt = MyDB.GetApplicationInfoToShowOnForm(LicenseID);
                         ApplicantPersonID = Convert.ToInt32(dt.Rows[0]["ApplicantPersonID"]);
-                        dt = MyDB.GetApplicationFeesAndLicenseFees(license.IssueReason,license.LicenseClass);
+                        dt = MyDB.GetApplicationTypesFeesAndLicenseFees(license.IssueReason,license.LicenseClass);
                         newLicenseApplicationInfo1.LoadFeesInfo(dt);
                         IssueB.Enabled = true;
                     }
@@ -62,8 +63,8 @@ namespace DrivingLicenseManagement
 
         private void ShowNewLicenseLL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LocalLicenseForm localLicenseForm = new LocalLicenseForm(ApplicantPersonID);
-            localLicenseForm.ShowDialog();
+            DriverInfoForm driverInfoForm = new DriverInfoForm(NewLicenseID);
+            driverInfoForm.ShowDialog();
         }
 
         private void ShowPersonLicenseHistoryLL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -84,14 +85,16 @@ namespace DrivingLicenseManagement
             lDLApp.ApplicationTypeID = 2;
             lDLApp.ApplicationDate = DateTime.Now;
             lDLApp.LastStatusDate = DateTime.Now;
+            lDLApp.PaidFees = Convert.ToDecimal(dt.Rows[0]["ApplicationFees"]);
             if (MyDB.AddLDLApp(ref lDLApp))
             {
+                license.ApplicationID = lDLApp.ApplicationID;
                 if (MyDB.AddLicense(ref license))
                 {
                     IssueB.Enabled = false;
                     NewLicenseID = license.LicenseID;
                     ApplicantPersonID = lDLApp.ApplicantPersonID;
-                    newLicenseApplicationInfo1.LoadInfo(NewLicenseID);
+                    newLicenseApplicationInfo1.LoadInfo(LicenseID, NewLicenseID);
                     ShowNewLicenseLL.Enabled = true;
                     MessageBox.Show("New License Issued Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

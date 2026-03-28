@@ -376,7 +376,9 @@ public static class GetData
                                                    WHERE        (T.TestResult = 1)
                                                    GROUP BY TA.LocalDrivingLicenseApplicationID)
     SELECT        L.LocalDrivingLicenseApplicationID, LC.LicenseClassID, LC.ClassName, LC.DefaultValidityLength, P.NationalNo, P.FirstName + ' ' + P.SecondName + ' ' + P.ThirdName + ' ' + P.LastName AS FullName, 
-                              A.ApplicationID, A.ApplicantPersonID, A.ApplicationDate, A.ApplicationTypeID, A.ApplicationStatus, A.LastStatusDate, A.PaidFees, A.CreatedByUserID, ISNULL(PT.PassedCount, 0) AS PassedTests, TT.TestTypeID, 
+                              A.ApplicationID, A.ApplicantPersonID, A.ApplicationDate, A.ApplicationTypeID, A.ApplicationStatus, A.LastStatusDate, A.PaidFees, A.CreatedByUserID,
+CASE WHEN A.ApplicationStatus = 3 THEN 3
+ELSE ISNULL(PT.PassedCount, 0) END AS PassedTests, TT.TestTypeID,
                               TT.TestTypeFees, CASE WHEN A.ApplicationStatus = 1 THEN 'New' WHEN A.ApplicationStatus = 2 THEN 'Canceled' WHEN A.ApplicationStatus = 3 THEN 'Completed' END AS Status, Users.UserName, AT.ApplicationTypeTitle, 
                               Licenses.LicenseID
      FROM            Users INNER JOIN
@@ -933,7 +935,7 @@ where Licenses.LicenseID = @licenseID", sqlConnection);
         }
         return null;
     }
-    public static DataTable GetApplicationFeesAndLicenseFees(ref int applicationTypeID, ref int classID)
+    public static DataTable GetApplicationTypesFeesAndLicenseFees(ref int applicationTypeID, ref int classID)
     {
         try
         {
@@ -957,5 +959,22 @@ SELECT
         {
         }
         return null;
+    }
+    public static int GetApplicationTypesFees(ref int applicationTypeID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("SELECT ApplicationFees FROM ApplicationTypes WHERE ApplicationTypeID = @applicationTypeID", sqlConnection);
+            command.Parameters.Add("@applicationTypeID", SqlDbType.Int).Value = applicationTypeID;
+            object fees = command.ExecuteScalar();
+            sqlConnection.Close();
+            return fees == null ? 0 : Convert.ToInt32(fees);
+        }
+        catch (Exception)
+        {
+        }
+        return 0;
     }
 }

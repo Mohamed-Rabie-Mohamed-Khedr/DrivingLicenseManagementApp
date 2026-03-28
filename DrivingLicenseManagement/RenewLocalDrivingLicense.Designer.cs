@@ -37,6 +37,7 @@
             this.IssueB = new System.Windows.Forms.Button();
             this.newLicenseApplicationInfo1 = new DrivingLicenseManagement.NewLicenseApplicationInfo();
             this.driverInfo1 = new DrivingLicenseManagement.DriverInfo();
+            this.LicenseIDL = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label3
@@ -45,7 +46,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Coral;
-            this.label3.Location = new System.Drawing.Point(372, 18);
+            this.label3.Location = new System.Drawing.Point(394, 18);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(434, 35);
             this.label3.TabIndex = 43;
@@ -54,7 +55,7 @@
             // OKB
             // 
             this.OKB.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OKB.Location = new System.Drawing.Point(244, 50);
+            this.OKB.Location = new System.Drawing.Point(297, 45);
             this.OKB.Name = "OKB";
             this.OKB.Size = new System.Drawing.Size(86, 34);
             this.OKB.TabIndex = 56;
@@ -64,7 +65,7 @@
             // 
             // LicenseIDTB
             // 
-            this.LicenseIDTB.Location = new System.Drawing.Point(78, 56);
+            this.LicenseIDTB.Location = new System.Drawing.Point(131, 51);
             this.LicenseIDTB.Name = "LicenseIDTB";
             this.LicenseIDTB.Size = new System.Drawing.Size(155, 20);
             this.LicenseIDTB.TabIndex = 55;
@@ -142,11 +143,22 @@
             this.driverInfo1.Size = new System.Drawing.Size(1116, 368);
             this.driverInfo1.TabIndex = 57;
             // 
+            // LicenseIDL
+            // 
+            this.LicenseIDL.AutoSize = true;
+            this.LicenseIDL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LicenseIDL.Location = new System.Drawing.Point(12, 48);
+            this.LicenseIDL.Name = "LicenseIDL";
+            this.LicenseIDL.Size = new System.Drawing.Size(110, 23);
+            this.LicenseIDL.TabIndex = 62;
+            this.LicenseIDL.Text = "License ID";
+            // 
             // RenewLocalDrivingLicense
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1152, 835);
+            this.Controls.Add(this.LicenseIDL);
             this.Controls.Add(this.IssueB);
             this.Controls.Add(this.ShowNewLicenseLL);
             this.Controls.Add(this.newLicenseApplicationInfo1);
@@ -178,5 +190,6 @@
         private NewLicenseApplicationInfo newLicenseApplicationInfo1;
         private System.Windows.Forms.LinkLabel ShowNewLicenseLL;
         private System.Windows.Forms.Button IssueB;
+        private System.Windows.Forms.Label LicenseIDL;
     }
 }

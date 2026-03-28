@@ -116,9 +116,13 @@ public static class MyDB
         LicenseClassesDT = GetData.GetLicenseClasses();
         return ref LicenseClassesDT;
     }
-    public static bool UpdateLicensesIsActive()
+    public static bool UpdateLicensesIsActiveByDate()
     {
-        return SetData.UpdateLicensesIsActive();
+        return SetData.UpdateLicensesIsActiveByDate();
+    }
+    public static bool UpdateLicensesIsActive(int LicenseID, bool IsActive)
+    {
+        return SetData.UpdateLicensesIsActive(LicenseID, IsActive);
     }
     public static DataTable GetLDLApps(string FilterMode, object FilterValue)
     {
@@ -134,7 +138,7 @@ public static class MyDB
     }
     public static bool AddLDLApp(ref LDLApp app)
     {
-        if (app.ApplicationTypeID != 2 && LDLAppIsExists(app.ApplicantPersonID, app.LicenseClassID))
+        if (app.ApplicationTypeID == 1 && LDLAppIsExists(app.ApplicantPersonID, app.LicenseClassID))
             return false;
         return SetData.AddLDLApp(ref app);
     }
@@ -222,7 +226,7 @@ public static class MyDB
     }
     public static DataTable GetPersonLicenseHistory(int PersonID)
     {
-        if (UpdateLicensesIsActive())
+        if (UpdateLicensesIsActiveByDate())
         return GetData.GetPersonLicenseHistory(ref PersonID);
         else return null;
     }
@@ -234,21 +238,25 @@ public static class MyDB
     {
         return SetData.AddInternationalLicense(ref il);
     }
-    public static bool UpdateInternationalLicensesIsActive()
+    public static bool UpdateInternationalLicensesIsActiveByDate()
     {
-        return SetData.UpdateInternationalLicensesIsActive();
+        return SetData.UpdateInternationalLicensesIsActiveByDate();
     }
     public static InternationalLicense GetInternationalLicense(int licenseID)
     {
-        if (UpdateInternationalLicensesIsActive())
+        if (UpdateInternationalLicensesIsActiveByDate())
         return GetData.GetInternationalLicense(ref licenseID);
         else return null;
     }
     public static DataTable GetInternationalLicenses()
     {
-        if (UpdateInternationalLicensesIsActive())
+        if (UpdateInternationalLicensesIsActiveByDate())
             return GetData.GetInternationalLicenses();
         else return null;
+    }
+    public static bool UpdateIssuedUsingLocalLicenseIDInInternationalLicense(int OldIssuedUsingLocalLicenseID, int NewIssuedUsingLocalLicenseID)
+    {
+        return SetData.UpdateIssuedUsingLocalLicenseIDInInternationalLicense(OldIssuedUsingLocalLicenseID, NewIssuedUsingLocalLicenseID);
     }
     public static DataTable GetApplicationInfoToShowOnForm(int LicenseID)
     {
@@ -262,8 +270,12 @@ public static class MyDB
     {
         return GetData.GetNewLicenseApplicationInfo(ref licenseID);
     }
-    public static DataTable GetApplicationFeesAndLicenseFees(int applicationTypeID, int classID)
+    public static DataTable GetApplicationTypesFeesAndLicenseFees(int applicationTypeID, int classID)
     {
-        return GetData.GetApplicationFeesAndLicenseFees(ref applicationTypeID, ref classID);
+        return GetData.GetApplicationTypesFeesAndLicenseFees(ref applicationTypeID, ref classID);
+    }
+    public static int GetApplicationTypesFees(int applicationTypeID)
+    {
+        return GetData.GetApplicationTypesFees(ref applicationTypeID);
     }
 }

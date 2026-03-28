@@ -212,6 +212,12 @@
     <Compile Include="AddAndUpdateAppointmentForm.Designer.cs">
       <DependentUpon>AddAndUpdateAppointmentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationInfoForLicenseReplacement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ApplicationInfoForLicenseReplacement.Designer.cs">
+      <DependentUpon>ApplicationInfoForLicenseReplacement.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChangePassword.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -371,6 +377,12 @@
     <Compile Include="RenewLocalDrivingLicense.Designer.cs">
       <DependentUpon>RenewLocalDrivingLicense.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReplacementForDamagedOrLicenseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReplacementForDamagedOrLicenseForm.Designer.cs">
+      <DependentUpon>ReplacementForDamagedOrLicenseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TakeTestForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -409,6 +421,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddAndUpdateAppointmentForm.resx">
       <DependentUpon>AddAndUpdateAppointmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationInfoForLicenseReplacement.resx">
+      <DependentUpon>ApplicationInfoForLicenseReplacement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChangePassword.resx">
       <DependentUpon>ChangePassword.cs</DependentUpon>
@@ -497,6 +512,9 @@
     </Compile>
     <EmbeddedResource Include="RenewLocalDrivingLicense.resx">
       <DependentUpon>RenewLocalDrivingLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReplacementForDamagedOrLicenseForm.resx">
+      <DependentUpon>ReplacementForDamagedOrLicenseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TakeTestForm.resx">
       <DependentUpon>TakeTestForm.cs</DependentUpon>

@@ -101,5 +101,11 @@ namespace DrivingLicenseManagement
             RenewLocalDrivingLicense renewLocalDrivingLicense = new RenewLocalDrivingLicense();
             renewLocalDrivingLicense.ShowDialog();
         }
+
+        private void replace4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReplacementForDamagedOrLicenseForm replacementForDamagedOrLicenseForm = new ReplacementForDamagedOrLicenseForm();
+            replacementForDamagedOrLicenseForm.ShowDialog();
+        }
     }
 }

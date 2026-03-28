@@ -456,7 +456,7 @@ public static class SetData
         }
         return false;
     }
-    public static bool UpdateLicensesIsActive()
+    public static bool UpdateLicensesIsActiveByDate()
     {
         try
         {
@@ -467,6 +467,24 @@ set IsActive = case when ExpirationDate < GETDATE() then 0 else 1 end", connecti
             command.ExecuteNonQuery();
             connection.Close();
             return true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool UpdateLicensesIsActive(int LicenseID, bool IsActive)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(@"update Licenses set IsActive = @IsActive where LicenseID = @LicenseID", connection);
+            command.Parameters.AddWithValue("@IsActive", IsActive);
+            command.Parameters.AddWithValue("@LicenseID", LicenseID);
+            bool result = command.ExecuteNonQuery() > 0;
+            connection.Close();
+            return result;
         }
         catch (Exception)
         {
@@ -498,14 +516,36 @@ set IsActive = case when ExpirationDate < GETDATE() then 0 else 1 end", connecti
         }
         return false;
     }
-    public static bool UpdateInternationalLicensesIsActive()
+    public static bool UpdateIssuedUsingLocalLicenseIDInInternationalLicense(int OldIssuedUsingLocalLicenseID, int NewIssuedUsingLocalLicenseID)
     {
         try
         {
             SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
-            SqlCommand command = new SqlCommand(@"update InternationalLicenses
-set IsActive = case when ExpirationDate < GETDATE() then 0 else 1 end", connection);
+            SqlCommand command = new SqlCommand(@"
+update InternationalLicenses set IssuedUsingLocalLicenseID = @NewIssuedUsingLocalLicenseID
+where IssuedUsingLocalLicenseID = @OldIssuedUsingLocalLicenseID;
+", connection);
+            command.Parameters.AddWithValue("@NewIssuedUsingLocalLicenseID", NewIssuedUsingLocalLicenseID);
+            command.Parameters.AddWithValue("@OldIssuedUsingLocalLicenseID", OldIssuedUsingLocalLicenseID);
+            command.ExecuteNonQuery();
+            connection.Close();
+            return true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool UpdateInternationalLicensesIsActiveByDate()
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(@"
+update InternationalLicenses set IsActive = case when ExpirationDate < GETDATE() then 0 else 1 end;
+", connection);
             command.ExecuteNonQuery();
             connection.Close();
             return true;

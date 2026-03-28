@@ -29,7 +29,7 @@ namespace DrivingLicenseManagement
                 personInfo1.LoadPerson(PersonID);
             }
             else if (UserIsExists)
-                MessageBox.Show("this User is Exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("this Person is User", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
                 MessageBox.Show("this Person is not Exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }

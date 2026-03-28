@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace DrivingLicenseManagement
 {
-    public partial class NewLicenseApplicationInfo : UserControl
+    public partial class ApplicationInfoForLicenseReplacement : UserControl
     {
-        public NewLicenseApplicationInfo()
+        public ApplicationInfoForLicenseReplacement()
         {
             InitializeComponent();
         }
@@ -23,17 +23,12 @@ namespace DrivingLicenseManagement
             RenewedLicenseIDL.Text = "Renewed License ID: " + NewLicenseID.ToString();
             OldLicenseIDL.Text = "Old License ID: " + OldLicenseID.ToString();
             ApplicationDateL.Text = "Application Date: " + dt.Rows[0]["ApplicationDate"].ToString();
-            ExpirationDateL.Text = "Expiration Date: " + dt.Rows[0]["ExpirationDate"].ToString();
-            IssueDateL.Text = "Issue Date: " + dt.Rows[0]["IssueDate"].ToString();
             CreatedByL.Text = "Created By: " + dt.Rows[0]["UserName"].ToString();
         }
-        public void LoadFeesInfo(DataTable dt)
+        public void LoadApplicationTypeFees(int ApplicationTypeID)
         {
-            int ApplicationFees = Convert.ToInt32(dt.Rows[0]["ApplicationFees"]);
-            int ClassFees = Convert.ToInt32(dt.Rows[0]["ClassFees"]);
-            ApplicationFeesL.Text = "Application Fees: " + ApplicationFees.ToString();
-            LicenseFeesL.Text = "Class Fees: " + ClassFees.ToString();
-            TotalFeesL.Text = "Total Fees: " + (ApplicationFees + ClassFees).ToString();
+            int Fees = MyDB.GetApplicationTypesFees(ApplicationTypeID);
+            ApplicationFeesL.Text = "Application Fees: " + Fees.ToString();
         }
     }
 }
