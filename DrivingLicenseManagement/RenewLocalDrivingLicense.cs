@@ -86,7 +86,7 @@ namespace DrivingLicenseManagement
             lDLApp.ApplicationDate = DateTime.Now;
             lDLApp.LastStatusDate = DateTime.Now;
             lDLApp.PaidFees = Convert.ToDecimal(dt.Rows[0]["ApplicationFees"]);
-            if (MyDB.AddLDLApp(ref lDLApp))
+            if (MyDB.AddLDLApp(ref lDLApp) > 0)
             {
                 license.ApplicationID = lDLApp.ApplicationID;
                 if (MyDB.AddLicense(ref license))

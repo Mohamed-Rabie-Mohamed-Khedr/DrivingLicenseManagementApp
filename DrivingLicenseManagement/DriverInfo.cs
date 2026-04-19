@@ -32,6 +32,7 @@ namespace DrivingLicenseManagement
             DateOfBirthL.Text = "Date Of Birth: " + dt.Rows[0]["DateOfBirth"].ToString();
             DriverIDL.Text = "Driver ID: " + dt.Rows[0]["DriverID"].ToString();
             ExpirationDateL.Text = "Expiration Date: " + dt.Rows[0]["ExpirationDate"].ToString();
+            IsDetainedL.Text = "Is Detained: " + dt.Rows[0]["IsDetained"].ToString();
             return true;
         }
     }

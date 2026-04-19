@@ -271,3 +271,31 @@ public class InternationalLicense
         IsActive = Convert.ToBoolean(dr["IsActive"]);
     }
 }
+public class DetainedLicense
+{
+    public int DetainID { get; set; }
+    public int LicenseID { get; set; }
+    public DateTime DetainDate { get; set; }
+    public decimal FineFees { get; set; }
+    public int CreatedByUserID { get; set; }
+    public bool IsReleased { get; set; }
+    public DateTime? ReleaseDate { get; set; } = null;
+    public int? ReleasedByUserID { get; set; } = null;
+    public int? ReleaseApplicationID { get; set; } = null;
+    public DetainedLicense() { }
+    public DetainedLicense(DataRow dr)
+    {
+        DetainID = Convert.ToInt32(dr["DetainID"]);
+        LicenseID = Convert.ToInt32(dr["LicenseID"]);
+        DetainDate = Convert.ToDateTime(dr["DetainDate"]);
+        FineFees = Convert.ToDecimal(dr["FineFees"]);
+        CreatedByUserID = Convert.ToInt32(dr["CreatedByUserID"]);
+        IsReleased = Convert.ToBoolean(dr["IsReleased"]);
+        if (dr["ReleaseDate"] != DBNull.Value)
+            ReleaseDate = Convert.ToDateTime(dr["ReleaseDate"]);
+        if (dr["ReleasedByUserID"] != DBNull.Value)
+            ReleasedByUserID = Convert.ToInt32(dr["ReleasedByUserID"]);
+        if (dr["ReleaseApplicationID"] != DBNull.Value)
+            ReleaseApplicationID = Convert.ToInt32(dr["ReleaseApplicationID"]);
+    }
+}

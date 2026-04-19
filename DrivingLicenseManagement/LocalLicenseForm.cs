@@ -51,7 +51,7 @@ namespace DrivingLicenseManagement
         private void Save_Click(object sender, EventArgs e)
         {
             LDLApp ldlApp = RaedLDLAppFromForm();
-            if (MyDB.AddLDLApp(ref ldlApp))
+            if (MyDB.AddLDLApp(ref ldlApp) > 0)
             {
                 ApplicationIDL.Text = "LDL. Application ID: " + ldlApp.ApplicationID.ToString();
                 MessageBox.Show("Added Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

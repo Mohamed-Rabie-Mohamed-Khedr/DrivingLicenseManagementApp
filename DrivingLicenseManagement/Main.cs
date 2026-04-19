@@ -107,5 +107,23 @@ namespace DrivingLicenseManagement
             ReplacementForDamagedOrLicenseForm replacementForDamagedOrLicenseForm = new ReplacementForDamagedOrLicenseForm();
             replacementForDamagedOrLicenseForm.ShowDialog();
         }
+
+        private void detainLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DetainLicenseForm detainLicenseForm = new DetainLicenseForm();
+            detainLicenseForm.ShowDialog();
+        }
+
+        private void manageDetainedLicensesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ManageDetainedLicenses manageDetainedLicenses = new ManageDetainedLicenses();
+            manageDetainedLicenses.ShowDialog();
+        }
+
+        private void releaseDetainedLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReleaseDetainedLicenseForm releaseDetainedLicenseForm = new ReleaseDetainedLicenseForm();
+            releaseDetainedLicenseForm.ShowDialog();
+        }
     }
 }

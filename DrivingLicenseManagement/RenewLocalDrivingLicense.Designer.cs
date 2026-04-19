@@ -31,7 +31,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.OKB = new System.Windows.Forms.Button();
             this.LicenseIDTB = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.ShowPersonLicenseHistoryLL = new System.Windows.Forms.LinkLabel();
             this.ShowNewLicenseLL = new System.Windows.Forms.LinkLabel();
             this.IssueB = new System.Windows.Forms.Button();
@@ -70,18 +69,6 @@
             this.LicenseIDTB.Size = new System.Drawing.Size(155, 20);
             this.LicenseIDTB.TabIndex = 55;
             this.LicenseIDTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LicenseIDTB_KeyPress);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(73, 85);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(121, 25);
-            this.label1.TabIndex = 54;
-            this.label1.Text = "License ID";
             // 
             // ShowPersonLicenseHistoryLL
             // 
@@ -138,7 +125,7 @@
             // driverInfo1
             // 
             this.driverInfo1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.driverInfo1.Location = new System.Drawing.Point(12, 88);
+            this.driverInfo1.Location = new System.Drawing.Point(12, 77);
             this.driverInfo1.Name = "driverInfo1";
             this.driverInfo1.Size = new System.Drawing.Size(1116, 368);
             this.driverInfo1.TabIndex = 57;
@@ -166,7 +153,6 @@
             this.Controls.Add(this.driverInfo1);
             this.Controls.Add(this.OKB);
             this.Controls.Add(this.LicenseIDTB);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -184,7 +170,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button OKB;
         private System.Windows.Forms.TextBox LicenseIDTB;
-        private System.Windows.Forms.Label label1;
         private DriverInfo driverInfo1;
         private System.Windows.Forms.LinkLabel ShowPersonLicenseHistoryLL;
         private NewLicenseApplicationInfo newLicenseApplicationInfo1;

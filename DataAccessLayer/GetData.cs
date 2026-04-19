@@ -45,16 +45,17 @@ public static class GetData
         }
         return -1;
     }
-    public static int GetPeopleCount()
+    public static int GetPersonIDByNationalNo(ref string NationalNo)
     {
         try
         {
             SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
-            SqlCommand command = new SqlCommand("select count(*) from People", sqlConnection);
-            int count = Convert.ToInt32(command.ExecuteScalar());
+            SqlCommand command = new SqlCommand("select PersonID from People where NationalNo = @NationalNo", sqlConnection);
+            command.Parameters.Add("@NationalNo", SqlDbType.NVarChar).Value = NationalNo;
+            int PersonID = Convert.ToInt32(command.ExecuteScalar());
             sqlConnection.Close();
-            return count;
+            return PersonID;
         }
         catch (Exception)
         {
@@ -831,15 +832,26 @@ where IssuedUsingLocalLicenseID = @licenseID", sqlConnection);
             SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(@"
-SELECT        Licenses.LicenseID, Licenses.DriverID, Licenses.IssueDate, Licenses.ExpirationDate, Licenses.Notes, LicenseClasses.ClassName, ApplicationTypes.ApplicationTypeTitle, 
-                         CASE WHEN Licenses.IsActive = 1 THEN 'Yes' ELSE 'No' END AS IsActive, People.NationalNo, People.DateOfBirth,
-                         People.FirstName + ' ' + People.SecondName + ' ' + People.ThirdName + ' ' + People.LastName AS FullName,
-CASE WHEN People.Gendor = 0 THEN 'Male' ELSE 'Female' END AS Gendor
-FROM            Licenses INNER JOIN
-                         LicenseClasses ON Licenses.LicenseClass = LicenseClasses.LicenseClassID INNER JOIN
-                         Applications ON Licenses.ApplicationID = Applications.ApplicationID INNER JOIN
-                         ApplicationTypes ON Applications.ApplicationTypeID = ApplicationTypes.ApplicationTypeID INNER JOIN
-                         People ON Applications.ApplicantPersonID = People.PersonID
+SELECT
+Licenses.LicenseID,
+Licenses.DriverID,
+Licenses.IssueDate,
+Licenses.ExpirationDate,
+Licenses.Notes,
+LicenseClasses.ClassName,
+ApplicationTypes.ApplicationTypeTitle,
+CASE WHEN Licenses.IsActive = 1 THEN 'Yes' ELSE 'No' END AS IsActive,
+People.NationalNo,
+People.DateOfBirth,
+People.FirstName + ' ' + People.SecondName + ' ' + People.ThirdName + ' ' + People.LastName AS FullName,
+CASE WHEN People.Gendor = 0 THEN 'Male' ELSE 'Female' END AS Gendor,
+CASE WHEN ISNULL(DetainedLicenses.IsReleased, 1) = 1 THEN 'No' ELSE 'Yes' END AS IsDetained
+
+FROM Licenses INNER JOIN LicenseClasses ON Licenses.LicenseClass = LicenseClasses.LicenseClassID
+INNER JOIN Applications ON Licenses.ApplicationID = Applications.ApplicationID
+INNER JOIN ApplicationTypes ON Applications.ApplicationTypeID = ApplicationTypes.ApplicationTypeID
+INNER JOIN People ON Applications.ApplicantPersonID = People.PersonID
+LEFT JOIN DetainedLicenses ON Licenses.LicenseID = DetainedLicenses.LicenseID
 where Licenses.LicenseID = @LicenseID", sqlConnection);
             command.Parameters.Add("@LicenseID", SqlDbType.Int).Value = LicenseID;
             SqlDataReader reader = command.ExecuteReader();
@@ -976,5 +988,122 @@ SELECT
         {
         }
         return 0;
+    }
+    public static (DetainedLicense dl, string UserName) GetDetainedLicense(ref int licenseID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+@"SELECT DetainedLicenses.*, Users.UserName
+FROM DetainedLicenses INNER JOIN
+Users ON DetainedLicenses.CreatedByUserID = Users.UserID
+where LicenseID = @licenseID", sqlConnection);
+            command.Parameters.Add("@licenseID", SqlDbType.Int).Value = licenseID;
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            sqlConnection.Close();
+            return dataTable.Rows.Count > 0 ? (new DetainedLicense(dataTable.Rows[0]), dataTable.Rows[0]["UserName"].ToString()) : (null, "");
+        }
+        catch (Exception)
+        {
+        }
+        return (null, "");
+    }
+    public static bool LicenseIsDetained(ref int licenseID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select found = '1' from DetainedLicenses where LicenseID = @licenseID and IsReleased = 0", sqlConnection);
+            command.Parameters.Add("@licenseID", SqlDbType.Int).Value = licenseID;
+            object found = command.ExecuteScalar();
+            sqlConnection.Close();
+            return found == null ? false : true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static DataTable GetDetainedLicenses(string FilterMode, object FilterValue)
+    {
+        try
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            string baseQuery =
+@"SELECT        DetainedLicenses.DetainID, DetainedLicenses.LicenseID, DetainedLicenses.DetainDate, DetainedLicenses.FineFees, DetainedLicenses.IsReleased, DetainedLicenses.ReleaseApplicationID, DetainedLicenses.ReleaseDate, 
+                         People.NationalNo, People.FirstName + ' ' + People.SecondName + ' ' + People.ThirdName + ' ' + People.LastName AS FullName
+FROM            DetainedLicenses INNER JOIN
+                         Licenses ON DetainedLicenses.LicenseID = Licenses.LicenseID INNER JOIN
+                         Applications ON Licenses.ApplicationID = Applications.ApplicationID INNER JOIN
+                         People ON Applications.ApplicantPersonID = People.PersonID";
+            string where = "";
+            switch (FilterMode)
+            {
+                case "Detain ID":
+                    where = " where DetainedLicenses.DetainID = @DetainID";
+                    parameters.Add(new SqlParameter("@DetainID", FilterValue));
+                    break;
+                case "Release Application ID":
+                    where = " where DetainedLicenses.ReleaseApplicationID = @ReleaseApplicationID";
+                    parameters.Add(new SqlParameter("@ReleaseApplicationID", FilterValue));
+                    break;
+                case "National No":
+                    where = " where People.NationalNo = @NationalNo";
+                    parameters.Add(new SqlParameter("@NationalNo", FilterValue));
+                    break;
+                case "Full Name":
+                    where = " where (People.FirstName + ' ' + People.SecondName + ' ' + People.ThirdName + ' ' + People.LastName) LIKE @FullName + '%'";
+                    parameters.Add(new SqlParameter("@FullName", FilterValue));
+                    break;
+                case "Is Released":
+                    where = " where DetainedLicenses.IsReleased = @IsReleased";
+                    parameters.Add(new SqlParameter("@IsReleased", FilterValue));
+                    break;
+            }
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(baseQuery + where, sqlConnection);
+            command.Parameters.AddRange(parameters.ToArray());
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            sqlConnection.Close();
+            return dataTable;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
+    }
+    public static DataTable GetReleaseDetainedLicenseInfo(ref int licenseID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand(
+@"SELECT        DetainedLicenses.DetainID, DetainedLicenses.LicenseID, DetainedLicenses.DetainDate, DetainedLicenses.FineFees, Users.UserName, ApplicationTypes.ApplicationFees
+FROM            DetainedLicenses INNER JOIN
+                         Users ON DetainedLicenses.CreatedByUserID = Users.UserID INNER JOIN
+                         Licenses ON DetainedLicenses.LicenseID = Licenses.LicenseID INNER JOIN
+                         Applications ON Applications.ApplicationID = Licenses.ApplicationID INNER JOIN
+                         ApplicationTypes ON Applications.ApplicationTypeID = ApplicationTypes.ApplicationTypeID
+WHERE DetainedLicenses.LicenseID = @licenseID", sqlConnection);
+            command.Parameters.Add("@licenseID", SqlDbType.Int).Value = licenseID;
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            sqlConnection.Close();
+            return dataTable;
+        }
+        catch (Exception)
+        {
+        }
+        return null;
     }
 }

@@ -230,6 +230,18 @@
     <Compile Include="ChangePasswordForm.Designer.cs">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DetainInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DetainInfo.Designer.cs">
+      <DependentUpon>DetainInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DetainLicenseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetainLicenseForm.Designer.cs">
+      <DependentUpon>DetainLicenseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DLMHelper.cs" />
     <Compile Include="DriverInfo.cs">
       <SubType>UserControl</SubType>
@@ -309,6 +321,12 @@
     <Compile Include="ManageApplicationTypes.Designer.cs">
       <DependentUpon>ManageApplicationTypes.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManageDetainedLicenses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageDetainedLicenses.Designer.cs">
+      <DependentUpon>ManageDetainedLicenses.cs</DependentUpon>
+    </Compile>
     <Compile Include="ManageDrivers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -371,6 +389,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReleaseDetainedLicense.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReleaseDetainedLicense.Designer.cs">
+      <DependentUpon>ReleaseDetainedLicense.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReleaseDetainedLicenseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReleaseDetainedLicenseForm.Designer.cs">
+      <DependentUpon>ReleaseDetainedLicenseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="RenewLocalDrivingLicense.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -431,6 +461,12 @@
     <EmbeddedResource Include="ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DetainInfo.resx">
+      <DependentUpon>DetainInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetainLicenseForm.resx">
+      <DependentUpon>DetainLicenseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DriverInfo.resx">
       <DependentUpon>DriverInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -469,6 +505,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManageApplicationTypes.resx">
       <DependentUpon>ManageApplicationTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageDetainedLicenses.resx">
+      <DependentUpon>ManageDetainedLicenses.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManageDrivers.resx">
       <DependentUpon>ManageDrivers.cs</DependentUpon>
@@ -510,6 +549,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ReleaseDetainedLicense.resx">
+      <DependentUpon>ReleaseDetainedLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReleaseDetainedLicenseForm.resx">
+      <DependentUpon>ReleaseDetainedLicenseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RenewLocalDrivingLicense.resx">
       <DependentUpon>RenewLocalDrivingLicense.cs</DependentUpon>
     </EmbeddedResource>

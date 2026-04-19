@@ -58,7 +58,7 @@ namespace DrivingLicenseManagement
             lDLApp.ApplicationDate = DateTime.Now;
             lDLApp.LastStatusDate = DateTime.Now;
             lDLApp.PaidFees = applicationFees;
-            if (MyDB.AddLDLApp(ref lDLApp))
+            if (MyDB.AddLDLApp(ref lDLApp) > 0)
             {
                 license.ApplicationID = lDLApp.ApplicationID;
                 if (MyDB.AddLicense(ref license))
@@ -68,7 +68,7 @@ namespace DrivingLicenseManagement
                     ApplicantPersonID = lDLApp.ApplicantPersonID;
                     applicationInfoForLicenseReplacement1.LoadInfo(LicenseID, NewLicenseID);
                     ShowNewLicenseLL.Enabled = true;
-                    MyDB.UpdateLicensesIsActive(LicenseID, false);
+                    MyDB.UpdateLicenseIsActive(LicenseID, false);
                     MessageBox.Show("New License Issued Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else

@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace DrivingLicenseManagement
+{
+    public partial class ReleaseDetainedLicense : UserControl
+    {
+        public decimal TotalFees { get; private set; }
+        public ReleaseDetainedLicense()
+        {
+            InitializeComponent();
+        }
+        public void LoadInfo(int LicenseID)
+        {
+            DataTable dt = MyDB.GetReleaseDetainedLicenseInfo(LicenseID);
+            DetainIDL.Text = "Detain ID: " + dt.Rows[0]["DetainID"].ToString();
+            DetainDateL.Text = "Detain Date: " + dt.Rows[0]["DetainDate"].ToString();
+            LicenseIDL.Text = "License ID: " + dt.Rows[0]["LicenseID"].ToString();
+            CreatedByL.Text = "Created By: " + dt.Rows[0]["UserName"].ToString();
+            FineFeesL.Text = "Fine Fees: " + dt.Rows[0]["FineFees"].ToString();
+            ApplicationFeesL.Text = "Application Fees: " + dt.Rows[0]["ApplicationFees"].ToString();
+            TotalFees = Convert.ToDecimal(dt.Rows[0]["FineFees"]) + Convert.ToDecimal(dt.Rows[0]["ApplicationFees"]);
+            TotalFeesL.Text = "Total Fees: " + TotalFees.ToString();
+        }
+        public void LoadApplicationID(int ApplicationID)
+        {
+            ApplicationIDL.Text = "Application ID: " + ApplicationID.ToString();
+        }
+    }
+}

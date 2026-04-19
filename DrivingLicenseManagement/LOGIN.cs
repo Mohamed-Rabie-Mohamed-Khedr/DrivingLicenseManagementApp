@@ -30,6 +30,7 @@ namespace DrivingLicenseManagement
 
         private void button1_Click(object sender, EventArgs e)
         {
+            button1.Enabled = false;
             if (string.IsNullOrEmpty(PasswordTB.Text))
                 MessageBox.Show("Please Enter Password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if (string.IsNullOrEmpty(UserNameTB.Text))
@@ -65,6 +66,7 @@ namespace DrivingLicenseManagement
                     }
                 }
             }
+            button1.Enabled = true;
         }
     }
 }

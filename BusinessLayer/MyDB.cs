@@ -34,9 +34,9 @@ public static class MyDB
     {
         return GetData.GetPersonIDByDriver(ref DriverID);
     }
-    public static int GetPeopleCount()
+    public static int GetPersonIDByNationalNo(string NationalNo)
     {
-        return GetData.GetPeopleCount();
+        return GetData.GetPersonIDByNationalNo(ref NationalNo);
     }
     public static ref string[] GetCountries()
     {
@@ -120,9 +120,9 @@ public static class MyDB
     {
         return SetData.UpdateLicensesIsActiveByDate();
     }
-    public static bool UpdateLicensesIsActive(int LicenseID, bool IsActive)
+    public static bool UpdateLicenseIsActive(int LicenseID, bool IsActive)
     {
-        return SetData.UpdateLicensesIsActive(LicenseID, IsActive);
+        return SetData.UpdateLicensesIActive(LicenseID, IsActive);
     }
     public static DataTable GetLDLApps(string FilterMode, object FilterValue)
     {
@@ -136,10 +136,10 @@ public static class MyDB
     {
         return GetData.LDLAppIsExists(ref ApplicantPersonID, ref LicenseClassID);
     }
-    public static bool AddLDLApp(ref LDLApp app)
+    public static int AddLDLApp(ref LDLApp app)
     {
         if (app.ApplicationTypeID == 1 && LDLAppIsExists(app.ApplicantPersonID, app.LicenseClassID))
-            return false;
+            return 0;
         return SetData.AddLDLApp(ref app);
     }
     public static bool DeleteLDLApp(int LdLAppID)
@@ -227,7 +227,7 @@ public static class MyDB
     public static DataTable GetPersonLicenseHistory(int PersonID)
     {
         if (UpdateLicensesIsActiveByDate())
-        return GetData.GetPersonLicenseHistory(ref PersonID);
+            return GetData.GetPersonLicenseHistory(ref PersonID);
         else return null;
     }
     public static License GetLicense(int licenseID)
@@ -254,10 +254,6 @@ public static class MyDB
             return GetData.GetInternationalLicenses();
         else return null;
     }
-    public static bool UpdateIssuedUsingLocalLicenseIDInInternationalLicense(int OldIssuedUsingLocalLicenseID, int NewIssuedUsingLocalLicenseID)
-    {
-        return SetData.UpdateIssuedUsingLocalLicenseIDInInternationalLicense(OldIssuedUsingLocalLicenseID, NewIssuedUsingLocalLicenseID);
-    }
     public static DataTable GetApplicationInfoToShowOnForm(int LicenseID)
     {
         return GetData.GetApplicationInfoToShowOnForm(ref LicenseID);
@@ -277,5 +273,29 @@ public static class MyDB
     public static int GetApplicationTypesFees(int applicationTypeID)
     {
         return GetData.GetApplicationTypesFees(ref applicationTypeID);
+    }
+    public static bool AddDetainedLicense(ref DetainedLicense dl)
+    {
+        return SetData.AddDetainedLicense(ref dl);
+    }
+    public static (DetainedLicense dl, string UserName) GetDetainedLicense(int licenseID)
+    {
+        return GetData.GetDetainedLicense(ref licenseID);
+    }
+    public static bool LicenseIsDetained(int licenseID)
+    {
+        return GetData.LicenseIsDetained(ref licenseID);
+    }
+    public static DataTable GetDetainedLicenses(string FilterMode, object FilterValue)
+    {
+        return GetData.GetDetainedLicenses(FilterMode, FilterValue);
+    }
+    public static DataTable GetReleaseDetainedLicenseInfo(int licenseID)
+    {
+        return GetData.GetReleaseDetainedLicenseInfo(ref licenseID);
+    }
+    public static bool IsReleasedTrue(DateTime ReleaseDate, int ReleasedByUserID, int ReleaseApplicationID, int LicenseID)
+    {
+        return SetData.IsReleasedTrue(ReleaseDate, ReleasedByUserID, ReleaseApplicationID, LicenseID);
     }
 }

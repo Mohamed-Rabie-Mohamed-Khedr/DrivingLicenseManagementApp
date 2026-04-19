@@ -221,7 +221,7 @@ public static class SetData
         }
         return false;
     }
-    public static bool AddLDLApp(ref LDLApp app)
+    public static int AddLDLApp(ref LDLApp app)
     {
         try
         {
@@ -253,12 +253,12 @@ public static class SetData
             command.Parameters.AddWithValue("@LicenseClassID", app.LicenseClassID);
             app.LDLAppID = Convert.ToInt32(command.ExecuteScalar());
             connection.Close();
-            return app.LDLAppID > 0;
+            return app.ApplicationID;
         }
         catch (Exception)
         {
         }
-        return false;
+        return 0;
     }
 
     public static bool DeleteLDLApp(ref int LdLAppID)
@@ -463,7 +463,8 @@ public static class SetData
             SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(@"update Licenses
-set IsActive = case when ExpirationDate < GETDATE() then 0 else 1 end", connection);
+set IsActive = case when ExpirationDate < GETDATE() then 0 else 1 end
+where IsActive = 1;", connection);
             command.ExecuteNonQuery();
             connection.Close();
             return true;
@@ -473,7 +474,7 @@ set IsActive = case when ExpirationDate < GETDATE() then 0 else 1 end", connecti
         }
         return false;
     }
-    public static bool UpdateLicensesIsActive(int LicenseID, bool IsActive)
+    public static bool UpdateLicensesIActive(int LicenseID, bool IsActive)
     {
         try
         {
@@ -516,18 +517,16 @@ set IsActive = case when ExpirationDate < GETDATE() then 0 else 1 end", connecti
         }
         return false;
     }
-    public static bool UpdateIssuedUsingLocalLicenseIDInInternationalLicense(int OldIssuedUsingLocalLicenseID, int NewIssuedUsingLocalLicenseID)
+    public static bool UpdateInternationalLicensesIsActiveByDate()
     {
         try
         {
             SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(@"
-update InternationalLicenses set IssuedUsingLocalLicenseID = @NewIssuedUsingLocalLicenseID
-where IssuedUsingLocalLicenseID = @OldIssuedUsingLocalLicenseID;
+update InternationalLicenses set IsActive = case when ExpirationDate < GETDATE() then 0 else 1 end
+where IsActive = 1;
 ", connection);
-            command.Parameters.AddWithValue("@NewIssuedUsingLocalLicenseID", NewIssuedUsingLocalLicenseID);
-            command.Parameters.AddWithValue("@OldIssuedUsingLocalLicenseID", OldIssuedUsingLocalLicenseID);
             command.ExecuteNonQuery();
             connection.Close();
             return true;
@@ -537,18 +536,54 @@ where IssuedUsingLocalLicenseID = @OldIssuedUsingLocalLicenseID;
         }
         return false;
     }
-    public static bool UpdateInternationalLicensesIsActiveByDate()
+    public static bool AddDetainedLicense(ref DetainedLicense dl)
     {
         try
         {
             SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
-            SqlCommand command = new SqlCommand(@"
-update InternationalLicenses set IsActive = case when ExpirationDate < GETDATE() then 0 else 1 end;
-", connection);
-            command.ExecuteNonQuery();
+            SqlCommand command = new SqlCommand(@"insert into DetainedLicenses
+(LicenseID, DetainDate, FineFees, CreatedByUserID, IsReleased, ReleaseDate, ReleasedByUserID, ReleaseApplicationID) values
+(@LicenseID, @DetainDate, @FineFees, @CreatedByUserID, @IsReleased, @ReleaseDate, @ReleasedByUserID, @ReleaseApplicationID); select SCOPE_IDENTITY();", connection);
+            command.Parameters.AddWithValue("@LicenseID", dl.LicenseID);
+            command.Parameters.AddWithValue("@DetainDate", dl.DetainDate);
+            command.Parameters.AddWithValue("@FineFees", dl.FineFees);
+            command.Parameters.AddWithValue("@CreatedByUserID", dl.CreatedByUserID);
+            command.Parameters.AddWithValue("@IsReleased", dl.IsReleased);
+            if (dl.ReleaseDate == null)
+                command.Parameters.AddWithValue("@ReleaseDate", DBNull.Value);
+            else command.Parameters.AddWithValue("@ReleaseDate", dl.ReleaseDate);
+            if (dl.ReleasedByUserID == null)
+                command.Parameters.AddWithValue("@ReleasedByUserID", DBNull.Value);
+            else command.Parameters.AddWithValue("@ReleasedByUserID", dl.ReleasedByUserID);
+            if (dl.ReleaseApplicationID == null)
+                command.Parameters.AddWithValue("@ReleaseApplicationID", DBNull.Value);
+            else command.Parameters.AddWithValue("@ReleaseApplicationID", dl.ReleaseApplicationID);
+            dl.DetainID = Convert.ToInt32(command.ExecuteScalar());
             connection.Close();
-            return true;
+            return dl.DetainID > 0;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool IsReleasedTrue(DateTime ReleaseDate, int ReleasedByUserID, int ReleaseApplicationID, int LicenseID)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(@"update DetainedLicenses set IsReleased = 1, ReleaseDate = @ReleaseDate,
+            ReleasedByUserID = @ReleasedByUserID, ReleaseApplicationID = @ReleaseApplicationID
+            where LicenseID = @LicenseID and IsReleased = 0", connection);
+            command.Parameters.AddWithValue("@ReleaseDate", ReleaseDate);
+            command.Parameters.AddWithValue("@ReleasedByUserID", ReleasedByUserID);
+            command.Parameters.AddWithValue("@ReleaseApplicationID", ReleaseApplicationID);
+            command.Parameters.AddWithValue("@LicenseID", LicenseID);
+            bool result = command.ExecuteNonQuery() > 0;
+            connection.Close();
+            return result;
         }
         catch (Exception)
         {
