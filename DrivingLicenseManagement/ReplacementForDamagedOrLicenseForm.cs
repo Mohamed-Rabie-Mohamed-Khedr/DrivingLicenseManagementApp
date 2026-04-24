@@ -14,7 +14,6 @@ namespace DrivingLicenseManagement
     {
         License license;
         int LicenseID = 0, NewLicenseID = 0, ApplicantPersonID = 0;
-        decimal applicationFees = 0;
         byte applicationTypeID = 0;
         DataTable dt;
         public ReplacementForDamagedOrLicenseForm()
@@ -24,7 +23,6 @@ namespace DrivingLicenseManagement
         void ApplicationFeesUpdate()
         {
             applicationTypeID = (byte)(radioButton1.Checked ? 3 : 4);
-            applicationFees = MyDB.GetApplicationTypesFees(applicationTypeID);
             applicationInfoForLicenseReplacement1.LoadApplicationTypeFees(applicationTypeID);
         }
 
@@ -57,8 +55,8 @@ namespace DrivingLicenseManagement
             lDLApp.ApplicationTypeID = applicationTypeID;
             lDLApp.ApplicationDate = DateTime.Now;
             lDLApp.LastStatusDate = DateTime.Now;
-            lDLApp.PaidFees = applicationFees;
-            if (MyDB.AddLDLApp(ref lDLApp) > 0)
+            lDLApp.PaidFees = MyDB.GetLicenseClasseFees(lDLApp.ApplicationTypeID);
+            if (MyDB.AddApplication(ref lDLApp) > 0)
             {
                 license.ApplicationID = lDLApp.ApplicationID;
                 if (MyDB.AddLicense(ref license))

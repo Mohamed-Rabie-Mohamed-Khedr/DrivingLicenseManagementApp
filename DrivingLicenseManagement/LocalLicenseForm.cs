@@ -24,6 +24,7 @@ namespace DrivingLicenseManagement
             tabControl1.TabPages[0].Controls.Add(user_Info1);
 
             ApplicationDateL.Text += " " + DateTime.Now.ToString();
+            ApplicationFeesL.Text += " " + MyDB.GetLicenseClasseFees(1).ToString();
             CreatedByL.Text += " " + DLMHelper.CurrentUser.UserName;
 
             dt = MyDB.GetLicenseClasses();
@@ -51,7 +52,7 @@ namespace DrivingLicenseManagement
         private void Save_Click(object sender, EventArgs e)
         {
             LDLApp ldlApp = RaedLDLAppFromForm();
-            if (MyDB.AddLDLApp(ref ldlApp) > 0)
+            if (MyDB.AddApplication(ref ldlApp) > 0)
             {
                 ApplicationIDL.Text = "LDL. Application ID: " + ldlApp.ApplicationID.ToString();
                 MessageBox.Show("Added Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -69,7 +70,7 @@ namespace DrivingLicenseManagement
             ldlApp.ApplicationTypeID = 1;
             ldlApp.ApplicationStatus = "New";
             ldlApp.LastStatusDate = DateTime.Now;
-            ldlApp.PaidFees = 15;
+            ldlApp.PaidFees = MyDB.GetLicenseClasseFees(ldlApp.ApplicationTypeID);
             ldlApp.CreatedByUserID = DLMHelper.CurrentUser.UserID;
             return ldlApp;
         }

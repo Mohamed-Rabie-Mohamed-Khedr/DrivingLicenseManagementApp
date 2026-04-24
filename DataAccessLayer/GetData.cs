@@ -62,6 +62,23 @@ public static class GetData
         }
         return -1;
     }
+    public static int GetPersonIDByDriverID(int DriverID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select PersonID from Drivers where DriverID = @DriverID", sqlConnection);
+            command.Parameters.Add("@DriverID", SqlDbType.Int).Value = DriverID;
+            int PersonID = Convert.ToInt32(command.ExecuteScalar());
+            sqlConnection.Close();
+            return PersonID;
+        }
+        catch (Exception)
+        {
+        }
+        return -1;
+    }
     public static DataTable GetCountries()
     {
         try
@@ -97,6 +114,22 @@ public static class GetData
         }
         return false;
     }
+    public static bool PersonIsExists()
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select found = '1' from People", sqlConnection);
+            object found = command.ExecuteScalar();
+            sqlConnection.Close();
+            return found == null ? false : true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
     public static bool NationalNoIsExists(ref string NationalNo)
     {
         try
@@ -105,6 +138,24 @@ public static class GetData
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select found = '1' from People where NationalNo = @NationalNo", sqlConnection);
             command.Parameters.AddWithValue("@NationalNo", NationalNo);
+            object found = command.ExecuteScalar();
+            sqlConnection.Close();
+            return found == null ? false : true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
+    public static bool PersonAgeIsAllowedToGetThisLicense(int PersonAge, int LicenseClassID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("SELECT found = '1' FROM LicenseClasses L WHERE L.LicenseClassID = @LicenseClassID AND @PersonAge >= L.MinimumAllowedAge", sqlConnection);
+            command.Parameters.Add("@PersonAge", SqlDbType.Int).Value = PersonAge;
+            command.Parameters.Add("@LicenseClassID", SqlDbType.Int).Value = LicenseClassID;
             object found = command.ExecuteScalar();
             sqlConnection.Close();
             return found == null ? false : true;
@@ -277,6 +328,22 @@ public static class GetData
         }
         return false;
     }
+    public static bool UserIsExists()
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select found = '1' from Users", sqlConnection);
+            object found = command.ExecuteScalar();
+            sqlConnection.Close();
+            return found == null ? false : true;
+        }
+        catch (Exception)
+        {
+        }
+        return false;
+    }
     public static DataTable GetApplicationTypes()
     {
         try
@@ -368,6 +435,23 @@ public static class GetData
         {
         }
         return null;
+    }
+    public static decimal GetLicenseClasseFees(int ApplicationTypeID)
+    {
+        try
+        {
+            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
+            sqlConnection.Open();
+            SqlCommand command = new SqlCommand("select ClassFees from LicenseClasses where LicenseClassID = @ApplicationTypeID", sqlConnection);
+            command.Parameters.Add("@ApplicationTypeID", SqlDbType.Int).Value = ApplicationTypeID;
+            object Fees = command.ExecuteScalar();
+            sqlConnection.Close();
+            return Fees == null ? 0 : (decimal)Fees;
+        }
+        catch (Exception)
+        {
+        }
+        return 0;
     }
 
     static string LDLAppBaseSQLQuery =
@@ -579,7 +663,7 @@ ELSE ISNULL(PT.PassedCount, 0) END AS PassedTests, TT.TestTypeID,
         }
         return false;
     }
-    public static int GetTestAppointmentIsLockedCount(ref int ldLAppID, ref int TestTypeID)
+    public static int GetTestAppointmentIsLockedCount(int ldLAppID, int TestTypeID)
     {
         try
         {

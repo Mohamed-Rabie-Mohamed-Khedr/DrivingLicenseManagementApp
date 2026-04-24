@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 public static class SetData
 {
-    public static bool AddPerson(ref Person person)
+    public static int AddPerson(ref Person person)
     {
         try
         {
@@ -51,12 +51,12 @@ public static class SetData
             command.ExecuteNonQuery();
             connection.Close();
 
-            return person.PersonID > 0;
+            return person.PersonID;
         }
         catch (Exception)
         {
         }
-        return false;
+        return -1;
     }
     
     public static bool UpdatePerson(ref Person person)
@@ -221,7 +221,7 @@ public static class SetData
         }
         return false;
     }
-    public static int AddLDLApp(ref LDLApp app)
+    public static int AddApplication(ref LDLApp app)
     {
         try
         {
@@ -246,14 +246,31 @@ public static class SetData
             command.Parameters.AddWithValue("@CreatedByUserID", app.CreatedByUserID);
             app.ApplicationID = Convert.ToInt32(command.ExecuteScalar());
 
-            command.CommandText = @"insert into LocalDrivingLicenseApplications
+            if (app.ApplicationTypeID == 1) app.LDLAppID = AddLDLApp(ref app);
+                connection.Close();
+            return app.ApplicationID;
+        }
+        catch (Exception)
+        {
+        }
+        return 0;
+    }
+
+    static int AddLDLApp(ref LDLApp app)
+    {
+        try
+        {
+            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(
+            @"insert into LocalDrivingLicenseApplications
             (ApplicationID, LicenseClassID) values (@ApplicationID, @LicenseClassID);
-            select SCOPE_IDENTITY();";
+            select SCOPE_IDENTITY();", connection);
             command.Parameters.AddWithValue("@ApplicationID", app.ApplicationID);
             command.Parameters.AddWithValue("@LicenseClassID", app.LicenseClassID);
             app.LDLAppID = Convert.ToInt32(command.ExecuteScalar());
             connection.Close();
-            return app.ApplicationID;
+            return app.LDLAppID;
         }
         catch (Exception)
         {
@@ -313,7 +330,7 @@ public static class SetData
         return false;
     }
 
-    public static bool AddTestAppointment(ref TestAppointment ta)
+    public static bool AddTestAppointment(ref TestAppointment ta, int PersonID)
     {
         try
         {
@@ -330,6 +347,19 @@ public static class SetData
             command.Parameters.AddWithValue("@PaidFees", ta.PaidFees);
             command.Parameters.AddWithValue("@CreatedByUserID", ta.CreatedByUserID);
             command.Parameters.AddWithValue("@IsLocked", ta.IsLocked);
+            if (GetData.GetTestAppointmentIsLockedCount(ta.LDLAppID, ta.TestTypeID) > 0)
+            {
+                LDLApp app = new LDLApp();
+                app.ApplicationDate = app.LastStatusDate = DateTime.Now;
+                app.ApplicationTypeID = 7;
+                app.ApplicationStatus = "Completed";
+                app.CreatedByUserID = ta.CreatedByUserID;
+                app.ApplicantPersonID = PersonID;
+                app.PaidFees = GetData.GetLicenseClasseFees(app.ApplicationTypeID);
+                ta.RetakeTestApplicationID = app.ApplicationID = AddApplication(ref app);
+                command.Parameters.AddWithValue("@RetakeTestApplicationID", ta.RetakeTestApplicationID);
+            }
+            else command.Parameters.AddWithValue("@RetakeTestApplicationID", DBNull.Value);
             ta.TestAppointmentID = Convert.ToInt32(command.ExecuteScalar());
             connection.Close();
             return ta.TestAppointmentID > 0;
@@ -494,6 +524,14 @@ where IsActive = 1;", connection);
     }
     public static bool AddInternationalLicense(ref InternationalLicense il)
     {
+        LDLApp app = new LDLApp();
+        app.ApplicationDate = app.LastStatusDate = DateTime.Now;
+        app.ApplicationTypeID = 6;
+        app.ApplicantPersonID = GetData.GetPersonIDByDriverID(il.DriverID);
+        app.ApplicationStatus = "Completed";
+        app.CreatedByUserID = il.CreatedByUserID;
+        app.PaidFees = GetData.GetLicenseClasseFees(app.ApplicationTypeID);
+        app.ApplicationID = AddApplication(ref app);
         try
         {
             SqlConnection connection = new SqlConnection(DAHelper.connectionString);

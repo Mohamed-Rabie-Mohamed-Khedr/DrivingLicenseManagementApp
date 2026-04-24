@@ -135,9 +135,9 @@
             this.ApplicationFeesL.ForeColor = System.Drawing.Color.White;
             this.ApplicationFeesL.Location = new System.Drawing.Point(205, 344);
             this.ApplicationFeesL.Name = "ApplicationFeesL";
-            this.ApplicationFeesL.Size = new System.Drawing.Size(198, 23);
+            this.ApplicationFeesL.Size = new System.Drawing.Size(168, 23);
             this.ApplicationFeesL.TabIndex = 4;
-            this.ApplicationFeesL.Text = "ApplicationFees: 15";
+            this.ApplicationFeesL.Text = "ApplicationFees:";
             // 
             // label4
             // 

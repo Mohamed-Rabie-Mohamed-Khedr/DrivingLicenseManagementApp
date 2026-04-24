@@ -9,9 +9,9 @@ public static class MyDB
 {
     static DataTable LicenseClassesDT = null;
     static string[] countryNames = null;
-    public static bool AddPerson(ref Person person)
+    public static int AddPerson(ref Person person)
     {
-        if (NationalNoIsExists(person.NationalNo)) return false;
+        if (NationalNoIsExists(person.NationalNo)) return -1;
             return SetData.AddPerson(ref person);
     }
     public static bool UpdatePerson(ref Person person)
@@ -54,6 +54,12 @@ public static class MyDB
     {
         return GetData.PersonIsExists(ref PersonID);
     }
+    public static bool PersonIsExists()
+    { return GetData.PersonIsExists(); }
+    public static bool PersonAgeIsAllowedToGetThisLicense(int PersonAge, int LicenseClassID)
+    {
+        return GetData.PersonAgeIsAllowedToGetThisLicense(PersonAge, LicenseClassID);
+    }
     public static bool AddUser(ref User user)
     {
         return SetData.AddUser(ref user);
@@ -82,6 +88,8 @@ public static class MyDB
     {
         return GetData.UserIsExists(ref UserID);
     }
+    public static bool UserIsExists()
+    { return GetData.UserIsExists(); }
     public static bool NationalNoIsExists(string NationalNo)
     {
         return GetData.NationalNoIsExists(ref NationalNo);
@@ -116,6 +124,10 @@ public static class MyDB
         LicenseClassesDT = GetData.GetLicenseClasses();
         return ref LicenseClassesDT;
     }
+    public static decimal GetLicenseClasseFees(int ApplicationTypeID)
+    {
+        return GetData.GetLicenseClasseFees(ApplicationTypeID);
+    }
     public static bool UpdateLicensesIsActiveByDate()
     {
         return SetData.UpdateLicensesIsActiveByDate();
@@ -136,11 +148,12 @@ public static class MyDB
     {
         return GetData.LDLAppIsExists(ref ApplicantPersonID, ref LicenseClassID);
     }
-    public static int AddLDLApp(ref LDLApp app)
+    public static int AddApplication(ref LDLApp app)
     {
-        if (app.ApplicationTypeID == 1 && LDLAppIsExists(app.ApplicantPersonID, app.LicenseClassID))
+        int age = (int)((DateTime.Now - GetPerson(app.ApplicantPersonID).DateOfBirth).TotalDays / 365);
+        if (!PersonAgeIsAllowedToGetThisLicense(age, app.LicenseClassID) || (app.ApplicationTypeID == 1 && LDLAppIsExists(app.ApplicantPersonID, app.LicenseClassID)))
             return 0;
-        return SetData.AddLDLApp(ref app);
+        return SetData.AddApplication(ref app);
     }
     public static bool DeleteLDLApp(int LdLAppID)
     {
@@ -150,9 +163,9 @@ public static class MyDB
     {
         return SetData.UpdateLDLApp(ref app);
     }
-    public static bool AddTestAppointment(ref TestAppointment ta)
+    public static bool AddTestAppointment(ref TestAppointment ta, int PersonID)
     {
-        return SetData.AddTestAppointment(ref ta);
+        return SetData.AddTestAppointment(ref ta, PersonID);
     }
     public static DataTable GetTestAppointments(int ldLAppID, byte TestTypeID)
     {
@@ -172,7 +185,7 @@ public static class MyDB
     }
     public static int GetTestAppointmentIsLockedCount(int ldLAppID, int TestTypeID)
     {
-        return GetData.GetTestAppointmentIsLockedCount(ref ldLAppID, ref TestTypeID);
+        return GetData.GetTestAppointmentIsLockedCount(ldLAppID, TestTypeID);
     }
     public static bool UpdateApplicationStatus(int AppointmentID, byte ApplicationStatus)
     {

@@ -163,7 +163,7 @@ public class TestAppointment
     public decimal PaidFees { get; set; }
     public int CreatedByUserID { get; set; }
     public byte IsLocked { get; set; }
-
+    public int? RetakeTestApplicationID { get; set; } = null;
     public TestAppointment() { }
 
     public TestAppointment(DataRow dr)
@@ -175,6 +175,8 @@ public class TestAppointment
         PaidFees = Convert.ToInt32(dr["PaidFees"]);
         CreatedByUserID = Convert.ToInt32(dr["CreatedByUserID"]);
         IsLocked = Convert.ToByte(dr["IsLocked"]);
+        if (dr["RetakeTestApplicationID"] != DBNull.Value)
+            RetakeTestApplicationID = Convert.ToInt32(dr["RetakeTestApplicationID"]);
     }
 }
 public class Test

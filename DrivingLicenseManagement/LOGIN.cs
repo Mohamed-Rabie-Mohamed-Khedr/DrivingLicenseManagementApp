@@ -20,6 +20,7 @@ namespace DrivingLicenseManagement
 
         private void LOGIN_Load(object sender, EventArgs e)
         {
+            button2.Enabled = !MyDB.UserIsExists();
             using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\DrivingLicenseManagement"))
             {
                 UserNameTB.Text = (string)key.GetValue("UserName", "");
@@ -67,6 +68,21 @@ namespace DrivingLicenseManagement
                 }
             }
             button1.Enabled = true;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (!MyDB.PersonIsExists())
+            {
+                AddAndUpdatePersonForm addAndUpdatePersonForm = new AddAndUpdatePersonForm();
+                addAndUpdatePersonForm.ShowDialog();
+            }
+            if (MyDB.PersonIsExists())
+            {
+                AddAndUpdateUserForm aau = new AddAndUpdateUserForm();
+                aau.ShowDialog();
+                button2.Enabled = !MyDB.UserIsExists();
+            }
         }
     }
 }

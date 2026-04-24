@@ -48,7 +48,7 @@ namespace DrivingLicenseManagement
             ta.CreatedByUserID = DLMHelper.CurrentUser.UserID;
             if (AppointmentIDToUpdate == 0)
             {
-                if (MyDB.AddTestAppointment(ref ta))
+                if (MyDB.AddTestAppointment(ref ta, ldlapp.ApplicantPersonID))
                 {
                     MessageBox.Show("Added Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();

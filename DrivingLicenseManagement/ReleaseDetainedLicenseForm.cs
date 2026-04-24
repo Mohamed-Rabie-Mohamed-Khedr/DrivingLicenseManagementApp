@@ -63,11 +63,11 @@ namespace DrivingLicenseManagement
             ld.ApplicationTypeID = 5;
             ld.ApplicantPersonID = ApplicantPersonID;
             ld.ApplicationStatus = "Completed";
-            ld.PaidFees = releaseDetainedLicense1.TotalFees;
             ld.LicenseClassID = l.LicenseClass;
+            ld.PaidFees = MyDB.GetLicenseClasseFees(ld.ApplicationTypeID) + releaseDetainedLicense1.ApplicationFees;
             ld.CreatedByUserID = DLMHelper.CurrentUser.UserID;
 
-            if (MyDB.IsReleasedTrue(DateTime.Now, DLMHelper.CurrentUser.UserID, MyDB.AddLDLApp(ref ld), LicenseID))
+            if (MyDB.IsReleasedTrue(DateTime.Now, DLMHelper.CurrentUser.UserID, MyDB.AddApplication(ref ld), LicenseID))
             {
                 ReleaseB.Enabled = false;
                 releaseDetainedLicense1.LoadApplicationID(ld.LDLAppID);

@@ -33,7 +33,7 @@ namespace DrivingLicenseManagement
             Country.Items.AddRange(MyDB.GetCountries());
             if (myStatus == Status.Add)
             {
-                DateOfBirth.MaxDate = DateTime.Now.AddYears(-18);
+                DateOfBirth.Value = DateTime.Now.AddYears(-18);
                 Gendor.SelectedIndex = 0;
                 Country.SelectedIndex = 0;
             }
@@ -65,7 +65,7 @@ namespace DrivingLicenseManagement
                 Person person = RaedPersonFromForm();
                 if (myStatus == Status.Add)
                 {
-                    if (MyDB.AddPerson(ref person))
+                    if (MyDB.AddPerson(ref person) > 0)
                     {
                         if (person.ImageIsExists)
                             SaveImagePerson(person.ImageName);
@@ -74,7 +74,7 @@ namespace DrivingLicenseManagement
                         NationalNo.Text = Phone.Text = Address.Text = Email.Text = "";
                         ImagePerson.Image = DLMHelper.GetImagePersonDefault(Gendor.SelectedIndex == 0);
                         RemoveImage.Visible = false;
-                        MessageBox.Show("Person Added Successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Person Added Successfully, The Person ID Is: " + person.PersonID.ToString() + ".", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                      }
                     else
                         MessageBox.Show("Error While Adding Person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -178,6 +178,12 @@ namespace DrivingLicenseManagement
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void DateOfBirth_ValueChanged(object sender, EventArgs e)
+        {
+            if (DateOfBirth.Value > DateTime.Now.AddYears(-18))
+                DateOfBirth.Value = DateTime.Now.AddYears(-18);
         }
     }
 }

@@ -38,7 +38,6 @@ namespace DrivingLicenseManagement
                 License license = MyDB.GetLicense(LicenseID);
                 InternationalLicense internationalLicense = new InternationalLicense();
                 internationalLicense.IssuedUsingLocalLicenseID = license.LicenseID;
-                internationalLicense.ApplicationID = license.ApplicationID;
                 internationalLicense.DriverID = license.DriverID;
                 internationalLicense.ClassName = license.ClassName;
                 internationalLicense.IssueDate = license.IssueDate;

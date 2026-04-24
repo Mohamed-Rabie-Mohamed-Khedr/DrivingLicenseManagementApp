@@ -38,7 +38,7 @@ namespace DrivingLicenseManagement
                 l.IssueDate = DateTime.Now;
                 l.ExpirationDate = DateTime.Now.AddYears(ldlapp.DefaultValidityLength);
                 l.Notes = NotesTB.Text;
-                l.PaidFees = ldlapp.PaidFees;
+                l.PaidFees = MyDB.GetLicenseClasseFees(ldlapp.ApplicationTypeID);
                 l.IsActive = true;
                 l.IssueReason = (byte)ldlapp.ApplicationTypeID;
                 l.CreatedByUserID = DLMHelper.CurrentUser.UserID;

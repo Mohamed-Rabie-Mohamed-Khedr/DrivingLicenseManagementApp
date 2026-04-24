@@ -83,10 +83,11 @@ namespace DrivingLicenseManagement
             license.IsActive = true;
             LDLApp lDLApp = new LDLApp(MyDB.GetLDLApps("Application ID", license.ApplicationID).Rows[0]);
             lDLApp.ApplicationTypeID = 2;
+            lDLApp.PaidFees = MyDB.GetLicenseClasseFees(lDLApp.ApplicationTypeID);
             lDLApp.ApplicationDate = DateTime.Now;
             lDLApp.LastStatusDate = DateTime.Now;
             lDLApp.PaidFees = Convert.ToDecimal(dt.Rows[0]["ApplicationFees"]);
-            if (MyDB.AddLDLApp(ref lDLApp) > 0)
+            if (MyDB.AddApplication(ref lDLApp) > 0)
             {
                 license.ApplicationID = lDLApp.ApplicationID;
                 if (MyDB.AddLicense(ref license))

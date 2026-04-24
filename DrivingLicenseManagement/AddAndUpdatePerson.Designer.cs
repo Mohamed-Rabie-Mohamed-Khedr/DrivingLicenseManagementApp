@@ -211,6 +211,7 @@
             this.DateOfBirth.Name = "DateOfBirth";
             this.DateOfBirth.Size = new System.Drawing.Size(200, 20);
             this.DateOfBirth.TabIndex = 20;
+            this.DateOfBirth.ValueChanged += new System.EventHandler(this.DateOfBirth_ValueChanged);
             // 
             // ImagePerson
             // 

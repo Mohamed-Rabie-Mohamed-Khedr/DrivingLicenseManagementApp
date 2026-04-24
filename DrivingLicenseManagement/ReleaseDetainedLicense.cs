@@ -12,7 +12,7 @@ namespace DrivingLicenseManagement
 {
     public partial class ReleaseDetainedLicense : UserControl
     {
-        public decimal TotalFees { get; private set; }
+        public decimal ApplicationFees { get; private set; }
         public ReleaseDetainedLicense()
         {
             InitializeComponent();
@@ -25,9 +25,9 @@ namespace DrivingLicenseManagement
             LicenseIDL.Text = "License ID: " + dt.Rows[0]["LicenseID"].ToString();
             CreatedByL.Text = "Created By: " + dt.Rows[0]["UserName"].ToString();
             FineFeesL.Text = "Fine Fees: " + dt.Rows[0]["FineFees"].ToString();
-            ApplicationFeesL.Text = "Application Fees: " + dt.Rows[0]["ApplicationFees"].ToString();
-            TotalFees = Convert.ToDecimal(dt.Rows[0]["FineFees"]) + Convert.ToDecimal(dt.Rows[0]["ApplicationFees"]);
-            TotalFeesL.Text = "Total Fees: " + TotalFees.ToString();
+            ApplicationFees = Convert.ToDecimal(dt.Rows[0]["ApplicationFees"]);
+            ApplicationFeesL.Text = ApplicationFees.ToString();
+            TotalFeesL.Text = "Total Fees: " + (Convert.ToDecimal(dt.Rows[0]["FineFees"]) + Convert.ToDecimal(dt.Rows[0]["ApplicationFees"])).ToString();
         }
         public void LoadApplicationID(int ApplicationID)
         {
