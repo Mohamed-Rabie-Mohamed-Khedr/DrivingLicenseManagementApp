@@ -20,7 +20,7 @@ namespace DrivingLicenseManagement
             testAppointment = ta;
             DLAppIDL.Text = "D.L App ID: " + ldlapp.LDLAppID.ToString();
             DClasseL.Text = "D. Class: " + ldlapp.LicenseClassName;
-            DateL.Text = "Date: " + ta.AppointmentDate.ToString();
+            DateL.Text = "Date: " + ta.AppointmentDate.ToShortDateString();
             TrialL.Text = "Trial: " + MyDB.GetTestAppointmentIsLockedCount(ldlapp.LDLAppID, ldlapp.TestTypeID).ToString();
             NameL.Text = "Name: " + ldlapp.ApplicantName;
             FeesL.Text = "Fees: " + ldlapp.TestTypeFees.ToString("0");

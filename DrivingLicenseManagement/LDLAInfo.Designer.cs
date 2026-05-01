@@ -42,6 +42,7 @@
             this.StatusDateL = new System.Windows.Forms.Label();
             this.DateL = new System.Windows.Forms.Label();
             this.ShowPersonInfoLL = new System.Windows.Forms.LinkLabel();
+            this.ShowLicenseLL = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // label1
@@ -93,7 +94,7 @@
             this.PassedTestsL.AutoSize = true;
             this.PassedTestsL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PassedTestsL.ForeColor = System.Drawing.Color.Black;
-            this.PassedTestsL.Location = new System.Drawing.Point(511, 94);
+            this.PassedTestsL.Location = new System.Drawing.Point(577, 94);
             this.PassedTestsL.Name = "PassedTestsL";
             this.PassedTestsL.Size = new System.Drawing.Size(133, 23);
             this.PassedTestsL.TabIndex = 5;
@@ -159,7 +160,7 @@
             this.CreatedByL.AutoSize = true;
             this.CreatedByL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreatedByL.ForeColor = System.Drawing.Color.Black;
-            this.CreatedByL.Location = new System.Drawing.Point(511, 372);
+            this.CreatedByL.Location = new System.Drawing.Point(577, 372);
             this.CreatedByL.Name = "CreatedByL";
             this.CreatedByL.Size = new System.Drawing.Size(114, 23);
             this.CreatedByL.TabIndex = 13;
@@ -170,7 +171,7 @@
             this.StatusDateL.AutoSize = true;
             this.StatusDateL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StatusDateL.ForeColor = System.Drawing.Color.Black;
-            this.StatusDateL.Location = new System.Drawing.Point(511, 328);
+            this.StatusDateL.Location = new System.Drawing.Point(577, 328);
             this.StatusDateL.Name = "StatusDateL";
             this.StatusDateL.Size = new System.Drawing.Size(121, 23);
             this.StatusDateL.TabIndex = 12;
@@ -181,7 +182,7 @@
             this.DateL.AutoSize = true;
             this.DateL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DateL.ForeColor = System.Drawing.Color.Black;
-            this.DateL.Location = new System.Drawing.Point(511, 284);
+            this.DateL.Location = new System.Drawing.Point(577, 284);
             this.DateL.Name = "DateL";
             this.DateL.Size = new System.Drawing.Size(54, 23);
             this.DateL.TabIndex = 11;
@@ -191,7 +192,7 @@
             // 
             this.ShowPersonInfoLL.AutoSize = true;
             this.ShowPersonInfoLL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ShowPersonInfoLL.Location = new System.Drawing.Point(511, 416);
+            this.ShowPersonInfoLL.Location = new System.Drawing.Point(577, 416);
             this.ShowPersonInfoLL.Name = "ShowPersonInfoLL";
             this.ShowPersonInfoLL.Size = new System.Drawing.Size(180, 23);
             this.ShowPersonInfoLL.TabIndex = 14;
@@ -199,11 +200,29 @@
             this.ShowPersonInfoLL.Text = "Show Person Info";
             this.ShowPersonInfoLL.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ShowPersonInfoLL_LinkClicked);
             // 
+            // ShowLicenseLL
+            // 
+            this.ShowLicenseLL.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ShowLicenseLL.AutoSize = true;
+            this.ShowLicenseLL.DisabledLinkColor = System.Drawing.Color.Silver;
+            this.ShowLicenseLL.Enabled = false;
+            this.ShowLicenseLL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
+            this.ShowLicenseLL.Location = new System.Drawing.Point(577, 141);
+            this.ShowLicenseLL.Name = "ShowLicenseLL";
+            this.ShowLicenseLL.Size = new System.Drawing.Size(140, 23);
+            this.ShowLicenseLL.TabIndex = 80;
+            this.ShowLicenseLL.TabStop = true;
+            this.ShowLicenseLL.Text = "Show License";
+            this.ShowLicenseLL.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ShowLicenseLL_LinkClicked);
+            // 
             // LDLAInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.ShowLicenseLL);
             this.Controls.Add(this.ShowPersonInfoLL);
             this.Controls.Add(this.CreatedByL);
             this.Controls.Add(this.StatusDateL);
@@ -242,5 +261,6 @@
         private System.Windows.Forms.Label StatusDateL;
         private System.Windows.Forms.Label DateL;
         private System.Windows.Forms.LinkLabel ShowPersonInfoLL;
+        private System.Windows.Forms.LinkLabel ShowLicenseLL;
     }
 }

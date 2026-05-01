@@ -22,9 +22,9 @@ namespace DrivingLicenseManagement
             RLApplicationIDL.Text = "Application ID: " + dt.Rows[0]["ApplicationID"].ToString();
             RenewedLicenseIDL.Text = "Renewed License ID: " + NewLicenseID.ToString();
             OldLicenseIDL.Text = "Old License ID: " + OldLicenseID.ToString();
-            ApplicationDateL.Text = "Application Date: " + dt.Rows[0]["ApplicationDate"].ToString();
-            ExpirationDateL.Text = "Expiration Date: " + dt.Rows[0]["ExpirationDate"].ToString();
-            IssueDateL.Text = "Issue Date: " + dt.Rows[0]["IssueDate"].ToString();
+            ApplicationDateL.Text = "Application Date: " + Convert.ToDateTime(dt.Rows[0]["ApplicationDate"]).ToShortDateString();
+            ExpirationDateL.Text = "Expiration Date: " + Convert.ToDateTime(dt.Rows[0]["ExpirationDate"]).ToShortDateString();
+            IssueDateL.Text = "Issue Date: " + Convert.ToDateTime(dt.Rows[0]["IssueDate"]).ToShortDateString();
             CreatedByL.Text = "Created By: " + dt.Rows[0]["UserName"].ToString();
         }
         public void LoadFeesInfo(DataTable dt)

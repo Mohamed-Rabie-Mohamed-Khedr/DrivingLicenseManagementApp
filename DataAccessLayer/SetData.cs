@@ -10,9 +10,9 @@ public static class SetData
 {
     public static int AddPerson(ref Person person)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
 
             SqlCommand command = new SqlCommand(@"
@@ -55,15 +55,16 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return -1;
     }
     
     public static bool UpdatePerson(ref Person person)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
 
             SqlCommand command = new SqlCommand(
@@ -92,15 +93,16 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
 
     public static bool DeletePerson(ref int PersonID)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(@"delete from People where PersonID = @PersonID", connection);
             command.Parameters.AddWithValue("@PersonID", PersonID);
@@ -110,15 +112,16 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
 
     public static bool AddUser(ref User user)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(
             @"insert into Users (UserName, Password, IsActive, PersonID) values
@@ -133,14 +136,15 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
     public static bool UpdateUser(ref User user)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(
             @"update Users set UserName = @UserName, Password = @Password,
@@ -155,14 +159,15 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
     public static bool DeleteUser(ref int UserID)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(@"delete from Users where UserID = @UserID", connection);
             command.Parameters.AddWithValue("@UserID", UserID);
@@ -172,14 +177,15 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
     public static bool UpdateApplicationType(ref ApplicationType applicationType)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(
             @"update ApplicationTypes set ApplicationTypeTitle = @ApplicationTypeTitle,
@@ -194,14 +200,15 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
     public static bool UpdateTestType(ref TestType testType)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(
             @"update TestTypes set TestTypeTitle = @TestTypeTitle,
@@ -218,14 +225,15 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
     public static int AddApplication(ref LDLApp app)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(
             @"insert into Applications (ApplicantPersonID, ApplicationDate, ApplicationTypeID,
@@ -252,15 +260,16 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return 0;
     }
 
     static int AddLDLApp(ref LDLApp app)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(
             @"insert into LocalDrivingLicenseApplications
@@ -274,15 +283,16 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return 0;
     }
 
     public static bool DeleteLDLApp(ref int LdLAppID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(@"
             DECLARE @AppID INT;
@@ -304,20 +314,25 @@ public static class SetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
 
     public static bool UpdateLDLApp(ref LDLApp app)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(
             @"update Applications set ApplicationStatus = @ApplicationStatus,
             LastStatusDate = @LastStatusDate where ApplicationID = @ApplicationID", connection);
-            command.Parameters.AddWithValue("@ApplicationStatus", app.ApplicationStatus);
+            byte status;
+            if (app.ApplicationStatus == "New") status = 1;
+            else if (app.ApplicationStatus == "Canceled") status = 2;
+            else status = 3;
+            command.Parameters.AddWithValue("@ApplicationStatus", status);
             command.Parameters.AddWithValue("@LastStatusDate", app.LastStatusDate);
             command.Parameters.AddWithValue("@ApplicationID", app.ApplicationID);
             bool result = command.ExecuteNonQuery() > 0;
@@ -326,15 +341,16 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
 
     public static bool AddTestAppointment(ref TestAppointment ta, int PersonID)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(
             @"insert into TestAppointments (TestTypeID, LocalDrivingLicenseApplicationID,
@@ -366,15 +382,16 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
 
     public static bool UpdateTestAppointment(ref TestAppointment ta)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(
             @"update TestAppointments set AppointmentDate = @AppointmentDate,
@@ -388,14 +405,15 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
     public static bool UpdateApplicationStatus(ref int AppointmentID, ref byte ApplicationStatus)
-    {
+    {        
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
             @"UPDATE Applications SET ApplicationStatus = @ApplicationStatus WHERE ApplicationID = @ApplicationID", sqlConnection);
@@ -407,14 +425,15 @@ public static class SetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
     public static bool AddTest(ref Test tr)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(
             @"insert into Tests (TestAppointmentID, TestResult, Notes, CreatedByUserID) values
@@ -429,14 +448,15 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
     public static bool AddDriver(ref Driver dr)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(
             @"insert into Drivers (PersonID, CreatedByUserID, CreatedDate) values
@@ -450,14 +470,15 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
     public static bool AddLicense(ref License lc)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(
             @"insert into Licenses (ApplicationID,  DriverID, LicenseClass, IssueDate,
@@ -483,14 +504,15 @@ public static class SetData
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
     public static bool UpdateLicensesIsActiveByDate()
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(@"update Licenses
 set IsActive = case when ExpirationDate < GETDATE() then 0 else 1 end
@@ -501,6 +523,7 @@ where IsActive = 1;", connection);
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
@@ -532,9 +555,9 @@ where IsActive = 1;", connection);
         app.CreatedByUserID = il.CreatedByUserID;
         app.PaidFees = GetData.GetLicenseClasseFees(app.ApplicationTypeID);
         app.ApplicationID = AddApplication(ref app);
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(@"insert into InternationalLicenses
 (ApplicationID, DriverID, IssuedUsingLocalLicenseID, IssueDate, ExpirationDate, IsActive, CreatedByUserID) values
@@ -552,14 +575,15 @@ where IsActive = 1;", connection);
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
     public static bool UpdateInternationalLicensesIsActiveByDate()
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(@"
 update InternationalLicenses set IsActive = case when ExpirationDate < GETDATE() then 0 else 1 end
@@ -571,14 +595,15 @@ where IsActive = 1;
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
     public static bool AddDetainedLicense(ref DetainedLicense dl)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(@"insert into DetainedLicenses
 (LicenseID, DetainDate, FineFees, CreatedByUserID, IsReleased, ReleaseDate, ReleasedByUserID, ReleaseApplicationID) values
@@ -603,14 +628,15 @@ where IsActive = 1;
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }
     public static bool IsReleasedTrue(DateTime ReleaseDate, int ReleasedByUserID, int ReleaseApplicationID, int LicenseID)
     {
+        SqlConnection connection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection connection = new SqlConnection(DAHelper.connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(@"update DetainedLicenses set IsReleased = 1, ReleaseDate = @ReleaseDate,
             ReleasedByUserID = @ReleasedByUserID, ReleaseApplicationID = @ReleaseApplicationID
@@ -625,6 +651,7 @@ where IsActive = 1;
         }
         catch (Exception)
         {
+            connection.Close();
         }
         return false;
     }

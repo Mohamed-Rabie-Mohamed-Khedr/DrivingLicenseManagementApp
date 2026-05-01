@@ -126,7 +126,15 @@ namespace DrivingLicenseManagement
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 ldlApp = MyDB.GetLDLApp((int)dataGridView1.SelectedRows[0].Cells["LDLAppID"].Value);
-                if (ldlApp.PassedTests == 0)
+                if (ldlApp.ApplicationStatus == "Canceled")
+                {
+                    DeleteApplicationB.Enabled = false;
+                    CancelApplicationB.Enabled = false;
+                    SechduleTestsB.Enabled = false;
+                    IssueDrivingLicenseB.Enabled = false;
+                    ShowLicenseB.Enabled = false;
+                }
+                else if (ldlApp.PassedTests == 0)
                     SechduleTestsB.DropDownItems[0].Enabled = true;
                 else if (ldlApp.PassedTests == 1)
                     SechduleTestsB.DropDownItems[1].Enabled = true;

@@ -11,9 +11,9 @@ public static class GetData
 {
     public static Person GetPerson(ref int PersonID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select * from People where PersonID = @PersonID", sqlConnection);
             command.Parameters.AddWithValue("@PersonID", PersonID);
@@ -25,14 +25,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static int GetPersonIDByDriver(ref int DriverID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select PersonID from Drivers where DriverID = @DriverID", sqlConnection);
             command.Parameters.Add("@DriverID", SqlDbType.Int).Value = DriverID;
@@ -42,14 +43,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return -1;
     }
     public static int GetPersonIDByNationalNo(ref string NationalNo)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select PersonID from People where NationalNo = @NationalNo", sqlConnection);
             command.Parameters.Add("@NationalNo", SqlDbType.NVarChar).Value = NationalNo;
@@ -59,14 +61,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return -1;
     }
     public static int GetPersonIDByDriverID(int DriverID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select PersonID from Drivers where DriverID = @DriverID", sqlConnection);
             command.Parameters.Add("@DriverID", SqlDbType.Int).Value = DriverID;
@@ -76,14 +79,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return -1;
     }
     public static DataTable GetCountries()
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select * from countries", sqlConnection);
             SqlDataReader sqlDataAdapter = command.ExecuteReader();
@@ -94,14 +98,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static bool PersonIsExists(ref int PersonID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select found = '1' from People where PersonID = @PersonID", sqlConnection);
             command.Parameters.AddWithValue("@PersonID", PersonID);
@@ -111,14 +116,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
     public static bool PersonIsExists()
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select found = '1' from People", sqlConnection);
             object found = command.ExecuteScalar();
@@ -127,14 +133,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
     public static bool NationalNoIsExists(ref string NationalNo)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select found = '1' from People where NationalNo = @NationalNo", sqlConnection);
             command.Parameters.AddWithValue("@NationalNo", NationalNo);
@@ -144,14 +151,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
     public static bool PersonAgeIsAllowedToGetThisLicense(int PersonAge, int LicenseClassID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("SELECT found = '1' FROM LicenseClasses L WHERE L.LicenseClassID = @LicenseClassID AND @PersonAge >= L.MinimumAllowedAge", sqlConnection);
             command.Parameters.Add("@PersonAge", SqlDbType.Int).Value = PersonAge;
@@ -162,14 +170,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
     public static DataTable GetPeople(ref string FilterMode, ref object FilterValue)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command;
 
@@ -228,14 +237,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static User GetUser(ref int PersonID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select * from Users where PersonID = @PersonID", sqlConnection);
             command.Parameters.Add("@PersonID", SqlDbType.Int).Value = PersonID;
@@ -247,14 +257,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static DataTable GetUsers(ref string FilterMode, ref object FilterValue)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command;
 
@@ -288,14 +299,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static User GetUserToLogIn(ref string UserName, ref string Password)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select * from Users where UserName = @UserName and Password = @Password", sqlConnection);
             command.Parameters.Add("@UserName", SqlDbType.NVarChar, 20).Value = UserName;
@@ -308,14 +320,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static bool UserIsExists(ref int PersonID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select found = '1' from Users where PersonID = @PersonID", sqlConnection);
             command.Parameters.Add("@PersonID", SqlDbType.Int).Value = PersonID;
@@ -325,14 +338,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
     public static bool UserIsExists()
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select found = '1' from Users", sqlConnection);
             object found = command.ExecuteScalar();
@@ -341,14 +355,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
     public static DataTable GetApplicationTypes()
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select * from ApplicationTypes", sqlConnection);
             SqlDataReader sqlDataAdapter = command.ExecuteReader();
@@ -359,14 +374,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static ApplicationType GetApplicationType(ref int ApplicationTypeID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select * from ApplicationTypes where ApplicationTypeID = @ApplicationTypeID", sqlConnection);
             command.Parameters.Add("@ApplicationTypeID", SqlDbType.Int).Value = ApplicationTypeID;
@@ -378,14 +394,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static DataTable GetTestTypes()
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select * from TestTypes", sqlConnection);
             SqlDataReader sqlDataAdapter = command.ExecuteReader();
@@ -396,14 +413,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static TestType GetTestType(ref int TestTypeID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select * from TestTypes where TestTypeID = @TestTypeID", sqlConnection);
             command.Parameters.Add("@TestTypeID", SqlDbType.Int).Value = TestTypeID;
@@ -415,14 +433,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static DataTable GetLicenseClasses()
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select * from LicenseClasses", sqlConnection);
             SqlDataReader sqlDataAdapter = command.ExecuteReader();
@@ -433,14 +452,15 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static decimal GetLicenseClasseFees(int ApplicationTypeID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select ClassFees from LicenseClasses where LicenseClassID = @ApplicationTypeID", sqlConnection);
             command.Parameters.Add("@ApplicationTypeID", SqlDbType.Int).Value = ApplicationTypeID;
@@ -450,6 +470,7 @@ public static class GetData
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return 0;
     }
@@ -533,10 +554,10 @@ ELSE ISNULL(PT.PassedCount, 0) END AS PassedTests, TT.TestTypeID,
     }
     public static LDLApp GetLDLApp(ref int LdLAppID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
             string FQ = LDLAppBaseSQLQuery + "\nWHERE L.LocalDrivingLicenseApplicationID = @LdLAppID\n";
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(FQ, sqlConnection);
             command.Parameters.Add("@LdLAppID", SqlDbType.Int).Value = LdLAppID;
@@ -548,6 +569,7 @@ ELSE ISNULL(PT.PassedCount, 0) END AS PassedTests, TT.TestTypeID,
         }
         catch (Exception)
         {
+            sqlConnection.Close();
             return null;
         }
     }
@@ -581,9 +603,9 @@ ELSE ISNULL(PT.PassedCount, 0) END AS PassedTests, TT.TestTypeID,
     }
     public static DataTable GetTestAppointments(ref int ldLAppID, ref byte TestTypeID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
             @"select * from TestAppointments where LocalDrivingLicenseApplicationID = @ldLAppID
@@ -598,14 +620,15 @@ ELSE ISNULL(PT.PassedCount, 0) END AS PassedTests, TT.TestTypeID,
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static TestAppointment GetTestAppointment(ref int TestAppointmentID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
             @"select * from TestAppointments where TestAppointmentID = @TestAppointmentID", sqlConnection);
@@ -618,14 +641,15 @@ ELSE ISNULL(PT.PassedCount, 0) END AS PassedTests, TT.TestTypeID,
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static bool TestAppointmentIsExists(ref int ldLAppID, ref int TestTypeID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
             @"select found = '1' from TestAppointments where LocalDrivingLicenseApplicationID = @ldLAppID
@@ -638,14 +662,15 @@ ELSE ISNULL(PT.PassedCount, 0) END AS PassedTests, TT.TestTypeID,
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
     public static bool TestIsPassed(ref int ldLAppID, ref int TestTypeID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
             @"select found = '1' from TestAppointments TA INNER JOIN Tests T
@@ -660,14 +685,15 @@ ELSE ISNULL(PT.PassedCount, 0) END AS PassedTests, TT.TestTypeID,
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
     public static int GetTestAppointmentIsLockedCount(int ldLAppID, int TestTypeID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
             @"SELECT Count(*) FROM TestAppointments INNER JOIN Tests ON
@@ -682,6 +708,7 @@ ELSE ISNULL(PT.PassedCount, 0) END AS PassedTests, TT.TestTypeID,
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return -1;
     }
@@ -750,9 +777,9 @@ INNER JOIN LicenseClasses LC ON L.LicenseClass = LC.LicenseClassID";
     }
     public static Driver GetDriver(ref int PersonID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
             @"select * from Drivers where PersonID = @PersonID", sqlConnection);
@@ -765,14 +792,15 @@ INNER JOIN LicenseClasses LC ON L.LicenseClass = LC.LicenseClassID";
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static bool IsThisPersonHasThisLicense(ref int LicenseClassID, ref int PersonID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
             @"select found = '1' from Licenses L join Applications A ON L.ApplicationID = A.ApplicationID
@@ -786,14 +814,15 @@ INNER JOIN LicenseClasses LC ON L.LicenseClass = LC.LicenseClassID";
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
     public static DataTable GetPersonLicenseHistory(ref int PersonID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
 @"
@@ -817,14 +846,15 @@ WHERE A.ApplicantPersonID = @PersonID
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static License GetLicense(ref int licenseID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
             @"SELECT        Licenses.*, LicenseClasses.ClassName
@@ -840,14 +870,15 @@ WHERE        (Licenses.LicenseID = @licenseID)", sqlConnection);
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static bool LicenseIsExists(ref int LicenseID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
             @"select found = '1' from Licenses where LicenseID = @LicenseID", sqlConnection);
@@ -858,14 +889,15 @@ WHERE        (Licenses.LicenseID = @licenseID)", sqlConnection);
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
     public static bool LicenseIsActive(ref int LicenseID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
             @"select found = '1' from Licenses where LicenseID = @LicenseID AND IsActive = 1", sqlConnection);
@@ -876,14 +908,15 @@ WHERE        (Licenses.LicenseID = @licenseID)", sqlConnection);
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
     public static InternationalLicense GetInternationalLicense(ref int licenseID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(@"SELECT
 InternationalLicenses.InternationalLicenseID,
@@ -906,14 +939,15 @@ where IssuedUsingLocalLicenseID = @licenseID", sqlConnection);
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static DataTable GetDriverInfo(ref int LicenseID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(@"
 SELECT
@@ -946,14 +980,15 @@ where Licenses.LicenseID = @LicenseID", sqlConnection);
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static DataTable GetApplicationInfoToShowOnForm(ref int LicenseID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(@"
 SELECT        Applications.ApplicantPersonID, Applications.ApplicationID, Applications.ApplicationDate, Licenses.PaidFees, Licenses.LicenseID, Licenses.ExpirationDate, Users.UserName, ApplicationTypes.ApplicationTypeTitle
@@ -970,14 +1005,15 @@ FROM            Licenses INNER JOIN
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static bool InternationalLicenseIsExists(ref int licenseID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select found = '1' from InternationalLicenses where IssuedUsingLocalLicenseID = @licenseID", sqlConnection);
             command.Parameters.Add("@licenseID", SqlDbType.Int).Value = licenseID;
@@ -987,14 +1023,15 @@ FROM            Licenses INNER JOIN
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
     public static DataTable GetInternationalLicenses()
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("SELECT InternationalLicenseID, ApplicationID, DriverID, IssuedUsingLocalLicenseID, IssueDate, ExpirationDate, IsActive FROM InternationalLicenses", sqlConnection);
             SqlDataReader reader = command.ExecuteReader();
@@ -1005,14 +1042,15 @@ FROM            Licenses INNER JOIN
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static DataTable GetNewLicenseApplicationInfo(ref int licenseID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(@"SELECT        Applications.ApplicationID, Applications.ApplicationDate, Licenses.IssueDate, Licenses.ExpirationDate, Licenses.LicenseID, Users.UserName
 FROM            Applications INNER JOIN
@@ -1028,14 +1066,15 @@ where Licenses.LicenseID = @licenseID", sqlConnection);
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static DataTable GetApplicationTypesFeesAndLicenseFees(ref int applicationTypeID, ref int classID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
 @"
@@ -1053,14 +1092,15 @@ SELECT
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static int GetApplicationTypesFees(ref int applicationTypeID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("SELECT ApplicationFees FROM ApplicationTypes WHERE ApplicationTypeID = @applicationTypeID", sqlConnection);
             command.Parameters.Add("@applicationTypeID", SqlDbType.Int).Value = applicationTypeID;
@@ -1070,14 +1110,15 @@ SELECT
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return 0;
     }
     public static (DetainedLicense dl, string UserName) GetDetainedLicense(ref int licenseID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
 @"SELECT DetainedLicenses.*, Users.UserName
@@ -1093,14 +1134,15 @@ where LicenseID = @licenseID", sqlConnection);
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return (null, "");
     }
     public static bool LicenseIsDetained(ref int licenseID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand("select found = '1' from DetainedLicenses where LicenseID = @licenseID and IsReleased = 0", sqlConnection);
             command.Parameters.Add("@licenseID", SqlDbType.Int).Value = licenseID;
@@ -1110,11 +1152,13 @@ where LicenseID = @licenseID", sqlConnection);
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return false;
     }
     public static DataTable GetDetainedLicenses(string FilterMode, object FilterValue)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
             List<SqlParameter> parameters = new List<SqlParameter>();
@@ -1149,7 +1193,6 @@ FROM            DetainedLicenses INNER JOIN
                     parameters.Add(new SqlParameter("@IsReleased", FilterValue));
                     break;
             }
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(baseQuery + where, sqlConnection);
             command.Parameters.AddRange(parameters.ToArray());
@@ -1161,14 +1204,15 @@ FROM            DetainedLicenses INNER JOIN
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }
     public static DataTable GetReleaseDetainedLicenseInfo(ref int licenseID)
     {
+        SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
         try
         {
-            SqlConnection sqlConnection = new SqlConnection(DAHelper.connectionString);
             sqlConnection.Open();
             SqlCommand command = new SqlCommand(
 @"SELECT        DetainedLicenses.DetainID, DetainedLicenses.LicenseID, DetainedLicenses.DetainDate, DetainedLicenses.FineFees, Users.UserName, ApplicationTypes.ApplicationFees
@@ -1187,6 +1231,7 @@ WHERE DetainedLicenses.LicenseID = @licenseID", sqlConnection);
         }
         catch (Exception)
         {
+            sqlConnection.Close();
         }
         return null;
     }

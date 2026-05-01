@@ -26,7 +26,7 @@ namespace DrivingLicenseManagement
             NationalNoL.Text = "National No: " + person.NationalNo;
             PhoneL.Text = "Phone: " + person.Phone;
             AddressL.Text = "Address: " + person.Address;
-            DateOfBirthL.Text = "Date Of Birth: " + person.DateOfBirth.ToString();
+            DateOfBirthL.Text = "Date Of Birth: " + person.DateOfBirth.ToLongDateString();
             CountryL.Text = "Country: " + MyDB.GetCountries()[person.NationalityCountryID - 1];
             GendorL.Text = "Gendor: " + (person.Gendor == 0 ? "Male" : "Female");
             if (person.ImageIsExists)

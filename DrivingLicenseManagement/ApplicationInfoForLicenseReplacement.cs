@@ -22,7 +22,7 @@ namespace DrivingLicenseManagement
             RLApplicationIDL.Text = "Application ID: " + dt.Rows[0]["ApplicationID"].ToString();
             RenewedLicenseIDL.Text = "Renewed License ID: " + NewLicenseID.ToString();
             OldLicenseIDL.Text = "Old License ID: " + OldLicenseID.ToString();
-            ApplicationDateL.Text = "Application Date: " + dt.Rows[0]["ApplicationDate"].ToString();
+            ApplicationDateL.Text = "Application Date: " + Convert.ToDateTime(dt.Rows[0]["ApplicationDate"]).ToShortDateString();
             CreatedByL.Text = "Created By: " + dt.Rows[0]["UserName"].ToString();
         }
         public void LoadApplicationTypeFees(int ApplicationTypeID)

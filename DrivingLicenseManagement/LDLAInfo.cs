@@ -29,8 +29,8 @@ namespace DrivingLicenseManagement
             FeesL.Text = "Fees: " + ldlapp.PaidFees.ToString("0");
             TypeL.Text = "Type: " + ldlapp.ApplicationTypeTitle;
             ApplicantL.Text = "Applicant: " + ldlapp.ApplicantName;
-            DateL.Text = "Date: " + ldlapp.ApplicationDate.ToString();
-            StatusDateL.Text = "Status Date: " + ldlapp.LastStatusDate.ToString();
+            DateL.Text = "Date: " + ldlapp.ApplicationDate.ToShortDateString();
+            StatusDateL.Text = "Status Date: " + ldlapp.LastStatusDate.ToShortDateString();
             CreatedByL.Text = "Created By: " + ldlapp.CreatedName;
         }
 
@@ -44,7 +44,14 @@ namespace DrivingLicenseManagement
 
         private void LDLAInfo_Load(object sender, EventArgs e)
         {
+            ShowLicenseLL.Enabled = ldlapp.LicenseID > 0;
             LoadLDLApp();
+        }
+
+        private void ShowLicenseLL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            DriverInfoForm driverInfoForm = new DriverInfoForm(ldlapp.LicenseID);
+            driverInfoForm.ShowDialog();
         }
     }
 }

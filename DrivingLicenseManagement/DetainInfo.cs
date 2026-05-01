@@ -21,7 +21,7 @@ namespace DrivingLicenseManagement
             (DetainedLicense dl, string UserName) d = MyDB.GetDetainedLicense(LicenseID);
 
             DetainIDL.Text = "Detain ID: " + d.dl.DetainID.ToString();
-            DetainDateL.Text = "Detain Date: " + d.dl.DetainDate.ToString();
+            DetainDateL.Text = "Detain Date: " + d.dl.DetainDate.ToShortDateString();
             LicenseIDL.Text = "License ID: " + LicenseID.ToString();
             CreatedByL.Text = "Created By: " + d.UserName;
         }

@@ -25,13 +25,13 @@ namespace DrivingLicenseManagement
             LicenseIDL.Text = "License ID: " + dt.Rows[0]["LicenseID"].ToString();
             NationalNoL.Text = "National No: " + dt.Rows[0]["NationalNo"].ToString();
             GendorL.Text = "Gendor: " + dt.Rows[0]["Gendor"].ToString();
-            IssueDateL.Text = "Issue Date: " + dt.Rows[0]["IssueDate"].ToString();
+            IssueDateL.Text = "Issue Date: " + Convert.ToDateTime(dt.Rows[0]["IssueDate"]).ToShortDateString();
             IssueReasonL.Text = "Issue Reason: " + dt.Rows[0]["ApplicationTypeTitle"].ToString();
             NotesL.Text = "Notes: " + dt.Rows[0]["Notes"].ToString();
             IsActiveL.Text = "Is Active: " + dt.Rows[0]["IsActive"].ToString();
             DateOfBirthL.Text = "Date Of Birth: " + dt.Rows[0]["DateOfBirth"].ToString();
             DriverIDL.Text = "Driver ID: " + dt.Rows[0]["DriverID"].ToString();
-            ExpirationDateL.Text = "Expiration Date: " + dt.Rows[0]["ExpirationDate"].ToString();
+            ExpirationDateL.Text = "Expiration Date: " + Convert.ToDateTime(dt.Rows[0]["ExpirationDate"]).ToShortDateString();
             IsDetainedL.Text = "Is Detained: " + dt.Rows[0]["IsDetained"].ToString();
             return true;
         }

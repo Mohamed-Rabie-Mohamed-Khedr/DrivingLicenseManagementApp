@@ -23,9 +23,9 @@ namespace DrivingLicenseManagement
             ApplicationIDL.Text = "Application ID: " + dt.Rows[0]["ApplicationID"].ToString();
             IssueReasonL.Text = "Issue Reason: " + dt.Rows[0]["ApplicationTypeTitle"].ToString();
             PaidFeesL.Text = "Paid Fees: " + dt.Rows[0]["PaidFees"].ToString();
-            ApplicationDateL.Text = "Application Date: " + dt.Rows[0]["ApplicationDate"].ToString();
+            ApplicationDateL.Text = "Application Date: " + Convert.ToDateTime(dt.Rows[0]["ApplicationDate"]).ToShortDateString();
             LicenseIDL.Text = "License ID: " + dt.Rows[0]["LicenseID"].ToString();
-            ExpirationDateL.Text = "Expiration Date: " + dt.Rows[0]["ExpirationDate"].ToString();
+            ExpirationDateL.Text = "Expiration Date: " + Convert.ToDateTime(dt.Rows[0]["ExpirationDate"]).ToShortDateString();
             UserNameL.Text = "User Name: " + dt.Rows[0]["UserName"].ToString();
             return int.Parse(dt.Rows[0]["ApplicantPersonID"].ToString());
         }

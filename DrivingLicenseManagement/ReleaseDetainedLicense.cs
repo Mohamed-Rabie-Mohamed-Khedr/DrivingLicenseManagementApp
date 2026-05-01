@@ -21,7 +21,7 @@ namespace DrivingLicenseManagement
         {
             DataTable dt = MyDB.GetReleaseDetainedLicenseInfo(LicenseID);
             DetainIDL.Text = "Detain ID: " + dt.Rows[0]["DetainID"].ToString();
-            DetainDateL.Text = "Detain Date: " + dt.Rows[0]["DetainDate"].ToString();
+            DetainDateL.Text = "Detain Date: " + Convert.ToDateTime(dt.Rows[0]["DetainDate"]).ToShortDateString();
             LicenseIDL.Text = "License ID: " + dt.Rows[0]["LicenseID"].ToString();
             CreatedByL.Text = "Created By: " + dt.Rows[0]["UserName"].ToString();
             FineFeesL.Text = "Fine Fees: " + dt.Rows[0]["FineFees"].ToString();

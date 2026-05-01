@@ -23,7 +23,7 @@ namespace DrivingLicenseManagement
             }
             tabControl1.TabPages[0].Controls.Add(user_Info1);
 
-            ApplicationDateL.Text += " " + DateTime.Now.ToString();
+            ApplicationDateL.Text += " " + DateTime.Now.ToShortDateString();
             ApplicationFeesL.Text += " " + MyDB.GetLicenseClasseFees(1).ToString();
             CreatedByL.Text += " " + DLMHelper.CurrentUser.UserName;
 
