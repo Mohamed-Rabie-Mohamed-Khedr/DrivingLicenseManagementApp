@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class ManageDrivers
     {
@@ -181,6 +181,15 @@
             this.Text = "Manage Drivers";
             this.Load += new System.EventHandler(this.ManageDrivers_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.dataGridView1.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.dataGridView1.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            this.dataGridView1.EnableHeadersVisualStyles = false;
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class AddAndUpdateAppointmentForm
     {
@@ -55,7 +55,7 @@
             // 
             this.DLAppIDL.AutoSize = true;
             this.DLAppIDL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DLAppIDL.ForeColor = System.Drawing.Color.Black;
+            this.DLAppIDL.ForeColor = System.Drawing.Color.White;
             this.DLAppIDL.Location = new System.Drawing.Point(246, 115);
             this.DLAppIDL.Name = "DLAppIDL";
             this.DLAppIDL.Size = new System.Drawing.Size(107, 23);
@@ -66,7 +66,7 @@
             // 
             this.DClasseL.AutoSize = true;
             this.DClasseL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DClasseL.ForeColor = System.Drawing.Color.Black;
+            this.DClasseL.ForeColor = System.Drawing.Color.White;
             this.DClasseL.Location = new System.Drawing.Point(246, 159);
             this.DClasseL.Name = "DClasseL";
             this.DClasseL.Size = new System.Drawing.Size(97, 23);
@@ -77,7 +77,7 @@
             // 
             this.NameL.AutoSize = true;
             this.NameL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameL.ForeColor = System.Drawing.Color.Black;
+            this.NameL.ForeColor = System.Drawing.Color.White;
             this.NameL.Location = new System.Drawing.Point(246, 203);
             this.NameL.Name = "NameL";
             this.NameL.Size = new System.Drawing.Size(65, 23);
@@ -88,7 +88,7 @@
             // 
             this.TrialL.AutoSize = true;
             this.TrialL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TrialL.ForeColor = System.Drawing.Color.Black;
+            this.TrialL.ForeColor = System.Drawing.Color.White;
             this.TrialL.Location = new System.Drawing.Point(246, 247);
             this.TrialL.Name = "TrialL";
             this.TrialL.Size = new System.Drawing.Size(78, 23);
@@ -99,7 +99,7 @@
             // 
             this.DateL.AutoSize = true;
             this.DateL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DateL.ForeColor = System.Drawing.Color.Black;
+            this.DateL.ForeColor = System.Drawing.Color.White;
             this.DateL.Location = new System.Drawing.Point(246, 291);
             this.DateL.Name = "DateL";
             this.DateL.Size = new System.Drawing.Size(54, 23);
@@ -110,7 +110,7 @@
             // 
             this.FeesL.AutoSize = true;
             this.FeesL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FeesL.ForeColor = System.Drawing.Color.Black;
+            this.FeesL.ForeColor = System.Drawing.Color.White;
             this.FeesL.Location = new System.Drawing.Point(245, 335);
             this.FeesL.Name = "FeesL";
             this.FeesL.Size = new System.Drawing.Size(53, 23);
@@ -156,6 +156,14 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add Appointment";
             this.Load += new System.EventHandler(this.AddAppointmentForm_Load);
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.SaveB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveB.FlatAppearance.BorderSize = 0;
+            this.SaveB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.SaveB.ForeColor = System.Drawing.Color.White;
+            this.SaveB.UseVisualStyleBackColor = false;
             this.ResumeLayout(false);
             this.PerformLayout();
 

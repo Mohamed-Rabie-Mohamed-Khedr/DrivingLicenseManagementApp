@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class LocalLicenseForm
     {
@@ -59,9 +59,9 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.DimGray;
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.tabPage1.Controls.Add(this.Next);
-            this.tabPage1.ForeColor = System.Drawing.Color.Black;
+            this.tabPage1.ForeColor = System.Drawing.Color.White;
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -71,18 +71,21 @@
             // 
             // Next
             // 
-            this.Next.ForeColor = System.Drawing.Color.Black;
+            this.Next.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.Next.FlatAppearance.BorderSize = 0;
+            this.Next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Next.ForeColor = System.Drawing.Color.White;
             this.Next.Location = new System.Drawing.Point(1073, 659);
             this.Next.Name = "Next";
             this.Next.Size = new System.Drawing.Size(86, 34);
             this.Next.TabIndex = 47;
             this.Next.Text = "Next";
-            this.Next.UseVisualStyleBackColor = true;
+            this.Next.UseVisualStyleBackColor = false;
             this.Next.Click += new System.EventHandler(this.Next_Click);
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.DimGray;
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.tabPage2.Controls.Add(this.SaveB);
             this.tabPage2.Controls.Add(this.LicenseClassCB);
             this.tabPage2.Controls.Add(this.CreatedByL);
@@ -100,13 +103,17 @@
             // 
             // SaveB
             // 
+            this.SaveB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.SaveB.FlatAppearance.BorderSize = 0;
+            this.SaveB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveB.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveB.ForeColor = System.Drawing.Color.White;
             this.SaveB.Location = new System.Drawing.Point(1073, 661);
             this.SaveB.Name = "SaveB";
             this.SaveB.Size = new System.Drawing.Size(86, 41);
             this.SaveB.TabIndex = 36;
             this.SaveB.Text = "SAVE";
-            this.SaveB.UseVisualStyleBackColor = true;
+            this.SaveB.UseVisualStyleBackColor = false;
             this.SaveB.Click += new System.EventHandler(this.Save_Click);
             // 
             // LicenseClassCB
@@ -187,9 +194,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.ClientSize = new System.Drawing.Size(1185, 736);
             this.Controls.Add(this.tabControl1);
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LocalLicenseForm";

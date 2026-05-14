@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class AddAndUpdatePerson
     {
@@ -335,6 +335,14 @@
             this.Size = new System.Drawing.Size(975, 436);
             this.Load += new System.EventHandler(this.AddAndUpdatePerson_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ImagePerson)).EndInit();
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Save.FlatAppearance.BorderSize = 0;
+            this.Save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.Save.ForeColor = System.Drawing.Color.White;
+            this.Save.UseVisualStyleBackColor = false;
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -369,3 +377,4 @@
         private System.Windows.Forms.ComboBox Gendor;
     }
 }
+

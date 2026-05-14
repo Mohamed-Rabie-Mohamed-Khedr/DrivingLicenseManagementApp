@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class ManageInternationalDriverLicenseApplications
     {
@@ -161,7 +161,7 @@
             this.RecordsL.AutoSize = true;
             this.RecordsL.BackColor = System.Drawing.Color.Transparent;
             this.RecordsL.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RecordsL.ForeColor = System.Drawing.Color.Black;
+            this.RecordsL.ForeColor = System.Drawing.Color.White;
             this.RecordsL.Location = new System.Drawing.Point(7, 733);
             this.RecordsL.Name = "RecordsL";
             this.RecordsL.Size = new System.Drawing.Size(96, 25);
@@ -185,6 +185,15 @@
             this.Load += new System.EventHandler(this.ManageInternationalDriverLicenseApplications_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.dataGridView1.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.dataGridView1.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            this.dataGridView1.EnableHeadersVisualStyles = false;
             this.ResumeLayout(false);
             this.PerformLayout();
 

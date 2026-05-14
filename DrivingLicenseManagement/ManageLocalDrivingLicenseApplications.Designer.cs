@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class ManageLocalDrivingLicenseApplications
     {
@@ -334,6 +334,25 @@
             this.Text = "Manage Local Driving License Applications";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.AddB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddB.FlatAppearance.BorderSize = 0;
+            this.AddB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.AddB.ForeColor = System.Drawing.Color.White;
+            this.AddB.UseVisualStyleBackColor = false;
+            this.FilterB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FilterB.FlatAppearance.BorderSize = 0;
+            this.FilterB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.FilterB.ForeColor = System.Drawing.Color.White;
+            this.FilterB.UseVisualStyleBackColor = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.dataGridView1.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.dataGridView1.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            this.dataGridView1.EnableHeadersVisualStyles = false;
             this.ResumeLayout(false);
             this.PerformLayout();
 

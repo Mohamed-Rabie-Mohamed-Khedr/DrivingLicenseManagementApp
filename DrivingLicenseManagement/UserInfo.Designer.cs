@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class User_Info
     {
@@ -138,6 +138,14 @@
             this.Name = "User_Info";
             this.Size = new System.Drawing.Size(951, 555);
             this.Load += new System.EventHandler(this.User_Info_Load);
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ResearchB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ResearchB.FlatAppearance.BorderSize = 0;
+            this.ResearchB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.ResearchB.ForeColor = System.Drawing.Color.White;
+            this.ResearchB.UseVisualStyleBackColor = false;
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -155,3 +163,4 @@
         private PersonInfo personInfo1;
     }
 }
+

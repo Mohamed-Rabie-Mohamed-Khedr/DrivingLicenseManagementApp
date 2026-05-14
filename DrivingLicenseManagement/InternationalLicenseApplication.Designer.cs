@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class InternationalLicenseApplication
     {
@@ -75,7 +75,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(22, 93);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(121, 25);
@@ -166,6 +166,19 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "International License Application";
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.OKB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OKB.FlatAppearance.BorderSize = 0;
+            this.OKB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.OKB.ForeColor = System.Drawing.Color.White;
+            this.OKB.UseVisualStyleBackColor = false;
+            this.IssueB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.IssueB.FlatAppearance.BorderSize = 0;
+            this.IssueB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.IssueB.ForeColor = System.Drawing.Color.White;
+            this.IssueB.UseVisualStyleBackColor = false;
             this.ResumeLayout(false);
             this.PerformLayout();
 

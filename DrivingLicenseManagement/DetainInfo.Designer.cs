@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class DetainInfo
     {
@@ -55,7 +55,7 @@
             this.DetainIDL.AutoSize = true;
             this.DetainIDL.BackColor = System.Drawing.Color.Transparent;
             this.DetainIDL.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DetainIDL.ForeColor = System.Drawing.Color.Black;
+            this.DetainIDL.ForeColor = System.Drawing.Color.White;
             this.DetainIDL.Location = new System.Drawing.Point(36, 52);
             this.DetainIDL.Name = "DetainIDL";
             this.DetainIDL.Size = new System.Drawing.Size(87, 19);
@@ -67,7 +67,7 @@
             this.DetainDateL.AutoSize = true;
             this.DetainDateL.BackColor = System.Drawing.Color.Transparent;
             this.DetainDateL.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DetainDateL.ForeColor = System.Drawing.Color.Black;
+            this.DetainDateL.ForeColor = System.Drawing.Color.White;
             this.DetainDateL.Location = new System.Drawing.Point(36, 87);
             this.DetainDateL.Name = "DetainDateL";
             this.DetainDateL.Size = new System.Drawing.Size(107, 19);
@@ -79,7 +79,7 @@
             this.FineFeesL.AutoSize = true;
             this.FineFeesL.BackColor = System.Drawing.Color.Transparent;
             this.FineFeesL.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FineFeesL.ForeColor = System.Drawing.Color.Black;
+            this.FineFeesL.ForeColor = System.Drawing.Color.White;
             this.FineFeesL.Location = new System.Drawing.Point(36, 120);
             this.FineFeesL.Name = "FineFeesL";
             this.FineFeesL.Size = new System.Drawing.Size(85, 19);
@@ -91,7 +91,7 @@
             this.CreatedByL.AutoSize = true;
             this.CreatedByL.BackColor = System.Drawing.Color.Transparent;
             this.CreatedByL.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CreatedByL.ForeColor = System.Drawing.Color.Black;
+            this.CreatedByL.ForeColor = System.Drawing.Color.White;
             this.CreatedByL.Location = new System.Drawing.Point(333, 87);
             this.CreatedByL.Name = "CreatedByL";
             this.CreatedByL.Size = new System.Drawing.Size(99, 19);
@@ -103,7 +103,7 @@
             this.LicenseIDL.AutoSize = true;
             this.LicenseIDL.BackColor = System.Drawing.Color.Transparent;
             this.LicenseIDL.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LicenseIDL.ForeColor = System.Drawing.Color.Black;
+            this.LicenseIDL.ForeColor = System.Drawing.Color.White;
             this.LicenseIDL.Location = new System.Drawing.Point(333, 52);
             this.LicenseIDL.Name = "LicenseIDL";
             this.LicenseIDL.Size = new System.Drawing.Size(93, 19);
@@ -148,9 +148,11 @@
             this.Name = "DetainInfo";
             this.Size = new System.Drawing.Size(577, 170);
             ((System.ComponentModel.ISupportInitialize)(this.FineFeeNUD)).EndInit();
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
@@ -164,3 +166,4 @@
         private System.Windows.Forms.NumericUpDown FineFeeNUD;
     }
 }
+

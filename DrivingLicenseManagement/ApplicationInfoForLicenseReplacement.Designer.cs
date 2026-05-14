@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class ApplicationInfoForLicenseReplacement
     {
@@ -52,7 +52,7 @@
             // 
             this.CreatedByL.AutoSize = true;
             this.CreatedByL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CreatedByL.ForeColor = System.Drawing.Color.Black;
+            this.CreatedByL.ForeColor = System.Drawing.Color.White;
             this.CreatedByL.Location = new System.Drawing.Point(520, 124);
             this.CreatedByL.Name = "CreatedByL";
             this.CreatedByL.Size = new System.Drawing.Size(114, 23);
@@ -123,9 +123,11 @@
             this.Controls.Add(this.label1);
             this.Name = "ApplicationInfoForLicenseReplacement";
             this.Size = new System.Drawing.Size(819, 170);
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
@@ -139,3 +141,4 @@
         private System.Windows.Forms.Label RLApplicationIDL;
     }
 }
+

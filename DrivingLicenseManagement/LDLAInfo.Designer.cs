@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class LDLAInfo
     {
@@ -71,7 +71,7 @@
             // 
             this.DLAppIDL.AutoSize = true;
             this.DLAppIDL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DLAppIDL.ForeColor = System.Drawing.Color.Black;
+            this.DLAppIDL.ForeColor = System.Drawing.Color.White;
             this.DLAppIDL.Location = new System.Drawing.Point(50, 94);
             this.DLAppIDL.Name = "DLAppIDL";
             this.DLAppIDL.Size = new System.Drawing.Size(107, 23);
@@ -82,7 +82,7 @@
             // 
             this.AppliedForLicenseL.AutoSize = true;
             this.AppliedForLicenseL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AppliedForLicenseL.ForeColor = System.Drawing.Color.Black;
+            this.AppliedForLicenseL.ForeColor = System.Drawing.Color.White;
             this.AppliedForLicenseL.Location = new System.Drawing.Point(50, 141);
             this.AppliedForLicenseL.Name = "AppliedForLicenseL";
             this.AppliedForLicenseL.Size = new System.Drawing.Size(196, 23);
@@ -93,7 +93,7 @@
             // 
             this.PassedTestsL.AutoSize = true;
             this.PassedTestsL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PassedTestsL.ForeColor = System.Drawing.Color.Black;
+            this.PassedTestsL.ForeColor = System.Drawing.Color.White;
             this.PassedTestsL.Location = new System.Drawing.Point(577, 94);
             this.PassedTestsL.Name = "PassedTestsL";
             this.PassedTestsL.Size = new System.Drawing.Size(133, 23);
@@ -104,7 +104,7 @@
             // 
             this.IDL.AutoSize = true;
             this.IDL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IDL.ForeColor = System.Drawing.Color.Black;
+            this.IDL.ForeColor = System.Drawing.Color.White;
             this.IDL.Location = new System.Drawing.Point(50, 284);
             this.IDL.Name = "IDL";
             this.IDL.Size = new System.Drawing.Size(33, 23);
@@ -115,7 +115,7 @@
             // 
             this.StatusL.AutoSize = true;
             this.StatusL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StatusL.ForeColor = System.Drawing.Color.Black;
+            this.StatusL.ForeColor = System.Drawing.Color.White;
             this.StatusL.Location = new System.Drawing.Point(50, 328);
             this.StatusL.Name = "StatusL";
             this.StatusL.Size = new System.Drawing.Size(71, 23);
@@ -126,7 +126,7 @@
             // 
             this.FeesL.AutoSize = true;
             this.FeesL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FeesL.ForeColor = System.Drawing.Color.Black;
+            this.FeesL.ForeColor = System.Drawing.Color.White;
             this.FeesL.Location = new System.Drawing.Point(50, 372);
             this.FeesL.Name = "FeesL";
             this.FeesL.Size = new System.Drawing.Size(53, 23);
@@ -137,7 +137,7 @@
             // 
             this.TypeL.AutoSize = true;
             this.TypeL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TypeL.ForeColor = System.Drawing.Color.Black;
+            this.TypeL.ForeColor = System.Drawing.Color.White;
             this.TypeL.Location = new System.Drawing.Point(50, 416);
             this.TypeL.Name = "TypeL";
             this.TypeL.Size = new System.Drawing.Size(56, 23);
@@ -148,7 +148,7 @@
             // 
             this.ApplicantL.AutoSize = true;
             this.ApplicantL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ApplicantL.ForeColor = System.Drawing.Color.Black;
+            this.ApplicantL.ForeColor = System.Drawing.Color.White;
             this.ApplicantL.Location = new System.Drawing.Point(50, 460);
             this.ApplicantL.Name = "ApplicantL";
             this.ApplicantL.Size = new System.Drawing.Size(100, 23);
@@ -159,7 +159,7 @@
             // 
             this.CreatedByL.AutoSize = true;
             this.CreatedByL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CreatedByL.ForeColor = System.Drawing.Color.Black;
+            this.CreatedByL.ForeColor = System.Drawing.Color.White;
             this.CreatedByL.Location = new System.Drawing.Point(577, 372);
             this.CreatedByL.Name = "CreatedByL";
             this.CreatedByL.Size = new System.Drawing.Size(114, 23);
@@ -170,7 +170,7 @@
             // 
             this.StatusDateL.AutoSize = true;
             this.StatusDateL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StatusDateL.ForeColor = System.Drawing.Color.Black;
+            this.StatusDateL.ForeColor = System.Drawing.Color.White;
             this.StatusDateL.Location = new System.Drawing.Point(577, 328);
             this.StatusDateL.Name = "StatusDateL";
             this.StatusDateL.Size = new System.Drawing.Size(121, 23);
@@ -181,7 +181,7 @@
             // 
             this.DateL.AutoSize = true;
             this.DateL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DateL.ForeColor = System.Drawing.Color.Black;
+            this.DateL.ForeColor = System.Drawing.Color.White;
             this.DateL.Location = new System.Drawing.Point(577, 284);
             this.DateL.Name = "DateL";
             this.DateL.Size = new System.Drawing.Size(54, 23);
@@ -240,6 +240,9 @@
             this.Name = "LDLAInfo";
             this.Size = new System.Drawing.Size(918, 588);
             this.Load += new System.EventHandler(this.LDLAInfo_Load);
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -264,3 +267,4 @@
         private System.Windows.Forms.LinkLabel ShowLicenseLL;
     }
 }
+

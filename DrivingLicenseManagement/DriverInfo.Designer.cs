@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class DriverInfo
     {
@@ -206,9 +206,11 @@
             this.Controls.Add(this.ClassL);
             this.Name = "DriverLicenseInfo";
             this.Size = new System.Drawing.Size(1116, 368);
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
@@ -229,3 +231,4 @@
         private System.Windows.Forms.Label label1;
     }
 }
+

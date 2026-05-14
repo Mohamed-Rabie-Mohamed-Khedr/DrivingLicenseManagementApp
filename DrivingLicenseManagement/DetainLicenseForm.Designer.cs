@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class DetainLicenseForm
     {
@@ -160,9 +160,21 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Detain License";
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.OKB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OKB.FlatAppearance.BorderSize = 0;
+            this.OKB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.OKB.ForeColor = System.Drawing.Color.White;
+            this.OKB.UseVisualStyleBackColor = false;
+            this.DetainB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DetainB.FlatAppearance.BorderSize = 0;
+            this.DetainB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.DetainB.ForeColor = System.Drawing.Color.White;
+            this.DetainB.UseVisualStyleBackColor = false;
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class AddAndUpdateUserForm
     {
@@ -53,7 +53,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.tabPage1.Controls.Add(this.Next);
             this.tabPage1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
@@ -65,17 +65,21 @@
             // 
             // Next
             // 
+            this.Next.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.Next.FlatAppearance.BorderSize = 0;
+            this.Next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Next.ForeColor = System.Drawing.Color.White;
             this.Next.Location = new System.Drawing.Point(1327, 767);
             this.Next.Name = "Next";
             this.Next.Size = new System.Drawing.Size(86, 34);
             this.Next.TabIndex = 46;
             this.Next.Text = "Next";
-            this.Next.UseVisualStyleBackColor = true;
+            this.Next.UseVisualStyleBackColor = false;
             this.Next.Click += new System.EventHandler(this.Next_Click);
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.DimGray;
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.tabPage2.Controls.Add(this.changePassword1);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
@@ -88,6 +92,7 @@
             // 
             this.changePassword1.BackColor = System.Drawing.Color.Transparent;
             this.changePassword1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.changePassword1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.changePassword1.Location = new System.Drawing.Point(392, 123);
             this.changePassword1.Margin = new System.Windows.Forms.Padding(4);
             this.changePassword1.Name = "changePassword1";
@@ -98,8 +103,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.ClientSize = new System.Drawing.Size(1438, 840);
             this.Controls.Add(this.tabControl1);
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddAndUpdateUserForm";

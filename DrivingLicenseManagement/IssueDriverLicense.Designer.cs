@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class IssueDriverLicense
     {
@@ -56,7 +56,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(226, 648);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 23);
@@ -75,9 +75,16 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Issue Driver License";
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.IssueB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.IssueB.FlatAppearance.BorderSize = 0;
+            this.IssueB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.IssueB.ForeColor = System.Drawing.Color.White;
+            this.IssueB.UseVisualStyleBackColor = false;
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

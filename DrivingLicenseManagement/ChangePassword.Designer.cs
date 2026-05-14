@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class ChangePassword
     {
@@ -133,9 +133,16 @@
             this.Controls.Add(this.label3);
             this.Name = "ChangePassword";
             this.Size = new System.Drawing.Size(489, 280);
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.SaveB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveB.FlatAppearance.BorderSize = 0;
+            this.SaveB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.SaveB.ForeColor = System.Drawing.Color.White;
+            this.SaveB.UseVisualStyleBackColor = false;
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
@@ -150,3 +157,4 @@
         private System.Windows.Forms.Label label3;
     }
 }
+

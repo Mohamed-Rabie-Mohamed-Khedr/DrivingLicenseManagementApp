@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class ApplicationInfo
     {
@@ -146,6 +146,9 @@
             this.Controls.Add(this.ApplicationIDL);
             this.Name = "ApplicationInfo";
             this.Size = new System.Drawing.Size(1039, 225);
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -164,3 +167,4 @@
         private System.Windows.Forms.Label label1;
     }
 }
+

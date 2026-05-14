@@ -1,4 +1,4 @@
-﻿namespace DrivingLicenseManagement
+namespace DrivingLicenseManagement
 {
     partial class TakeTestForm
     {
@@ -46,7 +46,7 @@
             // 
             this.FeesL.AutoSize = true;
             this.FeesL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FeesL.ForeColor = System.Drawing.Color.Black;
+            this.FeesL.ForeColor = System.Drawing.Color.White;
             this.FeesL.Location = new System.Drawing.Point(251, 349);
             this.FeesL.Name = "FeesL";
             this.FeesL.Size = new System.Drawing.Size(53, 23);
@@ -57,7 +57,7 @@
             // 
             this.DateL.AutoSize = true;
             this.DateL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DateL.ForeColor = System.Drawing.Color.Black;
+            this.DateL.ForeColor = System.Drawing.Color.White;
             this.DateL.Location = new System.Drawing.Point(252, 305);
             this.DateL.Name = "DateL";
             this.DateL.Size = new System.Drawing.Size(54, 23);
@@ -68,7 +68,7 @@
             // 
             this.TrialL.AutoSize = true;
             this.TrialL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TrialL.ForeColor = System.Drawing.Color.Black;
+            this.TrialL.ForeColor = System.Drawing.Color.White;
             this.TrialL.Location = new System.Drawing.Point(252, 261);
             this.TrialL.Name = "TrialL";
             this.TrialL.Size = new System.Drawing.Size(78, 23);
@@ -79,7 +79,7 @@
             // 
             this.NameL.AutoSize = true;
             this.NameL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameL.ForeColor = System.Drawing.Color.Black;
+            this.NameL.ForeColor = System.Drawing.Color.White;
             this.NameL.Location = new System.Drawing.Point(252, 217);
             this.NameL.Name = "NameL";
             this.NameL.Size = new System.Drawing.Size(65, 23);
@@ -90,7 +90,7 @@
             // 
             this.DClasseL.AutoSize = true;
             this.DClasseL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DClasseL.ForeColor = System.Drawing.Color.Black;
+            this.DClasseL.ForeColor = System.Drawing.Color.White;
             this.DClasseL.Location = new System.Drawing.Point(252, 173);
             this.DClasseL.Name = "DClasseL";
             this.DClasseL.Size = new System.Drawing.Size(97, 23);
@@ -101,7 +101,7 @@
             // 
             this.DLAppIDL.AutoSize = true;
             this.DLAppIDL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DLAppIDL.ForeColor = System.Drawing.Color.Black;
+            this.DLAppIDL.ForeColor = System.Drawing.Color.White;
             this.DLAppIDL.Location = new System.Drawing.Point(252, 129);
             this.DLAppIDL.Name = "DLAppIDL";
             this.DLAppIDL.Size = new System.Drawing.Size(107, 23);
@@ -124,7 +124,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(132, 395);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(118, 23);
@@ -146,7 +146,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(184, 439);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 23);
@@ -194,6 +194,14 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Take Test";
             this.Load += new System.EventHandler(this.TakeTestForm_Load);
+                        // Dark Mode Injection
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.SaveB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveB.FlatAppearance.BorderSize = 0;
+            this.SaveB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.SaveB.ForeColor = System.Drawing.Color.White;
+            this.SaveB.UseVisualStyleBackColor = false;
             this.ResumeLayout(false);
             this.PerformLayout();
 
