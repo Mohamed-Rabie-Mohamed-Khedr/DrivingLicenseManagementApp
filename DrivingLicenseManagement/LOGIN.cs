@@ -1,12 +1,5 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DrivingLicenseManagement
@@ -20,6 +13,7 @@ namespace DrivingLicenseManagement
 
         private void LOGIN_Load(object sender, EventArgs e)
         {
+            MyDB.SetConnectionString(System.Configuration.ConfigurationManager.AppSettings["connectionString"]);
             button2.Enabled = !MyDB.UserIsExists();
             using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\DrivingLicenseManagement"))
             {

@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 public static class MyDB
 {
     static DataTable LicenseClassesDT = null;
     static string[] countryNames = null;
+    public static void SetConnectionString(string connStr)
+    {
+        DAHelper.SetConnectionString(connStr);
+    }
     public static int AddPerson(ref Person person)
     {
         if (NationalNoIsExists(person.NationalNo)) return -1;

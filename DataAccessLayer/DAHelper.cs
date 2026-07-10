@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-internal static class DAHelper
+﻿public static class DAHelper
 {
-    internal static string connectionString =
-"Server=.;Database=DVLD;Integrated Security=True;Encrypt=True;TrustServerCertificate=True;";
+    internal static string connectionString { get; private set; }
+    public static void SetConnectionString(string connStr)
+    {
+        connectionString = connStr;
+    }
 }
